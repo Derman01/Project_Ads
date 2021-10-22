@@ -24,5 +24,9 @@ namespace Project_Ads
         {
             InitializeComponent();
         }
+
+        private void WindowLoaded(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }

@@ -3,10 +3,69 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Project_Ads"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:viewModel="clr-namespace:Project_Ads.MVVM.ViewModel"
+        mc:Ignorable="d" 
+        Background="Transparent"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        Height="500" Width="800" 
+        Loaded="WindowLoaded">
 
-    </Grid>
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+
+    <Border Background="White" 
+            CornerRadius="30">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="42"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <Border Grid.ColumnSpan="2"
+                    Grid.Row="0"
+                    Background="#FF48AAFF"
+                    BorderBrush="Black" CornerRadius="20,20,0,0" />
+            <TextBlock Text="Application" 
+                       Grid.Row="0" Grid.ColumnSpan="2"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       FontSize="20"
+                       Foreground="White"
+                       Margin="20,0,0,0" FlowDirection="LeftToRight" 
+                       FontWeight="Bold"/>
+
+            <StackPanel Grid.Row="1" Grid.Column="0"
+                        x:Name="menu">
+                <RadioButton Content="Home"
+                             FontSize="16"
+                             Height="50"
+                             Style="{StaticResource MenuButtonTheme}"/>
+                <RadioButton Content="Доска объявлений"
+                             FontSize="16"
+                             Height="50"
+                             Style="{StaticResource MenuButtonTheme}"/>
+                <RadioButton Content="Home"
+                             FontSize="16"
+                             Height="50"
+                             Style="{StaticResource MenuButtonTheme}"/>
+
+
+            </StackPanel>
+
+            <Border Grid.Row="1" Grid.Column="1"
+                    Padding="10">
+                <ContentControl 
+                            Content="{Binding CurrentView}">
+                </ContentControl>
+            </Border>
+        </Grid>
+    </Border>
 </Window>
