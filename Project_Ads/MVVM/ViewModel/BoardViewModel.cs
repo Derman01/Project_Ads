@@ -1,10 +1,12 @@
-﻿using Project_Ads.Core;
+﻿using System.Collections.ObjectModel;
+using Project_Ads.Core;
 
 namespace Project_Ads.MVVM.ViewModel
 {
-    class HomeViewModel: ObservableObject
+    class BoardViewModel: ObservableObject
     {
-        public HomeViewModel()
+        
+        public BoardViewModel()
         {
             
         }

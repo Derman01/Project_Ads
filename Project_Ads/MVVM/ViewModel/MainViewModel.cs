@@ -4,7 +4,7 @@ namespace Project_Ads.MVVM.ViewModel
 {
     class MainViewModel: ObservableObject
     {
-        public HomeViewModel HomeVM { get; set; }
+        public BoardViewModel BoardVm { get; set; }
         public ProfileViewModel ProfileVM { get; set; }
         
         public RelayCommand HomeViewСommand { get; set; }
@@ -24,13 +24,13 @@ namespace Project_Ads.MVVM.ViewModel
         
         public MainViewModel()
         {
-            HomeVM = new HomeViewModel();
+            BoardVm = new BoardViewModel();
             ProfileVM = new ProfileViewModel();
-            CurrentView = HomeVM;
-
+            CurrentView = BoardVm;
+            
             HomeViewСommand = new RelayCommand((o) =>
             {
-                CurrentView = HomeVM;
+                CurrentView = BoardVm;
             });
             ProfileViewСommand = new RelayCommand((o) =>
             {

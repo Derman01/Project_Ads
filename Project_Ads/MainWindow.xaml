@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:Project_Ads.MVVM.ViewModel"
+        xmlns:projectAds="clr-namespace:Project_Ads"
+        xmlns:board="clr-namespace:Project_Ads.MVVM.View"
         mc:Ignorable="d" 
         Background="Transparent"
         WindowStyle="None"
@@ -11,14 +13,21 @@
         WindowStartupLocation="CenterScreen"
         Height="500" Width="800" 
         Loaded="WindowLoaded">
-
     <Window.DataContext>
-        <viewModel:MainViewModel/>
+        <viewModel:MainViewModel>
+            <viewModel:MainViewModel.BoardVm>
+                <viewModel:BoardViewModel/>
+            </viewModel:MainViewModel.BoardVm>
+        </viewModel:MainViewModel>
     </Window.DataContext>
 
     <Border Background="White" 
             CornerRadius="30">
         <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="321*"/>
+                <ColumnDefinition Width="79*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition/>
@@ -26,7 +35,7 @@
 
             <Border Grid.Row="0"
                     Background="#FF48AAFF"
-                    BorderBrush="Black" CornerRadius="20,20,0,0">
+                    BorderBrush="Black" CornerRadius="20,20,0,0" Grid.ColumnSpan="2">
                 <Grid HorizontalAlignment="Stretch"
                       Margin="10,10,10,0">
                     <Grid.ColumnDefinitions>
@@ -52,13 +61,16 @@
                                  Orientation="Horizontal" 
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Right" >
-                        <Button Width="25" Height="25">
-                            <Button.Background>
-                                <ImageBrush/>
-                            </Button.Background>
+                        <Button Width="25" Height="25" />
 
+
+                        <Button Width="25" Height="25"
+                                Style="{StaticResource WindowButtonTheme}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="../../../../Properties/Icons/icons8_delete_32px.png">
+                                </ImageBrush>
+                            </Button.Background>
                         </Button>
-                        <Button Width="25" Height="25"/>
                         <Button Width="25" Height="25"
                                 BorderThickness="0"
                                 Click="Close">
@@ -71,9 +83,8 @@
             </Border>
 
             <Border Grid.Row="1"
-                    Padding="10">
-                <ContentControl Content="{Binding CurrentView}">
-                </ContentControl>
+                    Padding="10" Grid.ColumnSpan="2">
+                <ContentControl Content="{Binding CurrentView}"/>
             </Border>
         </Grid>
     </Border>

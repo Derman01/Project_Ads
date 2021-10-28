@@ -1,18 +1,19 @@
 ﻿<Application x:Class="Project_Ads.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Project_Ads"
              xmlns:viewModel="clr-namespace:Project_Ads.MVVM.ViewModel"
              xmlns:view="clr-namespace:Project_Ads.MVVM.View"
+             
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/WindowButtonTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
-            <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
-                <view:HomeView/>
+            <DataTemplate DataType="{x:Type viewModel:BoardViewModel}">
+                <view:BoardView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:ProfileViewModel}">
                 <view:ProfileView/>
