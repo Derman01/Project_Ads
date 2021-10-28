@@ -28,5 +28,7 @@ namespace Project_Ads
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
         }
+
+        private void Close(object s, RoutedEventArgs e) => Close();
     }
 }

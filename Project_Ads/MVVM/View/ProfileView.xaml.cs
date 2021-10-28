@@ -2,9 +2,9 @@
 
 namespace Project_Ads.MVVM.View
 {
-    public partial class HomeView : UserControl
+    public partial class ProfileView : UserControl
     {
-        public HomeView()
+        public ProfileView()
         {
             InitializeComponent();
         }

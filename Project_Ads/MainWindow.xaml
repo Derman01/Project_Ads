@@ -34,29 +34,38 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0"
-                        x:Name="menu" Orientation="Horizontal">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
                         <RadioButton Content="Home"
-                             FontSize="16"
-                             Style="{StaticResource MenuButtonTheme}" IsChecked="False"/>
-
-                        <RadioButton Content="acc"
-                             FontSize="16"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                                     IsChecked="True"
+                                     FontSize="16"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Command="{Binding HomeViewСommand}"/>
+                        <RadioButton Content="Аккаунт"
+                                     FontSize="16"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Command="{Binding ProfileViewСommand}"/>
                         <RadioButton Content="Доска объявлений"
-                             FontSize="16"
-                             Style="{StaticResource MenuButtonTheme}" />
-                        <RadioButton Content="Home"
-                             FontSize="16"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                                     FontSize="16"
+                                     Style="{StaticResource MenuButtonTheme}"/>
                     </StackPanel>
-                    <StackPanel  Grid.Column="1" 
+                    <StackPanel  Grid.Column="1"
                                  Orientation="Horizontal" 
+                                 VerticalAlignment="Center"
                                  HorizontalAlignment="Right" >
-                        <Button Width="30"/>
-                        <Button Width="30"/>
-                        <Button Width="30"/>
+                        <Button Width="25" Height="25">
+                            <Button.Background>
+                                <ImageBrush/>
+                            </Button.Background>
 
+                        </Button>
+                        <Button Width="25" Height="25"/>
+                        <Button Width="25" Height="25"
+                                BorderThickness="0"
+                                Click="Close">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/icons8_delete_32px.png"/>
+                            </Button.Background>
+                        </Button>
                     </StackPanel>
                 </Grid>
             </Border>
