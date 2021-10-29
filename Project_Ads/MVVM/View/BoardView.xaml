@@ -9,7 +9,8 @@
     
     <ListBox x:Name="advertisementsList"
         HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Stretch">
+        HorizontalContentAlignment="Stretch"
+        BorderThickness="0">
         <ListBox.ItemTemplate>
             <DataTemplate>
                 <Grid>
