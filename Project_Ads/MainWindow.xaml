@@ -44,7 +44,7 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" Orientation="Horizontal">
-                        <RadioButton Content="Home"
+                        <RadioButton Content="Доска объявлений"
                                      IsChecked="True"
                                      FontSize="16"
                                      Style="{StaticResource MenuButtonTheme}"
