@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows.Controls;
 using Project_Ads.Core;
+using Project_Ads.Model;
 
 namespace Project_Ads.MVVM.View
 {
@@ -17,44 +18,29 @@ namespace Project_Ads.MVVM.View
             
             _advertisements = new ObservableCollection<Advertisement>()
             {
-                new Advertisement(){Id = 1, ImageUrl ="/Icons/icons8_image_120px_3.png" ,Title="Найдена кошка", Description="Какое-то описание" },
-                new Advertisement(){Id = 2, Title="Найдена собака", Description="Какое-то описание" },
+                new Advertisement()
+                {
+                    Id = 1, ImageUrl ="/Icons/dogs.png", 
+                    TypeAdvertisement = Advertisement.Type.Find,
+                    TypeAnimal = Animal.Type.Dog,
+                    Marks= "Срочно !!!! нашли щеночка После 21:00 некуда деть." +
+                                                  "\nХозяева отзовитесь Голубой ошейник. После 21:00 некуда деть",
+                    ColorAnimal = Animal.Color.Black,Phone = "8 999 586 1516",
+                    DateFind = DateTime.Now,
+                    LocationFind = "3 мкр 35 дом"
+                },
+                new Advertisement()
+                {
+                    Id = 2, ImageUrl = "/Icons/cat.jpg",
+                    TypeAdvertisement = Advertisement.Type.Lose,
+                    TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
+                    Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
+                    DateFind = DateTime.Today,
+                    LocationFind = "На высоких горах"
+                }
             };
-            
+
             advertisementsList.ItemsSource = _advertisements;
-            advertisementsList.SelectionChanged += ((sender, args) =>
-            {
-                ((Advertisement)advertisementsList.SelectedItem).Title = "Изменили название";
-            });
-        }
-    }
-    
-    public class Advertisement: ObservableObject
-    {
-        private static string PATH = Environment.CurrentDirectory + "/../../../Properties";
-        public int Id { get; set; }
-
-        private string _title;
-
-        public string Title
-        {
-            get => _title;
-            set
-            {
-                _title = value;
-                OnPropertyChanged("Title");
-            }
-        } 
-        public string Description { get; set; } 
-        
-        private string _imageUrl = $"{PATH}/Icons/cat.jpg";
-        public string ImageUrl
-        {
-            get => _imageUrl;
-            set {
-                _imageUrl = PATH + value; 
-                OnPropertyChanged("ImageUrl");
-            }
         }
     }
 }
