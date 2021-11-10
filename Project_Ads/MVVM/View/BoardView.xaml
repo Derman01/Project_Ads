@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="Project_Ads.MVVM.View.BoardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             Name="Board"
+             d:DesignHeight="400" d:DesignWidth="500">
+    
+    <ListBox x:Name="advertisementsList"
+        HorizontalAlignment="Stretch"
+        HorizontalContentAlignment="Stretch"
+        BorderThickness="0">
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Border VerticalAlignment="Center" 
+                                    CornerRadius="15"
+                                    BorderBrush="Black"
+                                    BorderThickness="1"
+                                    Padding="10"
+                                    Margin="0,5,0,5">
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <Border BorderBrush="#282828"
+                                    CornerRadius="90"
+                                    Width="180"
+                                    Height="180"
+                                    VerticalAlignment="Center">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding Path=ImageUrl}" Stretch="Fill"/>
+                                </Border.Background>
+                            </Border>
+                            <StackPanel Margin="30 0 0 0" Orientation="Horizontal">
+                                <StackPanel Width="400">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold"
+                                                   FontSize="24" Text="{Binding Path=GetStringTypeAdvertisement}"/>
+                                        <TextBlock Text=": " FontSize="24" FontWeight="Bold"/>
+                                        <TextBlock FontWeight="Medium" VerticalAlignment="Bottom"
+                                                   FontSize="22" Text="{Binding Path=GetStringTypeAnimal}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                                        <TextBlock FontWeight="Bold" FontSize="18" Text="Окрас: "/>
+                                        <TextBlock Text="{Binding GetStringColorAnimal}" FontSize="18" FontWeight="Regular"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                        <TextBlock FontWeight="Bold" FontSize="18" Text="Локация: "/>
+                                        <TextBlock Text="{Binding LocationFind}" FontSize="18" FontWeight="Regular"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                        <TextBlock FontWeight="Bold" FontSize="18" Text="Дата: "/>
+                                        <TextBlock Text="{Binding GetFormatStringDateFind}" FontSize="18" FontWeight="Regular"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                                        <TextBlock FontWeight="Bold" FontSize="18" Text="Номер телефона: "/>
+                                        <TextBlock Text="{Binding Phone}" FontSize="18" FontWeight="Regular"/>
+                                    </StackPanel>
+                                    
+                                </StackPanel>
+                                <StackPanel Margin="20 0 0 0">
+                                    <TextBlock Text="Дополнительные приметы"
+                                               FontWeight="Bold" FontSize="22"/> 
+                                    <TextBlock Text="{Binding Marks}" MaxWidth="500"
+                                               TextWrapping="Wrap"
+                                               FontSize="18" FontWeight="Regular"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+</UserControl>

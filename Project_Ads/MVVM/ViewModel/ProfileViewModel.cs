@@ -2,9 +2,9 @@
 
 namespace Project_Ads.MVVM.ViewModel
 {
-    class HomeViewModel: ObservableObject
+    class ProfileViewModel: ObservableObject
     {
-        public HomeViewModel()
+        public ProfileViewModel()
         {
             
         }

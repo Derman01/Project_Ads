@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Project_Ads.MVVM.View.ProfileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="400" d:DesignWidth="500">
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <TextBlock Text="Авторизация"
+                   Foreground="#3b3b3b"
+                   FontSize="38"
+                   FontFamily="Arial"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,20"/>
+        <TextBox Width="500"
+                 Height="40"
+                 Name="Логин"
+                 Style="{StaticResource AuthorizationTextBoxTheme}"/>
+        <TextBox Width="500"
+                 Height="40"
+                 Name="Пароль"
+                 Style="{StaticResource AuthorizationTextBoxTheme}"/>
+        <Button Style="{StaticResource AuthorizationButtonTheme}" 
+                Width="150"
+                Height="40"
+                Content="Login"
+                Margin="0,15,0,0"/>
+    </StackPanel>
+</UserControl>
