@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="icons8_delete_32px.png" />
     <Resource Include="Properties\Icons\cat.jpg" />
     <Resource Include="Properties\Icons\icons8_delete_32px.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
