@@ -20,72 +20,81 @@
             </viewModel:MainViewModel.BoardVm>
         </viewModel:MainViewModel>
     </Window.DataContext>
+    
+    <Border CornerRadius="30">
+        <Border Background="White" 
+                CornerRadius="30"
+                Margin="3">
+            <Border.Effect>
+                <DropShadowEffect  Color="Black"
+                                   BlurRadius="3"
+                                   ShadowDepth="0"
+                                   Opacity="25"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="321*"/>
+                    <ColumnDefinition Width="79*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-    <Border Background="White" 
-            CornerRadius="30">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="321*"/>
-                <ColumnDefinition Width="79*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+                <Border Grid.Row="0"
+                        Background="#FF48AAFF"
+                        BorderBrush="Black" CornerRadius="20,20,0,0" Grid.ColumnSpan="2">
+                    <Grid HorizontalAlignment="Stretch"
+                          Margin="10,10,10,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-            <Border Grid.Row="0"
-                    Background="#FF48AAFF"
-                    BorderBrush="Black" CornerRadius="20,20,0,0" Grid.ColumnSpan="2">
-                <Grid HorizontalAlignment="Stretch"
-                      Margin="10,10,10,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Grid.Column="0" Orientation="Horizontal">
-                        <RadioButton Content="Доска объявлений"
-                                     IsChecked="True"
-                                     FontSize="16"
-                                     Style="{StaticResource MenuButtonTheme}"
-                                     Command="{Binding HomeViewСommand}"/>
-                        <RadioButton Content="Аккаунт"
-                                     FontSize="16"
-                                     Style="{StaticResource MenuButtonTheme}"
-                                     Command="{Binding ProfileViewСommand}"/>
-                        <RadioButton Content="Доска объявлений"
-                                     FontSize="16"
-                                     Style="{StaticResource MenuButtonTheme}"/>
-                    </StackPanel>
-                    <StackPanel  Grid.Column="1"
-                                 Orientation="Horizontal" 
-                                 VerticalAlignment="Center"
-                                 HorizontalAlignment="Right" >
-                        <Button Width="25" Height="25" />
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <RadioButton Content="Доска объявлений"
+                                         IsChecked="True"
+                                         FontSize="16"
+                                         Style="{StaticResource MenuButtonTheme}"
+                                         Command="{Binding HomeViewСommand}"/>
+                            <RadioButton Content="Аккаунт"
+                                         FontSize="16"
+                                         Style="{StaticResource MenuButtonTheme}"
+                                         Command="{Binding ProfileViewСommand}"/>
+                            <RadioButton Content="Доска объявлений"
+                                         FontSize="16"
+                                         Style="{StaticResource MenuButtonTheme}"/>
+                        </StackPanel>
+                        <StackPanel  Grid.Column="1"
+                                     Orientation="Horizontal" 
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Right" >
+                            <Button Width="25" Height="25" />
 
 
-                        <Button Width="25" Height="25"
-                                Style="{StaticResource WindowButtonTheme}">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../../../../Properties/Icons/icons8_delete_32px.png">
-                                </ImageBrush>
-                            </Button.Background>
-                        </Button>
-                        <Button Width="25" Height="25"
-                                BorderThickness="0"
-                                Click="Close">
-                            <Button.Background>
-                                <ImageBrush ImageSource="/icons8_delete_32px.png"/>
-                            </Button.Background>
-                        </Button>
-                    </StackPanel>
-                </Grid>
-            </Border>
+                            <Button Width="25" Height="25"
+                                    Style="{StaticResource WindowButtonTheme}">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="../../../../Properties/Icons/icons8_delete_32px.png">
+                                    </ImageBrush>
+                                </Button.Background>
+                            </Button>
+                            <Button Width="25" Height="25"
+                                    BorderThickness="0"
+                                    Click="Close">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="../../../../Properties/Icons/icons8_delete_32px.png"/>
+                                </Button.Background>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>
 
-            <Border Grid.Row="1" 
-                    Padding="10" Grid.ColumnSpan="2">
-                <ContentControl Content="{Binding CurrentView}"/>
-            </Border>
-        </Grid>
+                <Border Grid.Row="1" 
+                        Padding="10" Grid.ColumnSpan="2">
+                    <ContentControl Content="{Binding CurrentView}"/>
+                </Border>
+            </Grid>
+        </Border>
     </Border>
 </Window>
