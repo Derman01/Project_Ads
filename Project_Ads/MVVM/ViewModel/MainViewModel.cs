@@ -14,18 +14,19 @@ namespace Project_Ads.MVVM.ViewModel
 
         public object CurrentView
         {
-            get { return _currentView; }
+            get => _currentView;
             set
             {
                 _currentView = value;
                 OnPropertyChanged();
             }
         }
-        
+
         public MainViewModel()
         {
             BoardVm = new BoardViewModel();
             ProfileVM = new ProfileViewModel();
+
             CurrentView = BoardVm;
             
             HomeViewСommand = new RelayCommand((o) =>

@@ -4,8 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:Project_Ads.MVVM.ViewModel"
-        xmlns:projectAds="clr-namespace:Project_Ads"
-        xmlns:board="clr-namespace:Project_Ads.MVVM.View"
         mc:Ignorable="d" 
         Background="Transparent"
         WindowStyle="None"
@@ -32,10 +30,6 @@
                                    Opacity="25"/>
             </Border.Effect>
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="321*"/>
-                    <ColumnDefinition Width="79*"/>
-                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition/>
@@ -53,8 +47,8 @@
 
                         <StackPanel Grid.Column="0" Orientation="Horizontal">
                             <RadioButton Content="Доска объявлений"
-                                         IsChecked="True"
                                          FontSize="16"
+                                         IsChecked="True"
                                          Style="{StaticResource MenuButtonTheme}"
                                          Command="{Binding HomeViewСommand}"/>
                             <RadioButton Content="Аккаунт"

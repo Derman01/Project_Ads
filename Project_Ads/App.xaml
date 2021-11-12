@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="Themes/WindowButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/AuthorizationTextBoxTheme.xaml"/>
                 <ResourceDictionary Source="Themes/AuthorizationButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/TextBoxPlaceholder.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <DataTemplate DataType="{x:Type viewModel:BoardViewModel}">
