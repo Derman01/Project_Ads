@@ -40,7 +40,9 @@ namespace Project_Ads.MVVM.View
                 }
             };
 
+            advertisementsList.Items.Clear();
             advertisementsList.ItemsSource = _advertisements;
+            
         }
     }
 }
