@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Permissions;
 using Project_Ads.Core;
 
 namespace Project_Ads.Model
 {
     public class Advertisement: ObservableObject
     {
-        private static string PATH = Environment.CurrentDirectory + "/../../../Properties";
         public enum Type
         {
             Lose,
@@ -100,11 +100,11 @@ namespace Project_Ads.Model
             set { _phone = value; OnPropertyChanged("Phone");}
         }
 
-        private string _imageUrl = $"{PATH}/Icons/icons8_image_120px_3.jpg";
+        private string _imageUrl = @$"{App.PATH}\Icons\icons8_image_120px_3.jpg";
         public string ImageUrl
         {
             get => _imageUrl;
-            set { _imageUrl = PATH + value; OnPropertyChanged("ImageUrl"); }
+            set { _imageUrl = App.PATH + value; OnPropertyChanged("ImageUrl"); }
         }
     }
 }

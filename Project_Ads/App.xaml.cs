@@ -13,6 +13,6 @@ namespace Project_Ads
     /// </summary>
     public partial class App : Application
     {
-       
+        public  static  string PATH = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\Properties";
     }
 }
