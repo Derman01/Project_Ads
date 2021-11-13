@@ -40,7 +40,7 @@
             </Border>
             <ListBox x:Name="advertisementsList"
                     HorizontalContentAlignment="Stretch"
-                    BorderThickness="0"  IsHitTestVisible="False">
+                    BorderThickness="0">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="IsTabStop" Value="False" />

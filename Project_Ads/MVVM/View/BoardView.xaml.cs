@@ -31,6 +31,33 @@ namespace Project_Ads.MVVM.View
                 },
                 new Advertisement()
                 {
+                    Id = 2, ImageUrl = @"\Icons\cat.jpg",
+                    TypeAdvertisement = Advertisement.Type.Lose,
+                    TypeAnimal = Animal.Type.Cat, Marks = App.PATH,
+                    Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
+                    DateFind = DateTime.Today,
+                    LocationFind = App.PATH
+                },
+                new Advertisement()
+                {
+                    Id = 2, ImageUrl = "/Icons/cat.jpg",
+                    TypeAdvertisement = Advertisement.Type.Lose,
+                    TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
+                    Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
+                    DateFind = DateTime.Today,
+                    LocationFind = "На высоких горах"
+                },
+                new Advertisement()
+                {
+                    Id = 2, ImageUrl = "/Icons/cat.jpg",
+                    TypeAdvertisement = Advertisement.Type.Lose,
+                    TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
+                    Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
+                    DateFind = DateTime.Today,
+                    LocationFind = "На высоких горах"
+                },
+                new Advertisement()
+                {
                     Id = 2, ImageUrl = "/Icons/cat.jpg",
                     TypeAdvertisement = Advertisement.Type.Lose,
                     TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
