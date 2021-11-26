@@ -29,7 +29,7 @@
                             Tag="23"
                             VerticalAlignment="Center"        
                             Height="46" Padding="20 0 20 0" Margin="30 0 0 0 "
-                            Content="+Фильтры"/>
+                            Content="+Фильтры" Click="OpenPopup"/>
                     <Button Style="{StaticResource AuthorizationButtonTheme}"
                             VerticalAlignment="Center"
                             Height="46"
@@ -39,8 +39,9 @@
                 </DockPanel>
             </Border>
             <ListBox x:Name="advertisementsList"
-                    HorizontalContentAlignment="Stretch"
-                    BorderThickness="0">
+                     HorizontalContentAlignment="Stretch"
+                     BorderThickness="0"
+                     VirtualizingPanel.ScrollUnit="Pixel">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="IsTabStop" Value="False" />
@@ -108,5 +109,75 @@
                 <Rectangle Height="1" Stroke="Black" Width="7"/>
             </ListBox>
         </DockPanel>
+        <Popup x:Name="popup" Width="400" Height="250"
+            AllowsTransparency="True" Placement="Center">
+            <Border  Background="White" Padding="30" CornerRadius="30"
+                     BorderBrush="#3292D0" BorderThickness="1" >
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="80" HorizontalAlignment="Stretch">
+                        <RadioButton Width="160" Height="80">
+                            <RadioButton.Style>
+                                <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
+                                        TargetType="{x:Type RadioButton}">
+                                    <Style.Setters>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="RadioButton">
+                                                    <Border CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
+                                                        <Grid>
+                                                            <Grid.Background>
+                                                                <ImageBrush ImageSource="/MVVM/View/icon_dog.png" Stretch="None"/>
+                                                            </Grid.Background>
+                                                        </Grid>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="BorderBrush" Value="#CCC"/>
+                                    </Style.Setters>
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter Property="BorderBrush" Value="#3292D0"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RadioButton.Style>
+                        </RadioButton>
+                        <Grid Width="18"/>
+                        <RadioButton Width="160" Height="80">
+                            <RadioButton.Style>
+                                <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
+                                        TargetType="{x:Type RadioButton}">
+                                    <Style.Setters>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="RadioButton">
+                                                    <Border CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
+                                                        <Grid>
+                                                            <Grid.Background>
+                                                                <ImageBrush ImageSource="/MVVM/View/icon_cat.png" Stretch="None"/>
+                                                            </Grid.Background>
+                                                        </Grid>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="BorderBrush" Value="#CCC"/>
+                                    </Style.Setters>
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter Property="BorderBrush" Value="#3292D0"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RadioButton.Style>
+                        </RadioButton>
+                    </StackPanel>
+                    <Button Click="Button_Click">Отменить</Button>
+                </StackPanel>
+            </Border>
+        </Popup>
     </Grid>
 </UserControl>
