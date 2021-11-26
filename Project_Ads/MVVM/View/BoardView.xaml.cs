@@ -2,14 +2,15 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using Project_Ads.Core;
 using Project_Ads.Model;
 
 namespace Project_Ads.MVVM.View
 {
-    public partial class BoardView : UserControl {
-        
+    public partial class BoardView : UserControl
+    {
         private ObservableCollection<Advertisement> _advertisements { get; set; }
         
         public BoardView()
@@ -70,6 +71,16 @@ namespace Project_Ads.MVVM.View
             advertisementsList.Items.Clear();
             advertisementsList.ItemsSource = _advertisements;
             
+        }
+        
+        private void OpenPopup(object sender, RoutedEventArgs e)
+        {
+            popup.IsOpen = true;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            popup.IsOpen = false;
         }
     }
 }
