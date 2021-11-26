@@ -11,6 +11,8 @@
     <None Remove="icons8_delete_32px.png" />
     <None Remove="icons8_image_120px_3.png" />
     <None Remove="MVVM\View\icons8_search_60px_2.png" />
+    <None Remove="MVVM\View\icon_cat.png" />
+    <None Remove="MVVM\View\icon_dog.png" />
     <None Remove="Properties\Icons\cat.jpg" />
     <None Remove="Properties\Icons\icons8_delete_32px.png" />
     <None Remove="Properties\Icons\icons8_image_120px_3.png" />
@@ -22,6 +24,8 @@
 
   <ItemGroup>
     <Resource Include="MVVM\View\icons8_search_60px_2.png" />
+    <Resource Include="MVVM\View\icon_cat.png" />
+    <Resource Include="MVVM\View\icon_dog.png" />
     <Resource Include="Properties\Icons\cat.jpg" />
     <Resource Include="Properties\Icons\icons8_delete_32px.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

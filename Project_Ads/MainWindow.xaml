@@ -8,8 +8,8 @@
         Background="Transparent"
         WindowStyle="None"
         AllowsTransparency="True"
-        WindowStartupLocation="CenterScreen"
-        Height="800" Width="1200" 
+        WindowStartupLocation="CenterOwner"
+        Height="900" Width="1280" 
         Loaded="WindowLoaded">
     <Window.DataContext>
         <viewModel:MainViewModel>
@@ -83,7 +83,6 @@
                         </StackPanel>
                     </Grid>
                 </Border>
-
                 <Border Grid.Row="1" 
                         Padding="10" Grid.ColumnSpan="2">
                     <ContentControl Content="{Binding CurrentView}"/>
