@@ -109,13 +109,13 @@
                 <Rectangle Height="1" Stroke="Black" Width="7"/>
             </ListBox>
         </DockPanel>
-        <Popup x:Name="popup" Width="400" Height="250"
+        <Popup x:Name="popup" Width="400"
             AllowsTransparency="True" Placement="Center">
             <Border  Background="White" Padding="30" CornerRadius="30"
                      BorderBrush="#3292D0" BorderThickness="1" >
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Height="80" HorizontalAlignment="Stretch">
-                        <RadioButton Width="160" Height="80">
+                        <RadioButton Width="160" Height="80" x:Name="rb_dog">
                             <RadioButton.Style>
                                 <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
                                         TargetType="{x:Type RadioButton}">
@@ -145,7 +145,7 @@
                             </RadioButton.Style>
                         </RadioButton>
                         <Grid Width="18"/>
-                        <RadioButton Width="160" Height="80">
+                        <RadioButton Width="160" Height="80" x:Name="rb_cat">
                             <RadioButton.Style>
                                 <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
                                         TargetType="{x:Type RadioButton}">
@@ -175,7 +175,26 @@
                             </RadioButton.Style>
                         </RadioButton>
                     </StackPanel>
-                    <Button Click="Button_Click">Отменить</Button>
+                    <StackPanel Orientation="Horizontal" Margin="0 26 0 0">
+                        <RadioButton Width="160" FontSize="18" x:Name="rd_lost"
+                                     VerticalContentAlignment="Center"
+                                     Content="Пропавшие"/>
+                        <Grid Width="20"/>
+                        <RadioButton Width="160" FontSize="18" x:Name="rd_found"
+                                     VerticalContentAlignment="Center"
+                                     Content="Найденные"/>
+                    </StackPanel>
+                    <StackPanel Margin="0 45 0 0" VerticalAlignment="Bottom" Orientation="Horizontal">
+                        <Button x:Name="btn_cancel"
+                            Style="{StaticResource AuthorizationButtonTheme}" 
+                                Height="40" Width="160" Background="#BBBBBB"
+                                Content="Отмена"/>
+                        <Grid Width="20"/>
+                        <Button x:Name="btn_apply"
+                            Style="{StaticResource AuthorizationButtonTheme}"
+                                Height="40" Width="160"
+                                Content="Применить"/>
+                    </StackPanel>
                 </StackPanel>
             </Border>
         </Popup>
