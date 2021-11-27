@@ -11,6 +11,13 @@ namespace Project_Ads.MVVM.View
 {
     public partial class BoardView : UserControl
     {
+        
+        /*имеется 4 радиокноки
+         rd_cat rd_dog
+         rd_lost - пропавшие
+         rd_found - найденные
+         */       
+        
         private ObservableCollection<Advertisement> _advertisements { get; set; }
         
         public BoardView()
@@ -70,17 +77,22 @@ namespace Project_Ads.MVVM.View
 
             advertisementsList.Items.Clear();
             advertisementsList.ItemsSource = _advertisements;
-            
+
+            btn_cancel.Click += ClosePopup;
+            btn_apply.Click += (sender, args) => ApplyFilters();
+            btn_apply.Click += ClosePopup;
         }
+
+        private void ClosePopup(object o, RoutedEventArgs e) => popup.IsOpen = false;
         
         private void OpenPopup(object sender, RoutedEventArgs e)
         {
             popup.IsOpen = true;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ApplyFilters()
         {
-            popup.IsOpen = false;
+            
         }
     }
 }
