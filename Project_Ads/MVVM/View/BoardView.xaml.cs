@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using Microsoft.Win32;
 using Project_Ads.Core;
 using Project_Ads.Model;
 
@@ -81,6 +83,10 @@ namespace Project_Ads.MVVM.View
             btn_cancel.Click += ClosePopup;
             btn_apply.Click += (sender, args) => ApplyFilters();
             btn_apply.Click += ClosePopup;
+            newAd_cancel.Click += CloseNewAdPopup;
+            newAd_apply.Click += ClosePopup;
+
+            upload_new_img.Click += LoadAnimalImage;
         }
 
         private void ClosePopup(object o, RoutedEventArgs e) => popup.IsOpen = false;
@@ -93,6 +99,21 @@ namespace Project_Ads.MVVM.View
         private void ApplyFilters()
         {
             
+        }
+
+        private void OpenNewAdPopup(object o, RoutedEventArgs e) => newAd.IsOpen = true;
+
+        private void CloseNewAdPopup(object o, RoutedEventArgs e) => newAd.IsOpen = false;
+
+        private void LoadAnimalImage(object o, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if(openFileDialog.ShowDialog() == true)
+            {
+                Uri fileUri = new Uri(openFileDialog.FileName);
+                newAd_img.Source = new BitmapImage(fileUri);
+            }
+            newAd.IsOpen = true;
         }
     }
 }
