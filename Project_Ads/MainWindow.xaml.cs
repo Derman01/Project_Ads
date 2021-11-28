@@ -33,5 +33,10 @@ namespace Project_Ads
         }
 
         private void Close(object s, RoutedEventArgs e) => Close();
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }

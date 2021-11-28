@@ -37,7 +37,8 @@
 
                 <Border Grid.Row="0"
                         Background="#FF48AAFF"
-                        BorderBrush="Black" CornerRadius="20,20,0,0" Grid.ColumnSpan="2">
+                        BorderBrush="Black" CornerRadius="20,20,0,0" Grid.ColumnSpan="2"
+                        MouseDown="Border_MouseDown">
                     <Grid HorizontalAlignment="Stretch"
                           Margin="10,10,10,0">
                         <Grid.ColumnDefinitions>
