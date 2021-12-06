@@ -14,8 +14,11 @@
     <None Remove="MVVM\View\icon_cat.png" />
     <None Remove="MVVM\View\icon_dog.png" />
     <None Remove="Properties\Icons\cat.jpg" />
+    <None Remove="Properties\Icons\exitIcon.png" />
     <None Remove="Properties\Icons\icons8_delete_32px.png" />
     <None Remove="Properties\Icons\icons8_image_120px_3.png" />
+    <None Remove="Properties\Icons\minimizeIcon.png" />
+    <None Remove="Properties\Icons\minimizeInWindowIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,10 +30,13 @@
     <Resource Include="MVVM\View\icon_cat.png" />
     <Resource Include="MVVM\View\icon_dog.png" />
     <Resource Include="Properties\Icons\cat.jpg" />
+    <Resource Include="Properties\Icons\exitIcon.png" />
     <Resource Include="Properties\Icons\icons8_delete_32px.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Properties\Icons\icons8_image_120px_3.png" />
+    <Resource Include="Properties\Icons\minimizeIcon.png" />
+    <Resource Include="Properties\Icons\minimizeInWindowIcon.png" />
   </ItemGroup>
 
 </Project>

@@ -4,7 +4,7 @@
              xmlns:viewModel="clr-namespace:Project_Ads.MVVM.ViewModel"
              xmlns:view="clr-namespace:Project_Ads.MVVM.View"
              
-             StartupUri="MainWindow.xaml">
+             StartupUri="Main/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,6 +13,8 @@
                 <ResourceDictionary Source="Themes/AuthorizationTextBoxTheme.xaml"/>
                 <ResourceDictionary Source="Themes/AuthorizationButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/TextBoxPlaceholder.xaml"/>
+                <ResourceDictionary Source="Themes/RegistrationTextBoxTheme.xaml"/>
+                <ResourceDictionary Source="Themes/TitleBarButtonTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <DataTemplate DataType="{x:Type viewModel:BoardViewModel}">
@@ -20,6 +22,12 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:ProfileViewModel}">
                 <view:ProfileView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:RegistrationViewModel}">
+                <view:RegistrationView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:UserBoardViewModel}">
+                <view:UserBoardView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
