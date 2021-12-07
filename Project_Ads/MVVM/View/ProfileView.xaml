@@ -5,29 +5,48 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              d:DesignHeight="400" d:DesignWidth="500">
-    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-        <TextBlock Text="Авторизация"
-                   Foreground="#3b3b3b"
-                   FontSize="38"
-                   FontFamily="Arial"
-                   HorizontalAlignment="Center"
-                   Margin="0,0,0,20"/>
-        <TextBox Width="500"
-                 Height="40"
-                 Name="Логин"
-                 FontSize="18"
-                 Style="{StaticResource AuthorizationTextBoxTheme}"/>
-        <TextBox Width="500"
-                 Height="40"
-                 Name="Пароль"                 
-                 FontSize="18"
-                 Style="{StaticResource AuthorizationTextBoxTheme}"/>
-        <Button Style="{StaticResource AuthorizationButtonTheme}" 
-                Width="150"
-                Height="40"
-                FontSize="20"
-                Content="Login"
-                Tag="20"
-                Margin="0,15,0,0"/>
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+    
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Авторизация"
+                       Foreground="#3b3b3b"
+                       FontSize="38"
+                       FontFamily="Arial"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,20"/>
+            <TextBox Width="500"
+                     Height="40"
+                     Name="Логин"
+                     FontSize="18"
+                     Style="{StaticResource AuthorizationTextBoxTheme}"/>
+            <TextBox Width="500"
+                     Height="40"
+                     Name="Пароль"                 
+                     FontSize="18"
+                     Style="{StaticResource AuthorizationTextBoxTheme}"/>
+            <Button Style="{StaticResource AuthorizationButtonTheme}" 
+                    Width="150"
+                    Height="40"
+                    FontSize="20"
+                    Content="Login"
+                    Tag="20"
+                    Margin="0,15,0,0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center">
+            <TextBlock Text="Нет аккаунта?"
+                       HorizontalAlignment="Center"
+                       FontSize="14" FontFamily="Arial" Foreground="#3b3b3b"/>
+            <Label>
+                <Hyperlink Click="RegistrationViewOpen"
+                           FontSize="14" FontFamily="Arial">
+                    Зарегистрироваться
+                </Hyperlink>
+            </Label>
+        </StackPanel>
+    </Grid>
 </UserControl>

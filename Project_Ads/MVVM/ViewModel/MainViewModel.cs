@@ -5,10 +5,14 @@ namespace Project_Ads.MVVM.ViewModel
     class MainViewModel: ObservableObject
     {
         public BoardViewModel BoardVm { get; set; }
+        public UserBoardViewModel UserBoardVm { get; set; }
         public ProfileViewModel ProfileVM { get; set; }
-        
+        public RegistrationViewModel RegistrationVM { get; set; }
+
         public RelayCommand HomeViewСommand { get; set; }
-        public RelayCommand ProfileViewСommand { get; set; }
+        public RelayCommand UserBoardViewСommand { get; set; }
+        static public RelayCommand ProfileViewСommand { get; set; }
+        public static RelayCommand RegistrationViewСommand { get; set; }
         
         private object _currentView;
 
@@ -26,6 +30,8 @@ namespace Project_Ads.MVVM.ViewModel
         {
             BoardVm = new BoardViewModel();
             ProfileVM = new ProfileViewModel();
+            RegistrationVM = new RegistrationViewModel();
+            UserBoardVm = new UserBoardViewModel();
 
             CurrentView = BoardVm;
             
@@ -36,6 +42,14 @@ namespace Project_Ads.MVVM.ViewModel
             ProfileViewСommand = new RelayCommand((o) =>
             {
                 CurrentView = ProfileVM;
+            });
+            RegistrationViewСommand = new RelayCommand((o) =>
+            {
+                CurrentView = RegistrationVM;
+            });
+            UserBoardViewСommand = new RelayCommand((o) =>
+            {
+                CurrentView = UserBoardVm;
             });
         }
     }
