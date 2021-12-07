@@ -34,6 +34,8 @@ namespace Project_Ads
 
         private void Close(object s, RoutedEventArgs e) => Close();
 
+        private void Minimaze(object s, RoutedEventArgs e) => WindowState = WindowState.Minimized;
+
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();

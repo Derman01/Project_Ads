@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              Name="Board"
              Height="800">
+
     <Grid Background="White">
         <DockPanel>
             <Border DockPanel.Dock="Top" Height="80" Margin="10" Padding="15"

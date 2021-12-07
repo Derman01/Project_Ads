@@ -18,7 +18,7 @@
             </viewModel:MainViewModel.BoardVm>
         </viewModel:MainViewModel>
     </Window.DataContext>
-    
+
     <Border CornerRadius="30">
         <Border Background="White" 
                 CornerRadius="30"
@@ -40,13 +40,13 @@
                         BorderBrush="Black" CornerRadius="20,20,0,0" Grid.ColumnSpan="2"
                         MouseDown="Border_MouseDown">
                     <Grid HorizontalAlignment="Stretch"
-                          Margin="10,10,10,0">
+                          Margin="10,0,10,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,10,0,0">
                             <RadioButton Content="Доска объявлений"
                                          FontSize="16"
                                          IsChecked="True"
@@ -54,7 +54,8 @@
                                          Command="{Binding HomeViewСommand}"/>
                             <RadioButton Content="Мои объявлений"
                                          FontSize="16"
-                                         Style="{StaticResource MenuButtonTheme}"/>
+                                         Style="{StaticResource MenuButtonTheme}"
+                                         Command="{Binding UserBoardViewСommand}"/>
                             <RadioButton Content="Аккаунт"
                                          FontSize="16"
                                          Style="{StaticResource MenuButtonTheme}"
@@ -63,23 +64,20 @@
                         <StackPanel  Grid.Column="1"
                                      Orientation="Horizontal" 
                                      VerticalAlignment="Center"
-                                     HorizontalAlignment="Right" >
-                            <Button Width="25" Height="25" />
-
-
-                            <Button Width="25" Height="25"
-                                    Style="{StaticResource WindowButtonTheme}">
-                                <Button.Background>
-                                    <ImageBrush ImageSource="../../../../Properties/Icons/icons8_delete_32px.png">
-                                    </ImageBrush>
-                                </Button.Background>
+                                     HorizontalAlignment="Center" Height="40" Margin="0,0,10,0">
+                            <Button Style="{DynamicResource ButtonStyle1}" 
+                                    Width="50" Height="40" BorderThickness="0"
+                                    Click="Minimaze">
+                                <Image Source="../Properties/Icons/minimizeIcon.png"/>
                             </Button>
-                            <Button Width="25" Height="25"
-                                    BorderThickness="0"
+                            <Button Style="{DynamicResource ButtonStyle1}" 
+                                    Width="50" Height="40" BorderThickness="0" Margin="10,0,10,0">
+                                <Image Source="../Properties/Icons/minimizeInWindowIcon.png"/>
+                            </Button>
+                            <Button Style="{DynamicResource ButtonStyle1}" 
+                                    Width="40" Height="40" BorderThickness="0"
                                     Click="Close">
-                                <Button.Background>
-                                    <ImageBrush ImageSource="../../../../Properties/Icons/icons8_delete_32px.png"/>
-                                </Button.Background>
+                                <Image Source="../Properties/Icons/exitIcon.png"/>
                             </Button>
                         </StackPanel>
                     </Grid>
