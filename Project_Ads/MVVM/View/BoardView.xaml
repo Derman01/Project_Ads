@@ -109,7 +109,7 @@
                 <Rectangle Height="1" Stroke="Black" Width="7"/>
             </ListBox>
         </DockPanel>
-        <Popup x:Name="popup" Width="400"
+        <Popup x:Name="popup" Width="400" StaysOpen="False"
             AllowsTransparency="True" Placement="Center">
             <Border  Background="White" Padding="30" CornerRadius="30"
                      BorderBrush="#3292D0" BorderThickness="1" >
@@ -198,130 +198,142 @@
                 </StackPanel>
             </Border>
         </Popup>
-        <Popup x:Name="newAd" Width="700" Height="710" StaysOpen="False" 
+        <Popup x:Name="newAd" Width="500" StaysOpen="True" 
                AllowsTransparency="True" Placement="Center">
             <Border Background="White" CornerRadius="30"
                     BorderBrush="#3292D0" BorderThickness="1">
-                <StackPanel>
-                    <TextBlock Text="Создание объявления"
-                               Margin="0,20,0,20" HorizontalAlignment="Center"
+                <Grid Margin="30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="90"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Создание объявления"
+                               TextAlignment="Center"
                                FontSize="30"/>
-                    <StackPanel HorizontalAlignment="Center" Margin="0,0,0,10">
+                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan ="2">
                         <Image x:Name="newAd_img"
                                Source="../../../../Properties/Icons/cat.jpg"
-                               Width="200" Height="150"
-                               Margin="0,0,0,10"/>
+                               Width="200" Height="150"/>
                         <Button x:Name="upload_new_img"
                                 Style="{StaticResource AuthorizationButtonTheme}"
-                                Content="Загрузить фото"
-                                Width="200" Height="40"/>
+                                Content="Загрузить фото" Width="200"
+                                Padding="10, 5" Height="40"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
-                                Margin="0,0,0,10">
-                        <RadioButton Width="160" Height="80" x:Name="newAd_dog">
-                            <RadioButton.Style>
-                                <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
-                                        TargetType="{x:Type RadioButton}">
-                                    <Style.Setters>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="RadioButton">
-                                                    <Border CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
-                                                        <Grid>
-                                                            <Grid.Background>
-                                                                <ImageBrush ImageSource="/MVVM/View/icon_dog.png" Stretch="None"/>
-                                                            </Grid.Background>
-                                                        </Grid>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Setter Property="BorderBrush" Value="#CCC"/>
-                                    </Style.Setters>
+                    <RadioButton Grid.Row="2" Grid.Column="0" x:Name="newAd_dog"
+                                 Width="160" Height="80">
+                        <RadioButton.Style>
+                            <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
+                                    TargetType="{x:Type RadioButton}">
+                                <Style.Setters>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="RadioButton">
+                                                <Border CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
+                                                    <Grid>
+                                                        <Grid.Background>
+                                                            <ImageBrush ImageSource="/MVVM/View/icon_dog.png" Stretch="None"/>
+                                                        </Grid.Background>
+                                                    </Grid>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="BorderBrush" Value="#CCC"/>
+                                </Style.Setters>
 
-                                    <Style.Triggers>
-                                        <Trigger Property="IsChecked" Value="True">
-                                            <Setter Property="BorderBrush" Value="#3292D0"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </RadioButton.Style>
-                        </RadioButton>
-                        <Grid Width="18"/>
-                        <RadioButton Width="160" Height="80" x:Name="newAd_cat">
-                            <RadioButton.Style>
-                                <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
-                                        TargetType="{x:Type RadioButton}">
-                                    <Style.Setters>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="RadioButton">
-                                                    <Border CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
-                                                        <Grid>
-                                                            <Grid.Background>
-                                                                <ImageBrush ImageSource="/MVVM/View/icon_cat.png" Stretch="None"/>
-                                                            </Grid.Background>
-                                                        </Grid>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Setter Property="BorderBrush" Value="#CCC"/>
-                                    </Style.Setters>
+                                <Style.Triggers>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter Property="BorderBrush" Value="#3292D0"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RadioButton.Style>
+                    </RadioButton>
+                    <RadioButton Grid.Row="2" Grid.Column="1"  x:Name="newAd_cat"
+                                 Width="160" Height="80">
+                        <RadioButton.Style>
+                            <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
+                                    TargetType="{x:Type RadioButton}">
+                                <Style.Setters>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="RadioButton">
+                                                <Border CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
+                                                    <Grid>
+                                                        <Grid.Background>
+                                                            <ImageBrush ImageSource="/MVVM/View/icon_cat.png" Stretch="None"/>
+                                                        </Grid.Background>
+                                                    </Grid>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="BorderBrush" Value="#CCC"/>
+                                </Style.Setters>
 
-                                    <Style.Triggers>
-                                        <Trigger Property="IsChecked" Value="True">
-                                            <Setter Property="BorderBrush" Value="#3292D0"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </RadioButton.Style>
-                        </RadioButton>
-                    </StackPanel>
-                    <StackPanel Margin="60,0,0,0">
-                        <TextBlock Text="Тип Объявления" Margin="0,0,0,10"
-                               FontSize="20" HorizontalAlignment="Center"/>
-                        <StackPanel Orientation="Horizontal" Margin="30,0,0,10" 
-                                HorizontalAlignment="Center">
-                            <RadioButton Width="160" FontSize="18" x:Name="newAd_lost"
-                                     VerticalContentAlignment="Center"
-                                     Content="Пропажа"/>
-                            <Grid Width="20"/>
-                            <RadioButton Width="160" FontSize="18" x:Name="newAd_found"
-                                     VerticalContentAlignment="Center"
-                                     Content="Находка"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10"
-                                HorizontalAlignment="Center">
-                            <TextBlock Text="Описание:" Margin="0,0,20,0"
-                                   FontSize="18"/>
-                            <TextBox x:Name="newAd_animal_desc"
-                                 Width="200" Height="30"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="32,0,0,10"
-                                HorizontalAlignment="Center">
-                            <TextBlock Text="Адрес:" Margin="0,0,20,0" 
-                                   FontSize="18"/>
-                            <TextBox x:Name="newAd_address" 
-                                 Width="200" Height="30"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="44,0,0,10"
-                                HorizontalAlignment="Center">
-                            <TextBlock Text="Дата:" FontSize="18"
-                                   Margin="0,0,20,0"/>
-                            <DatePicker x:Name="newAd_date" 
-                                    Width="200" Height="30"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10"
-                                HorizontalAlignment="Center">
-                            <TextBlock Text="Дополнительные приметы:" FontSize="18"
-                                   Margin="0,18,20,0"/>
-                            <TextBox x:Name="newAd_marks"
-                                 Width="238" Height="60"/>
-                        </StackPanel>
-                    </StackPanel>
+                                <Style.Triggers>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter Property="BorderBrush" Value="#3292D0"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RadioButton.Style>
+                    </RadioButton>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="Тип Объявления" 
+                               HorizontalAlignment="Center"
+                               FontSize="20"/>
+                    <RadioButton Grid.Row="4" Grid.Column="0" FontSize="18" x:Name="newAd_lost"
+                                 HorizontalAlignment="Center"
+                                 VerticalContentAlignment="Center"
+                                 Content="Пропажа"/>
+                    <RadioButton Grid.Row="4" Grid.Column="1"  FontSize="18" x:Name="newAd_found"
+                                 HorizontalAlignment="Center"
+                                 VerticalContentAlignment="Center"
+                                 Content="Находка"/>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                               Text="Описание:"
+                               FontSize="18"/>
+                    <TextBox  Grid.Row="5" Grid.Column="1" x:Name="newAd_animal_desc"
+                              Padding="5" Width="200" Height="30"/>
+                    <TextBlock Grid.Row="6" Grid.Column="0" Text="Адрес:"
+                               Padding="5" FontSize="18"/>
+                    <TextBox Grid.Row="6" Grid.Column="1" x:Name="newAd_address" 
+                             Padding="5"
+                             Width="200" Height="30"/>
                     
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,40">
+                    <TextBlock Grid.Row="7" Grid.Column="0" Text="Дата:" FontSize="18"
+                               Padding="5"/>
+                    <DatePicker Grid.Row="7" Grid.Column="1" x:Name="newAd_date" 
+                                Width="200" Height="30" 
+                                Padding="5">
+                        <DatePicker.Resources>
+                            <Style TargetType="DatePickerTextBox">
+                                <Setter Property="IsReadOnly" Value="True"/>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
+                    
+                    <TextBlock Grid.Row="8" Grid.Column="0" Text="Дополнительные приметы:" 
+                               TextWrapping="Wrap" Padding="5"
+                               FontSize="18"/>
+                    <TextBox Grid.Row="8" Grid.Column="1" x:Name="newAd_marks"
+                             Padding="5"
+                             TextWrapping="Wrap" Height="60"/>
+                    
+                    <StackPanel Grid.Row="9" Grid.ColumnSpan="2" 
+                                Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button x:Name="newAd_cancel"
                                 Style="{StaticResource AuthorizationButtonTheme}"
                                 Height="40" Width="160"
@@ -332,7 +344,7 @@
                                 Height="40" Width="160"
                                 Content="Создать"/>
                     </StackPanel>
-                </StackPanel>
+                </Grid>
             </Border>
         </Popup>
     </Grid>
