@@ -203,7 +203,7 @@
                 </StackPanel>
             </Border>
         </Popup>
-        <Popup x:Name="formAdding" Width="500" StaysOpen="True" 
+        <Popup x:Name="formAdding" Width="500" StaysOpen="False" 
                AllowsTransparency="True" Placement="Center">
             <Border Background="White" CornerRadius="30"
                     BorderBrush="#3292D0" BorderThickness="1">
