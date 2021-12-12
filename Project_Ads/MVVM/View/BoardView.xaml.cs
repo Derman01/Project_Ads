@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using Project_Ads.Core;
@@ -11,99 +15,181 @@ using Project_Ads.Model;
 
 namespace Project_Ads.MVVM.View
 {
+    public class Filter: ObservableObject
+    {
+        private bool _isCat = true;
+        private bool _isDog = true;
+        private bool _isFind = true;
+        private bool _isLost = true;
+        public bool IsCat
+        {
+            get => _isCat;
+            set
+            {
+                _isCat = value;
+                OnPropertyChanged("IsCat");
+            }
+        }
+
+        public bool IsDog
+        {
+            get => _isDog;
+            set
+            {
+                _isDog = value;
+                OnPropertyChanged("IsDog");
+            }
+        }
+
+        public bool IsFind
+        {
+            get => _isFind;
+            set
+            {
+                _isFind = value;
+                OnPropertyChanged("IsFind");
+            }
+        }
+
+        public bool IsLost
+        {
+            get => _isLost;
+            set
+            {
+                _isLost = value;
+                OnPropertyChanged("IsLost");
+            }
+        }
+
+        public bool IsItemFilter(Advertisement item)
+        {
+            return (item.TypeAdvertisement == Advertisement.Type.Find && IsFind
+                   || item.TypeAdvertisement == Advertisement.Type.Lose && IsLost)
+                   && ( item.TypeAnimal == Animal.Type.Cat && IsCat
+                      || item.TypeAnimal == Animal.Type.Dog && IsDog);
+        }
+
+        public void CopyTo(Filter f)
+        {
+            IsCat = f.IsCat;
+            IsDog = f.IsDog;
+            IsFind = f.IsFind;
+            IsLost = f.IsLost;
+        }
+    }
+    
     public partial class BoardView : UserControl
     {
+        public Filter Filter { get; set; } = new Filter();
+        private Filter _preventFilter = new Filter();
         
-        /*имеется 4 радиокноки
-         rd_cat rd_dog
-         rd_lost - пропавшие
-         rd_found - найденные
-         */       
-        
-        private ObservableCollection<Advertisement> _advertisements { get; set; }
-        
+        private ObservableCollection<Advertisement> _advertisements { get; set; } =
+            new ObservableCollection<Advertisement>();
+
+        private ObservableCollection<Advertisement> _filterAdvertisements { get; set; } =
+            new ObservableCollection<Advertisement>();
+
         public BoardView()
         {
             InitializeComponent();
-            
-            _advertisements = new ObservableCollection<Advertisement>()
-            {
-                new Advertisement()
+
+            menuFilter.DataContext = Filter;
+
+            _advertisements.CollectionChanged += (s, e) => {
+                if (e.Action == NotifyCollectionChangedAction.Add)
                 {
-                    Id = 1, ImageUrl ="/Icons/dogs.png", 
-                    TypeAdvertisement = Advertisement.Type.Find,
-                    TypeAnimal = Animal.Type.Dog,
-                    Marks= "Срочно !!!! нашли щеночка После 21:00 некуда деть." +
-                                                  "\nХозяева отзовитесь Голубой ошейник. После 21:00 некуда деть",
-                    ColorAnimal = Animal.Color.Black,Phone = "8 999 586 1516",
-                    DateFind = DateTime.Now,
-                    LocationFind = "3 мкр 35 дом"
-                },
-                new Advertisement()
-                {
-                    Id = 2, ImageUrl = @"\Icons\cat.jpg",
-                    TypeAdvertisement = Advertisement.Type.Lose,
-                    TypeAnimal = Animal.Type.Cat, Marks = App.PATH,
-                    Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
-                    DateFind = DateTime.Today,
-                    LocationFind = App.PATH
-                },
-                new Advertisement()
-                {
-                    Id = 2, ImageUrl = "/Icons/cat.jpg",
-                    TypeAdvertisement = Advertisement.Type.Lose,
-                    TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
-                    Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
-                    DateFind = DateTime.Today,
-                    LocationFind = "На высоких горах"
-                },
-                new Advertisement()
-                {
-                    Id = 2, ImageUrl = "/Icons/cat.jpg",
-                    TypeAdvertisement = Advertisement.Type.Lose,
-                    TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
-                    Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
-                    DateFind = DateTime.Today,
-                    LocationFind = "На высоких горах"
-                },
-                new Advertisement()
-                {
-                    Id = 2, ImageUrl = "/Icons/cat.jpg",
-                    TypeAdvertisement = Advertisement.Type.Lose,
-                    TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
-                    Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
-                    DateFind = DateTime.Today,
-                    LocationFind = "На высоких горах"
+                    var item = _advertisements[_advertisements.Count - 1];
+                    if (Filter.IsItemFilter(item))
+                        _filterAdvertisements.Add(item);
                 }
             };
-
+            
+            _advertisements.Add(new Advertisement() {
+                Id = 1, ImageUrl ="/Icons/dogs.png", 
+                TypeAdvertisement = Advertisement.Type.Find,
+                TypeAnimal = Animal.Type.Dog,
+                Marks= "Срочно !!!! нашли щеночка После 21:00 некуда деть." +
+                       "\nХозяева отзовитесь Голубой ошейник. После 21:00 некуда деть",
+                ColorAnimal = Animal.Color.Black,Phone = "8 999 586 1516",
+                DateFind = DateTime.Now,
+                LocationFind = "3 мкр 35 дом"
+            });
+            _advertisements.Add(new Advertisement() {
+                Id = 2, ImageUrl = @"\Icons\cat.jpg",
+                TypeAdvertisement = Advertisement.Type.Lose,
+                TypeAnimal = Animal.Type.Cat, Marks = App.PATH,
+                Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
+                DateFind = DateTime.Today,
+                LocationFind = App.PATH
+            });
+            _advertisements.Add(new Advertisement() {
+                    Id = 3, ImageUrl = "/Icons/cat.jpg",
+                    TypeAdvertisement = Advertisement.Type.Find,
+                    TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
+                    Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
+                    DateFind = DateTime.Today,
+                    LocationFind = "На высоких горах"
+                });
+            _advertisements.Add(new Advertisement() {
+                Id = 4, ImageUrl = "/Icons/cat.jpg",
+                TypeAdvertisement = Advertisement.Type.Lose,
+                TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
+                Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
+                DateFind = DateTime.Today,
+                LocationFind = "На высоких горах"
+            });
+            _advertisements.Add(new Advertisement() {
+                Id = 5, ImageUrl = "/Icons/cat.jpg",
+                TypeAdvertisement = Advertisement.Type.Find,
+                TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
+                Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
+                DateFind = DateTime.Today,
+                LocationFind = "На высоких горах"
+            });
+            
             advertisementsList.Items.Clear();
-            advertisementsList.ItemsSource = _advertisements;
+            advertisementsList.ItemsSource = _filterAdvertisements;
 
-            btn_cancel.Click += ClosePopup;
-            btn_apply.Click += (sender, args) => ApplyFilters();
-            btn_apply.Click += ClosePopup;
+            menuFilter_button_cancel.Click += CloseMenuFilter;
+            menuFilter_button_apply.Click += ApplyFilters;
+            menuFilter_button_apply.Click += CloseMenuFilter;
+            
             newAd_cancel.Click += CloseNewAdPopup;
-            newAd_apply.Click += ClosePopup;
+            newAd_apply.Click += CloseMenuFilter;
 
             upload_new_img.Click += LoadAnimalImage;
+
+            DataContext = this;
         }
 
-        private void ClosePopup(object o, RoutedEventArgs e) => popup.IsOpen = false;
-        
-        private void OpenPopup(object sender, RoutedEventArgs e)
+        private void FilterListAdvertisment()
         {
-            popup.IsOpen = true;
+            _filterAdvertisements.Clear();
+            foreach (var item in _advertisements.Where(a => Filter.IsItemFilter(a)))
+                _filterAdvertisements.Add(item);
         }
 
-        private void ApplyFilters()
+        private void CloseMenuFilter(object o = null, RoutedEventArgs e = null)
         {
-            
+            Filter.CopyTo(_preventFilter);
+            menuFilter.IsOpen = false;
         }
 
-        private void OpenNewAdPopup(object o, RoutedEventArgs e) => newAd.IsOpen = true;
+        private void OpenMenuFilter(object sender = null, RoutedEventArgs e = null)
+        {
+            _preventFilter.CopyTo(Filter);
+            menuFilter.IsOpen = true;
+        }
 
-        private void CloseNewAdPopup(object o, RoutedEventArgs e) => newAd.IsOpen = false;
+        private void ApplyFilters(object sender = null, RoutedEventArgs e = null)
+        {
+            _preventFilter.CopyTo(Filter);
+            FilterListAdvertisment();
+        }
+
+        private void OpenNewAdPopup(object o = null, RoutedEventArgs e = null) => formAdding.IsOpen = true;
+
+        private void CloseNewAdPopup(object o = null, RoutedEventArgs e = null) => formAdding.IsOpen = false;
 
         private void LoadAnimalImage(object o, RoutedEventArgs e)
         {
@@ -113,7 +199,12 @@ namespace Project_Ads.MVVM.View
                 Uri fileUri = new Uri(openFileDialog.FileName);
                 newAd_img.Source = new BitmapImage(fileUri);
             }
-            newAd.IsOpen = true;
+        }
+
+        private void AdvertisementsList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var a = (Advertisement) advertisementsList.SelectedItem;
+            Console.WriteLine(a.Phone);
         }
     }
 }

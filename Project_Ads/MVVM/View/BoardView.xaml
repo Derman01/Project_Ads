@@ -6,7 +6,6 @@
              mc:Ignorable="d"
              Name="Board"
              Height="800">
-
     <Grid Background="White">
         <DockPanel>
             <Border DockPanel.Dock="Top" Height="80" Margin="10" Padding="15"
@@ -30,7 +29,7 @@
                             Tag="23"
                             VerticalAlignment="Center"        
                             Height="46" Padding="20 0 20 0" Margin="30 0 0 0 "
-                            Content="+Фильтры" Click="OpenPopup"/>
+                            Content="+Фильтры" Click="OpenMenuFilter"/>
                     <Button Style="{StaticResource AuthorizationButtonTheme}"
                             VerticalAlignment="Center"
                             Height="46"
@@ -42,6 +41,7 @@
             <ListBox x:Name="advertisementsList"
                      HorizontalContentAlignment="Stretch"
                      BorderThickness="0"
+                     SelectionChanged="AdvertisementsList_OnSelectionChanged"
                      VirtualizingPanel.ScrollUnit="Pixel">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
@@ -110,20 +110,21 @@
                 <Rectangle Height="1" Stroke="Black" Width="7"/>
             </ListBox>
         </DockPanel>
-        <Popup x:Name="popup" Width="400" StaysOpen="False"
+        <Popup x:Name="menuFilter" Width="400" StaysOpen="False"
             AllowsTransparency="True" Placement="Center">
             <Border  Background="White" Padding="30" CornerRadius="30"
                      BorderBrush="#3292D0" BorderThickness="1" >
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Height="80" HorizontalAlignment="Stretch">
-                        <RadioButton Width="160" Height="80" x:Name="rb_dog">
-                            <RadioButton.Style>
+                        <CheckBox Width="160" Height="80" x:Name="menuFilter_checkBox_dog"
+                                  IsChecked="{Binding Path=IsDog}">
+                            <CheckBox.Style>
                                 <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
-                                        TargetType="{x:Type RadioButton}">
+                                        TargetType="{x:Type CheckBox}">
                                     <Style.Setters>
                                         <Setter Property="Template">
                                             <Setter.Value>
-                                                <ControlTemplate TargetType="RadioButton">
+                                                <ControlTemplate TargetType="CheckBox">
                                                     <Border CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
                                                         <Grid>
                                                             <Grid.Background>
@@ -143,17 +144,18 @@
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
-                            </RadioButton.Style>
-                        </RadioButton>
+                            </CheckBox.Style>
+                        </CheckBox>
                         <Grid Width="18"/>
-                        <RadioButton Width="160" Height="80" x:Name="rb_cat">
-                            <RadioButton.Style>
+                        <CheckBox Width="160" Height="80" x:Name="menuFilter_checkBox_cat"
+                                  IsChecked="{Binding Path=IsCat}">
+                            <CheckBox.Style>
                                 <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
-                                        TargetType="{x:Type RadioButton}">
+                                        TargetType="{x:Type CheckBox}">
                                     <Style.Setters>
                                         <Setter Property="Template">
                                             <Setter.Value>
-                                                <ControlTemplate TargetType="RadioButton">
+                                                <ControlTemplate TargetType="CheckBox">
                                                     <Border CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
                                                         <Grid>
                                                             <Grid.Background>
@@ -173,25 +175,27 @@
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
-                            </RadioButton.Style>
-                        </RadioButton>
+                            </CheckBox.Style>
+                        </CheckBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0 26 0 0">
-                        <RadioButton Width="160" FontSize="18" x:Name="rd_lost"
-                                     VerticalContentAlignment="Center"
-                                     Content="Пропавшие"/>
+                        <CheckBox Width="160" FontSize="18" x:Name="menuFilter_checkBox_lost"
+                                  IsChecked="{Binding Path=IsLost, Mode=TwoWay}"
+                                  VerticalContentAlignment="Center"
+                                  Content="Пропавшие"/>
                         <Grid Width="20"/>
-                        <RadioButton Width="160" FontSize="18" x:Name="rd_found"
-                                     VerticalContentAlignment="Center"
-                                     Content="Найденные"/>
+                        <CheckBox Width="160" FontSize="18" x:Name="menuFilter_checkBox_find"
+                                  IsChecked="{Binding Path=IsFind, Mode=TwoWay}"
+                                  VerticalContentAlignment="Center"
+                                  Content="Найденные"/>
                     </StackPanel>
                     <StackPanel Margin="0 45 0 0" VerticalAlignment="Bottom" Orientation="Horizontal">
-                        <Button x:Name="btn_cancel"
+                        <Button x:Name="menuFilter_button_cancel"
                             Style="{StaticResource AuthorizationButtonTheme}" 
                                 Height="40" Width="160" Background="#BBBBBB"
                                 Content="Отмена"/>
                         <Grid Width="20"/>
-                        <Button x:Name="btn_apply"
+                        <Button x:Name="menuFilter_button_apply"
                             Style="{StaticResource AuthorizationButtonTheme}"
                                 Height="40" Width="160"
                                 Content="Применить"/>
@@ -199,7 +203,7 @@
                 </StackPanel>
             </Border>
         </Popup>
-        <Popup x:Name="newAd" Width="500" StaysOpen="True" 
+        <Popup x:Name="formAdding" Width="500" StaysOpen="True" 
                AllowsTransparency="True" Placement="Center">
             <Border Background="White" CornerRadius="30"
                     BorderBrush="#3292D0" BorderThickness="1">
