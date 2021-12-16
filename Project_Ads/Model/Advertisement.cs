@@ -57,16 +57,15 @@ namespace Project_Ads.Model
         }
 
         
-        private Animal.Color _colorAnimal;
-        public string GetStringColorAnimal => Animal.convertToColor[_colorAnimal];
-        public Animal.Color ColorAnimal
+        private string _description;
+
+        public string Description
         {
-            get => _colorAnimal;
+            get => _description;
             set
             {
-                _colorAnimal = value;  
-                OnPropertyChanged("GetStringColorAnimal");
-                OnPropertyChanged("ColorAnimal");
+                _description = value;
+                OnPropertyChanged("Description");
             }
         }
 
@@ -112,7 +111,7 @@ namespace Project_Ads.Model
         public string Marks
         {
             get => _marks;
-            set { _marks = value;  OnPropertyChanged("Marks");}
+            set { _marks = value;  OnPropertyChanged("Marks");} 
         }
 
         private string _phone;
@@ -126,7 +125,7 @@ namespace Project_Ads.Model
         public string ImageUrl
         {
             get => _imageUrl;
-            set { _imageUrl = App.PATH + value; OnPropertyChanged("ImageUrl"); }
+            set { _imageUrl = value; OnPropertyChanged("ImageUrl"); }
         }
 
         public string DeleteImageUrl => $@"{App.PATH}\Icons\trash_24px.png";

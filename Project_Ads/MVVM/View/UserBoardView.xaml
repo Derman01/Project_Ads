@@ -47,7 +47,7 @@
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
                                                 <TextBlock FontWeight="Bold" FontSize="18" Text="Описание: "/>
-                                                <TextBlock Text="{Binding GetStringColorAnimal}" FontSize="18" FontWeight="Regular"/>
+                                                <TextBlock Text="{Binding Description}" FontSize="18" FontWeight="Regular"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                                 <TextBlock FontWeight="Bold" FontSize="18" Text="Локация: "/>

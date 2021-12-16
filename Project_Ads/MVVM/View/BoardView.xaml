@@ -35,7 +35,7 @@
                             Height="46"
                             Tag="23" Padding="20 0 20 0"
                             HorizontalAlignment="Right"
-                            Content="Создать объявление" Click="OpenNewAdPopup"/>
+                            Content="Создать объявление" Click="OpenFormAdding"/>
                 </DockPanel>
             </Border>
             <ListBox x:Name="advertisementsList"
@@ -57,7 +57,7 @@
                                     BorderThickness="2"
                                     Padding="10"
                                     Margin="0,5,0,5"
-                                    GotFocus="OpenNewAdPopup">
+                                    GotFocus="OpenFormAdding">
                                 <StackPanel Margin="5" Orientation="Horizontal">
                                     <Border BorderBrush="#282828"
                                     CornerRadius="90"
@@ -79,7 +79,7 @@
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
                                                 <TextBlock FontWeight="Bold" FontSize="18" Text="Описание: "/>
-                                                <TextBlock Text="{Binding GetStringColorAnimal}" FontSize="18" FontWeight="Regular"/>
+                                                <TextBlock Text="{Binding Description}" FontSize="18" FontWeight="Regular"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                                 <TextBlock FontWeight="Bold" FontSize="18" Text="Локация: "/>
@@ -270,7 +270,7 @@
                                TextAlignment="Center"
                                FontSize="30"/>
                     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan ="2">
-                        <Image x:Name="newAd_img"
+                        <Image x:Name="formAdding_image"
                                Source="../../../../Properties/Icons/cat.jpg"
                                Width="200" Height="150"/>
                         <Button x:Name="upload_new_img"
@@ -278,7 +278,7 @@
                                 Content="Загрузить фото" Width="200"
                                 Padding="10, 5" Height="40"/>
                     </StackPanel>
-                    <RadioButton Grid.Row="2" Grid.Column="0" x:Name="newAd_dog"
+                    <RadioButton Grid.Row="2" Grid.Column="0" x:Name="formAdding_radio_dog"
                                  Width="160" Height="80">
                         <RadioButton.Style>
                             <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
@@ -299,7 +299,6 @@
                                     </Setter>
                                     <Setter Property="BorderBrush" Value="#CCC"/>
                                 </Style.Setters>
-
                                 <Style.Triggers>
                                     <Trigger Property="IsChecked" Value="True">
                                         <Setter Property="BorderBrush" Value="#3292D0"/>
@@ -308,7 +307,7 @@
                             </Style>
                         </RadioButton.Style>
                     </RadioButton>
-                    <RadioButton Grid.Row="2" Grid.Column="1"  x:Name="newAd_cat"
+                    <RadioButton Grid.Row="2" Grid.Column="1"  x:Name="formAdding_radio_cat"
                                  Width="160" Height="80">
                         <RadioButton.Style>
                             <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
@@ -341,28 +340,28 @@
                     <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="Тип Объявления" 
                                HorizontalAlignment="Center"
                                FontSize="20"/>
-                    <RadioButton Grid.Row="4" Grid.Column="0" FontSize="18" x:Name="newAd_lost"
+                    <RadioButton Grid.Row="4" Grid.Column="0" FontSize="18" x:Name="formAdding_radio_lost"
                                  HorizontalAlignment="Center"
                                  VerticalContentAlignment="Center"
                                  Content="Пропажа"/>
-                    <RadioButton Grid.Row="4" Grid.Column="1"  FontSize="18" x:Name="newAd_found"
+                    <RadioButton Grid.Row="4" Grid.Column="1"  FontSize="18" x:Name="formAdding_radio_find"
                                  HorizontalAlignment="Center"
                                  VerticalContentAlignment="Center"
                                  Content="Находка"/>
                     <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
                                Text="Описание:"
                                FontSize="18"/>
-                    <TextBox  Grid.Row="5" Grid.Column="1" x:Name="newAd_animal_desc"
+                    <TextBox  Grid.Row="5" Grid.Column="1" x:Name="formAdding_description"
                               Padding="5" Width="200" Height="30"/>
                     <TextBlock Grid.Row="6" Grid.Column="0" Text="Адрес:"
                                Padding="5" FontSize="18"/>
-                    <TextBox Grid.Row="6" Grid.Column="1" x:Name="newAd_address" 
+                    <TextBox Grid.Row="6" Grid.Column="1" x:Name="formAdding_address" 
                              Padding="5"
                              Width="200" Height="30"/>
                     
                     <TextBlock Grid.Row="7" Grid.Column="0" Text="Дата:" FontSize="18"
                                Padding="5"/>
-                    <DatePicker Grid.Row="7" Grid.Column="1" x:Name="newAd_date" 
+                    <DatePicker Grid.Row="7" Grid.Column="1" x:Name="formAdding_date" 
                                 Width="200" Height="30" 
                                 Padding="5">
                         <DatePicker.Resources>
@@ -375,20 +374,21 @@
                     <TextBlock Grid.Row="8" Grid.Column="0" Text="Дополнительные приметы:" 
                                TextWrapping="Wrap" Padding="5"
                                FontSize="18"/>
-                    <TextBox Grid.Row="8" Grid.Column="1" x:Name="newAd_marks"
+                    <TextBox Grid.Row="8" Grid.Column="1" x:Name="formAdding_marks"
                              Padding="5"
                              TextWrapping="Wrap" Height="60"/>
                     
                     <StackPanel Grid.Row="9" Grid.ColumnSpan="2" 
                                 Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button x:Name="newAd_cancel"
+                        <Button x:Name="formAdding_button_cancel"
                                 Style="{StaticResource AuthorizationButtonTheme}"
                                 Height="40" Width="160"
                                 Content="Отмена"/>
                         <Grid Width="20"/>
-                        <Button x:Name="newAd_apply"
+                        <Button x:Name="formAdding_button_apply"
                                 Style="{StaticResource AuthorizationButtonTheme}"
                                 Height="40" Width="160"
+                                Click="CreateAdvertisment"
                                 Content="Создать"/>
                     </StackPanel>
                 </Grid>
