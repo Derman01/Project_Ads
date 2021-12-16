@@ -1,4 +1,5 @@
 ﻿using Project_Ads.Core;
+using Project_Ads.Model;
 
 namespace Project_Ads.MVVM.ViewModel
 {
@@ -45,7 +46,10 @@ namespace Project_Ads.MVVM.ViewModel
             });
             ProfileViewСommand = new RelayCommand((o) =>
             {
-                CurrentView = ProfileVM;
+                if (App.User.UserRole == User.Role.NotAuthorizedUser)
+                    CurrentView = AccountVM;
+                else CurrentView = ProfileVM;
+
             });
             RegistrationViewСommand = new RelayCommand((o) =>
             {
