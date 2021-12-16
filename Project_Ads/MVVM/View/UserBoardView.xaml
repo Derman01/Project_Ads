@@ -10,7 +10,7 @@
             <ListBox x:Name="advertisementsList"
                      HorizontalContentAlignment="Stretch"
                      BorderThickness="0"
-                     SelectionChanged="advertisementsList_SelectionChanged"
+                     MouseDoubleClick="AdvertisementsList_OnMouseDoubleClick"
                      VirtualizingPanel.ScrollUnit="Pixel">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">

@@ -73,12 +73,6 @@ namespace Project_Ads.MVVM.View
             
         }
 
-        private void advertisementsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var advertisement = (Advertisement)advertisementsList.SelectedItem;
-            openAdvertisement.IsOpen = true;
-        }
-
         private void AdConfirm_Click(object sender, RoutedEventArgs e)
         {
             //запись в бд об изменениях
@@ -93,6 +87,11 @@ namespace Project_Ads.MVVM.View
         private void upload_new_img_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void AdvertisementsList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            openAdvertisement.IsOpen = true;
         }
     }
 }
