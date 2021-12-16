@@ -10,33 +10,28 @@
         <DockPanel>
             <Border DockPanel.Dock="Top" Height="80" Margin="10" Padding="15"
                     CornerRadius="40" BorderBrush="#3292D0" BorderThickness="2">
-                <DockPanel>
-                    <Border Background="#F1F1F1" CornerRadius="20" 
-                        Height="50" HorizontalAlignment="Left">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBox MinWidth="200" MaxWidth="300" Background="Transparent" Height="50" 
-                                 Style="{StaticResource placeHolder}"
-                                 Padding="10 0 10 0" BorderBrush="Transparent" 
-                                 FontSize="18" FontWeight="Regular"
-                                 VerticalContentAlignment="Center"
-                                 BorderThickness="0"
-                                  Tag="Поиск по номеру.."/>
-                            <Image Panel.ZIndex="4" Width="40" Height="40" Stretch="Fill" Source="/MVVM/View/icons8_search_60px_2.png" Margin="0,0,10,0"/>
-
-                        </StackPanel>
-                    </Border>
-                    <Button Style="{StaticResource AuthorizationButtonTheme}"
-                            Tag="23"
-                            VerticalAlignment="Center"        
-                            Height="46" Padding="20 0 20 0" Margin="30 0 0 0 "
-                            Content="+Фильтры" Click="OpenMenuFilter"/>
-                    <Button Style="{StaticResource AuthorizationButtonTheme}"
-                            VerticalAlignment="Center"
-                            Height="46"
-                            Tag="23" Padding="20 0 20 0"
-                            HorizontalAlignment="Right"
-                            Content="Создать объявление" Click="OpenNewAdPopup"/>
-                </DockPanel>
+                <Grid>
+                    <DockPanel Margin="20 0 0 0">
+                        <TextBlock Text="Добро пожаловать, " FontSize="24"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock x:Name="userName" Text="{Binding UserName}"
+                                   VerticalAlignment="Center"
+                                   FontSize="24"/>
+                    </DockPanel>
+                    <DockPanel HorizontalAlignment="Right">
+                        <Button Style="{StaticResource AuthorizationButtonTheme}"
+                                Tag="23"
+                                VerticalAlignment="Center"
+                                Height="46"
+                                Padding="20 0 20 0" Margin="0 0 20 0"
+                                Content="+Фильтры" Click="OpenMenuFilter"/>
+                        <Button Style="{StaticResource AuthorizationButtonTheme}"
+                                VerticalAlignment="Center"
+                                Height="46"
+                                Tag="23" Padding="20 0 20 0"
+                                Content="Создать объявление" Click="OpenFormAdding"/>
+                    </DockPanel>
+                </Grid>
             </Border>
             <ListBox x:Name="advertisementsList"
                      HorizontalContentAlignment="Stretch"
@@ -56,7 +51,8 @@
                                     BorderBrush="#3292D0"
                                     BorderThickness="2"
                                     Padding="10"
-                                    Margin="0,5,0,5">
+                                    Margin="0,5,0,5"
+                                    GotFocus="OpenFormAdding">
                                 <StackPanel Margin="5" Orientation="Horizontal">
                                     <Border BorderBrush="#282828"
                                     CornerRadius="90"
@@ -78,28 +74,41 @@
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
                                                 <TextBlock FontWeight="Bold" FontSize="18" Text="Описание: "/>
-                                                <TextBlock Text="{Binding GetStringColorAnimal}" FontSize="18" FontWeight="Regular"/>
+                                                <TextBlock Text="{Binding Description}" FontSize="18" FontWeight="Regular"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                                 <TextBlock FontWeight="Bold" FontSize="18" Text="Локация: "/>
                                                 <TextBlock Text="{Binding LocationFind}" FontSize="18" FontWeight="Regular"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                                                <TextBlock FontWeight="Bold" FontSize="18" Text="Дата: "/>
-                                                <TextBlock Text="{Binding GetFormatStringDateFind}" FontSize="18" FontWeight="Regular"/>
+                                                <TextBlock FontWeight="Bold" FontSize="18" Text="{Binding Path=GetStringDateTypeAdvertisement}"/>
+                                                <TextBlock Text=": " FontSize="18" FontWeight="Bold"/>
+                                                <TextBlock Text="{Binding GetFormatStringDateType}" FontSize="18" FontWeight="Regular"/>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                                            <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                                 <TextBlock FontWeight="Bold" FontSize="18" Text="Номер телефона: "/>
                                                 <TextBlock Text="{Binding Phone}" FontSize="18" FontWeight="Regular"/>
                                             </StackPanel>
 
                                         </StackPanel>
-                                        <StackPanel Margin="20 0 0 0">
-                                            <TextBlock Text="Дополнительные приметы"
-                                               FontWeight="Bold" FontSize="22"/>
-                                            <TextBlock Text="{Binding Marks}" MaxWidth="500"
-                                               TextWrapping="Wrap"
-                                               FontSize="18" FontWeight="Regular"/>
+                                        <StackPanel Margin="20 0 0 0" Width="550" HorizontalAlignment="Right">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="160"/>
+                                                    <RowDefinition Height="20"/>
+                                                </Grid.RowDefinitions>
+                                                <StackPanel>
+                                                    <TextBlock Text="Дополнительные приметы"
+                                                           FontWeight="Bold" FontSize="22"/>
+                                                    <TextBlock Text="{Binding Marks}" MaxWidth="450"
+                                                           TextWrapping="Wrap" HorizontalAlignment="Left"
+                                                           FontSize="18" FontWeight="Regular"/>
+                                                </StackPanel>
+                                                <StackPanel Grid.Row="1" Orientation="Horizontal" 
+                                                            VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                                                    <TextBlock Text="{Binding GetFormatStringDateCreate}" FontSize="18" FontWeight="Regular"/>
+                                                </StackPanel>
+                                            </Grid>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
@@ -189,6 +198,34 @@
                                   VerticalContentAlignment="Center"
                                   Content="Найденные"/>
                     </StackPanel>
+                    <StackPanel Margin="0 25 0 0" Orientation="Vertical">
+                        <TextBlock Text="Дата создания объявления"
+                                       FontSize="18" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                    Margin=" 0 10 0 0">
+                            <TextBlock Text="От" FontSize="16" Margin="0 0 10 0"/>
+                            <DatePicker x:Name="menuFilterAdRegisterDate">
+                                <DatePicker.Resources>
+                                    <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="IsReadOnly" Value="True"/>
+                                    </Style>
+                                </DatePicker.Resources>
+                            </DatePicker>
+                        </StackPanel>
+                        <TextBlock Text="Дата находки/потери животного"
+                                       FontSize="18" Margin="0 15 0 0" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                    Margin=" 0 10 0 0">
+                            <TextBlock Text="От" FontSize="16" Margin="0 0 10 0"/>
+                            <DatePicker x:Name="menuFilterAnimalTypeDate">
+                                <DatePicker.Resources>
+                                    <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="IsReadOnly" Value="True"/>
+                                    </Style>
+                                </DatePicker.Resources>
+                            </DatePicker>
+                        </StackPanel>
+                    </StackPanel>
                     <StackPanel Margin="0 45 0 0" VerticalAlignment="Bottom" Orientation="Horizontal">
                         <Button x:Name="menuFilter_button_cancel"
                             Style="{StaticResource AuthorizationButtonTheme}" 
@@ -228,7 +265,7 @@
                                TextAlignment="Center"
                                FontSize="30"/>
                     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan ="2">
-                        <Image x:Name="newAd_img"
+                        <Image x:Name="formAdding_image"
                                Source="../../../../Properties/Icons/cat.jpg"
                                Width="200" Height="150"/>
                         <Button x:Name="upload_new_img"
@@ -236,7 +273,7 @@
                                 Content="Загрузить фото" Width="200"
                                 Padding="10, 5" Height="40"/>
                     </StackPanel>
-                    <RadioButton Grid.Row="2" Grid.Column="0" x:Name="newAd_dog"
+                    <RadioButton Grid.Row="2" Grid.Column="0" x:Name="formAdding_radio_dog"
                                  Width="160" Height="80">
                         <RadioButton.Style>
                             <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
@@ -257,7 +294,6 @@
                                     </Setter>
                                     <Setter Property="BorderBrush" Value="#CCC"/>
                                 </Style.Setters>
-
                                 <Style.Triggers>
                                     <Trigger Property="IsChecked" Value="True">
                                         <Setter Property="BorderBrush" Value="#3292D0"/>
@@ -266,7 +302,7 @@
                             </Style>
                         </RadioButton.Style>
                     </RadioButton>
-                    <RadioButton Grid.Row="2" Grid.Column="1"  x:Name="newAd_cat"
+                    <RadioButton Grid.Row="2" Grid.Column="1"  x:Name="formAdding_radio_cat"
                                  Width="160" Height="80">
                         <RadioButton.Style>
                             <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
@@ -299,28 +335,28 @@
                     <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="Тип Объявления" 
                                HorizontalAlignment="Center"
                                FontSize="20"/>
-                    <RadioButton Grid.Row="4" Grid.Column="0" FontSize="18" x:Name="newAd_lost"
+                    <RadioButton Grid.Row="4" Grid.Column="0" FontSize="18" x:Name="formAdding_radio_lost"
                                  HorizontalAlignment="Center"
                                  VerticalContentAlignment="Center"
                                  Content="Пропажа"/>
-                    <RadioButton Grid.Row="4" Grid.Column="1"  FontSize="18" x:Name="newAd_found"
+                    <RadioButton Grid.Row="4" Grid.Column="1"  FontSize="18" x:Name="formAdding_radio_find"
                                  HorizontalAlignment="Center"
                                  VerticalContentAlignment="Center"
                                  Content="Находка"/>
                     <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
                                Text="Описание:"
                                FontSize="18"/>
-                    <TextBox  Grid.Row="5" Grid.Column="1" x:Name="newAd_animal_desc"
+                    <TextBox  Grid.Row="5" Grid.Column="1" x:Name="formAdding_description"
                               Padding="5" Width="200" Height="30"/>
                     <TextBlock Grid.Row="6" Grid.Column="0" Text="Адрес:"
                                Padding="5" FontSize="18"/>
-                    <TextBox Grid.Row="6" Grid.Column="1" x:Name="newAd_address" 
+                    <TextBox Grid.Row="6" Grid.Column="1" x:Name="formAdding_address" 
                              Padding="5"
                              Width="200" Height="30"/>
                     
                     <TextBlock Grid.Row="7" Grid.Column="0" Text="Дата:" FontSize="18"
                                Padding="5"/>
-                    <DatePicker Grid.Row="7" Grid.Column="1" x:Name="newAd_date" 
+                    <DatePicker Grid.Row="7" Grid.Column="1" x:Name="formAdding_date" 
                                 Width="200" Height="30" 
                                 Padding="5">
                         <DatePicker.Resources>
@@ -333,20 +369,21 @@
                     <TextBlock Grid.Row="8" Grid.Column="0" Text="Дополнительные приметы:" 
                                TextWrapping="Wrap" Padding="5"
                                FontSize="18"/>
-                    <TextBox Grid.Row="8" Grid.Column="1" x:Name="newAd_marks"
+                    <TextBox Grid.Row="8" Grid.Column="1" x:Name="formAdding_marks"
                              Padding="5"
                              TextWrapping="Wrap" Height="60"/>
                     
                     <StackPanel Grid.Row="9" Grid.ColumnSpan="2" 
                                 Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button x:Name="newAd_cancel"
+                        <Button x:Name="formAdding_button_cancel"
                                 Style="{StaticResource AuthorizationButtonTheme}"
                                 Height="40" Width="160"
                                 Content="Отмена"/>
                         <Grid Width="20"/>
-                        <Button x:Name="newAd_apply"
+                        <Button x:Name="formAdding_button_apply"
                                 Style="{StaticResource AuthorizationButtonTheme}"
                                 Height="40" Width="160"
+                                Click="CreateAdvertisment"
                                 Content="Создать"/>
                     </StackPanel>
                 </Grid>

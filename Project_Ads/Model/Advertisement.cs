@@ -16,9 +16,15 @@ namespace Project_Ads.Model
         public static Dictionary<Advertisement.Type, string> StringFormatTypeAdvertisement = new Dictionary<Type, string>()
         {
             {Type.Find, "Находка"},
-            { Type.Lose , "Пропажа"}
+            {Type.Lose , "Пропажа"}
         };
-        
+
+        public static Dictionary<Advertisement.Type, string> StringFormatDateTypeAdvertisement = new Dictionary<Type, string>()
+        {
+            {Type.Find, "Дата находки"},
+            {Type.Lose , "Дата пропажи"}
+        };
+
         public int Id { get; set; }
 
         private Advertisement.Type _typeAdvertisement;
@@ -33,7 +39,10 @@ namespace Project_Ads.Model
             }
         }
         public string GetStringTypeAdvertisement => StringFormatTypeAdvertisement[_typeAdvertisement];
-        
+        public string GetStringDateTypeAdvertisement => StringFormatDateTypeAdvertisement[_typeAdvertisement];
+
+
+
         private Animal.Type _typeAnimal;
         public string GetStringTypeAnimal => Animal.convertToType[_typeAnimal];
         public Animal.Type TypeAnimal
@@ -48,16 +57,15 @@ namespace Project_Ads.Model
         }
 
         
-        private Animal.Color _colorAnimal;
-        public string GetStringColorAnimal => Animal.convertToColor[_colorAnimal];
-        public Animal.Color ColorAnimal
+        private string _description;
+
+        public string Description
         {
-            get => _colorAnimal;
+            get => _description;
             set
             {
-                _colorAnimal = value;  
-                OnPropertyChanged("GetStringColorAnimal");
-                OnPropertyChanged("ColorAnimal");
+                _description = value;
+                OnPropertyChanged("Description");
             }
         }
 
@@ -68,19 +76,32 @@ namespace Project_Ads.Model
             set { _locationFind = value; OnPropertyChanged("LocationFind");}
         }
 
-        private DateTime _dateFind;
-        public DateTime DateFind
+        private DateTime _typeDate;
+        public DateTime DateType
         {
-            get => _dateFind;
+            get => _typeDate;
             set 
             { 
-                _dateFind = value;
-                OnPropertyChanged("DateFind"); 
-                OnPropertyChanged("GetFormatStringDateFind"); 
+                _typeDate = value;
+                OnPropertyChanged("DateType"); 
+                OnPropertyChanged("GetFormatStringDateType"); 
             }
         }
-        public string GetFormatStringDateFind => _dateFind.ToString("d");
-        
+        public string GetFormatStringDateType => _typeDate.ToString("d");
+
+        private DateTime _dateCreate;
+        public DateTime DateCreate
+        {
+            get => _dateCreate;
+            set
+            {
+                _dateCreate = value;
+                OnPropertyChanged("DateCreate");
+                OnPropertyChanged("GetFormatStringDateCreate");
+            }
+        }
+        public string GetFormatStringDateCreate => _dateCreate.ToString("d");
+
 
         private string _marks; 
         
@@ -90,7 +111,7 @@ namespace Project_Ads.Model
         public string Marks
         {
             get => _marks;
-            set { _marks = value;  OnPropertyChanged("Marks");}
+            set { _marks = value;  OnPropertyChanged("Marks");} 
         }
 
         private string _phone;
@@ -104,7 +125,10 @@ namespace Project_Ads.Model
         public string ImageUrl
         {
             get => _imageUrl;
-            set { _imageUrl = App.PATH + value; OnPropertyChanged("ImageUrl"); }
+            set { _imageUrl = value; OnPropertyChanged("ImageUrl"); }
         }
+
+        public string DeleteImageUrl => $@"{App.PATH}\Icons\trash_24px.png";
+
     }
 }

@@ -19,6 +19,7 @@ namespace Project_Ads.MVVM.View
     {
         public Filter Filter { get; set; } = new Filter();
         private Filter _preventFilter = new Filter();
+        private User user = App.User;
         
         private ObservableCollection<Advertisement> _advertisements { get; set; } =
             new ObservableCollection<Advertisement>();
@@ -29,61 +30,76 @@ namespace Project_Ads.MVVM.View
         public BoardView()
         {
             InitializeComponent();
-
-            menuFilter.DataContext = Filter;
-
-            _advertisements.CollectionChanged += (s, e) => {
-                if (e.Action == NotifyCollectionChangedAction.Add)
-                {
-                    var item = _advertisements[_advertisements.Count - 1];
-                    if (Filter.IsItemFilter(item))
-                        _filterAdvertisements.Add(item);
-                }
-            };
             
+            menuFilter.DataContext = Filter;
+            userName.DataContext = user;
+
+            _advertisements.CollectionChanged += (s, e) =>
+            {
+                _filterAdvertisements.Clear();
+                var _list = _advertisements.Where(Filter.IsItemFilter).OrderByDescending(s => s.DateCreate);
+                foreach (var add in _list)
+                {
+                    _filterAdvertisements.Add(add);
+                }
+               
+            };
+
+            #region Add
             _advertisements.Add(new Advertisement() {
-                Id = 1, ImageUrl ="/Icons/dogs.png", 
+                Id = 1, ImageUrl =$@"{App.PATH}/Icons/dogs.png",
                 TypeAdvertisement = Advertisement.Type.Find,
                 TypeAnimal = Animal.Type.Dog,
                 Marks= "Срочно !!!! нашли щеночка После 21:00 некуда деть." +
                        "\nХозяева отзовитесь Голубой ошейник. После 21:00 некуда деть",
-                ColorAnimal = Animal.Color.Black,Phone = "8 999 586 1516",
-                DateFind = DateTime.Now,
+                
+                Description = "Рыжий окрас",
+                Phone = "8 999 586 1516",
+                DateType = DateTime.Now,
+                DateCreate = DateTime.Now,
                 LocationFind = "3 мкр 35 дом"
             });
             _advertisements.Add(new Advertisement() {
-                Id = 2, ImageUrl = @"\Icons\cat.jpg",
+                Id = 2, ImageUrl = $@"{App.PATH}\Icons\cat.jpg",
                 TypeAdvertisement = Advertisement.Type.Lose,
                 TypeAnimal = Animal.Type.Cat, Marks = App.PATH,
-                Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
-                DateFind = DateTime.Today,
+                Phone = "8 800 555 3535", 
+                Description = "Черный окрас",
+                DateType = DateTime.Today,
+                DateCreate = DateTime.Today,
                 LocationFind = App.PATH
             });
             _advertisements.Add(new Advertisement() {
-                    Id = 3, ImageUrl = "/Icons/cat.jpg",
+                    Id = 3, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
                     TypeAdvertisement = Advertisement.Type.Find,
                     TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
-                    Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
-                    DateFind = DateTime.Today,
+                    Phone = "8 800 555 3535",
+                    Description = "Черный окрас",
+                    DateType = DateTime.Today,
+                    DateCreate = DateTime.Today,
                     LocationFind = "На высоких горах"
                 });
             _advertisements.Add(new Advertisement() {
-                Id = 4, ImageUrl = "/Icons/cat.jpg",
+                Id = 4, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
                 TypeAdvertisement = Advertisement.Type.Lose,
                 TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
-                Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
-                DateFind = DateTime.Today,
+                Phone = "8 800 555 3535", 
+                Description = "Белый окрас",
+                DateType = DateTime.Today,
+                DateCreate = DateTime.Now,
                 LocationFind = "На высоких горах"
             });
             _advertisements.Add(new Advertisement() {
-                Id = 5, ImageUrl = "/Icons/cat.jpg",
+                Id = 5, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
                 TypeAdvertisement = Advertisement.Type.Find,
                 TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
-                Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
-                DateFind = DateTime.Today,
+                Phone = "8 800 555 3535", 
+                Description = "Голубой окрас",
+                DateType = DateTime.Today,
+                DateCreate = DateTime.Today,
                 LocationFind = "На высоких горах"
             });
-            
+            #endregion
             advertisementsList.Items.Clear();
             advertisementsList.ItemsSource = _filterAdvertisements;
 
@@ -91,8 +107,8 @@ namespace Project_Ads.MVVM.View
             menuFilter_button_apply.Click += ApplyFilters;
             menuFilter_button_apply.Click += CloseMenuFilter;
             
-            newAd_cancel.Click += CloseNewAdPopup;
-            newAd_apply.Click += CloseMenuFilter;
+            formAdding_button_cancel.Click += CloseFormAdding;
+            formAdding_button_apply.Click += CloseMenuFilter;
 
             upload_new_img.Click += LoadAnimalImage;
 
@@ -124,11 +140,10 @@ namespace Project_Ads.MVVM.View
             FilterListAdvertisment();
         }
 
-        
-        
-        private void OpenNewAdPopup(object o = null, RoutedEventArgs e = null) => formAdding.IsOpen = true;
 
-        private void CloseNewAdPopup(object o = null, RoutedEventArgs e = null) => formAdding.IsOpen = false;
+        private void OpenFormAdding(object o = null, RoutedEventArgs e = null) => formAdding.IsOpen = true;
+
+        private void CloseFormAdding(object o = null, RoutedEventArgs e = null) => formAdding.IsOpen = false;
 
         private void LoadAnimalImage(object o, RoutedEventArgs e)
         {
@@ -136,7 +151,7 @@ namespace Project_Ads.MVVM.View
             if(openFileDialog.ShowDialog() == true)
             {
                 Uri fileUri = new Uri(openFileDialog.FileName);
-                newAd_img.Source = new BitmapImage(fileUri);
+                formAdding_image.Source = new BitmapImage(fileUri);
             }
         }
 
@@ -144,6 +159,32 @@ namespace Project_Ads.MVVM.View
         {
             var a = (Advertisement) advertisementsList.SelectedItem;
             Console.WriteLine(a.Phone);
+        }
+
+        private void CreateAdvertisment(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var newAddvertisment = new Advertisement()
+                {
+                    Marks = formAdding_marks.Text,
+                    Description = formAdding_description.Text,
+                    DateCreate = DateTime.Now,
+                    DateType = formAdding_date.SelectedDate.Value,
+                    ImageUrl = formAdding_image.Source.ToString(),
+                    LocationFind = formAdding_address.Text,
+                    TypeAdvertisement = formAdding_radio_find.IsChecked.Value ? Advertisement.Type.Find : Advertisement.Type.Lose,
+                    TypeAnimal = formAdding_radio_cat.IsChecked.Value ? Animal.Type.Cat :Animal.Type.Dog,
+                    Phone = "8000-999-99-99"
+                    // Добавить телефон
+                };
+                _advertisements.Add( newAddvertisment);
+                formAdding.IsOpen = false;
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Поля введены неккоректно");
+            }
         }
     }
 }
