@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Project_Ads.Model;
 
 namespace Project_Ads
 {
@@ -13,6 +14,19 @@ namespace Project_Ads
     /// </summary>
     public partial class App : Application
     {
-        public  static  string PATH = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\Properties";
+        public static string PATH = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\Properties";
+        private static User _user = new User();
+
+        public User User
+        {
+            get => _user;
+            set => _user = value;
+        }
+
+        public App()
+        { // пример создания юзера, наверное
+            User.UserRights = new Rights(false, false, false, false, false);
+        }
+        
     }
 }
