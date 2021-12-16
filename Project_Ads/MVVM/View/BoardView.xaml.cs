@@ -42,13 +42,14 @@ namespace Project_Ads.MVVM.View
             };
             
             _advertisements.Add(new Advertisement() {
-                Id = 1, ImageUrl ="/Icons/dogs.png", 
+                Id = 1, ImageUrl ="/Icons/dogs.png",
                 TypeAdvertisement = Advertisement.Type.Find,
                 TypeAnimal = Animal.Type.Dog,
                 Marks= "Срочно !!!! нашли щеночка После 21:00 некуда деть." +
                        "\nХозяева отзовитесь Голубой ошейник. После 21:00 некуда деть",
                 ColorAnimal = Animal.Color.Black,Phone = "8 999 586 1516",
-                DateFind = DateTime.Now,
+                DateType = DateTime.Now,
+                DateCreate = DateTime.Now,
                 LocationFind = "3 мкр 35 дом"
             });
             _advertisements.Add(new Advertisement() {
@@ -56,7 +57,8 @@ namespace Project_Ads.MVVM.View
                 TypeAdvertisement = Advertisement.Type.Lose,
                 TypeAnimal = Animal.Type.Cat, Marks = App.PATH,
                 Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
-                DateFind = DateTime.Today,
+                DateType = DateTime.Today,
+                DateCreate = DateTime.Today,
                 LocationFind = App.PATH
             });
             _advertisements.Add(new Advertisement() {
@@ -64,7 +66,8 @@ namespace Project_Ads.MVVM.View
                     TypeAdvertisement = Advertisement.Type.Find,
                     TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
                     Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
-                    DateFind = DateTime.Today,
+                    DateType = DateTime.Today,
+                    DateCreate = DateTime.Today,
                     LocationFind = "На высоких горах"
                 });
             _advertisements.Add(new Advertisement() {
@@ -72,7 +75,8 @@ namespace Project_Ads.MVVM.View
                 TypeAdvertisement = Advertisement.Type.Lose,
                 TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
                 Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
-                DateFind = DateTime.Today,
+                DateType = DateTime.Today,
+                DateCreate = DateTime.Now,
                 LocationFind = "На высоких горах"
             });
             _advertisements.Add(new Advertisement() {
@@ -80,7 +84,8 @@ namespace Project_Ads.MVVM.View
                 TypeAdvertisement = Advertisement.Type.Find,
                 TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
                 Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
-                DateFind = DateTime.Today,
+                DateType = DateTime.Today,
+                DateCreate = DateTime.Today,
                 LocationFind = "На высоких горах"
             });
             
