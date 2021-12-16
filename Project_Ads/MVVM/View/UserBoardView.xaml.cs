@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -37,7 +37,7 @@ namespace Project_Ads.MVVM.View
                     Marks= "Срочно !!!! нашли щеночка После 21:00 некуда деть." +
                                                   "\nХозяева отзовитесь Голубой ошейник. После 21:00 некуда деть",
                     ColorAnimal = Animal.Color.Black,Phone = "8 999 586 1516",
-                    DateFind = DateTime.Now,
+                    DateType = DateTime.Now,
                     LocationFind = "3 мкр 35 дом"
                 },
                 new Advertisement()
@@ -46,7 +46,16 @@ namespace Project_Ads.MVVM.View
                     TypeAdvertisement = Advertisement.Type.Lose,
                     TypeAnimal = Animal.Type.Cat, Marks = App.PATH,
                     Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
-                    DateFind = DateTime.Today,
+                    DateType = DateTime.Today,
+                    LocationFind = App.PATH
+                },
+                new Advertisement()
+                {
+                    Id = 2, ImageUrl = @"\Icons\cat.jpg",
+                    TypeAdvertisement = Advertisement.Type.Lose,
+                    TypeAnimal = Animal.Type.Cat, Marks = App.PATH,
+                    Phone = "8 800 555 3535", ColorAnimal = Animal.Color.Blue,
+                    DateType = DateTime.Today,
                     LocationFind = App.PATH
                 },
             };
