@@ -84,7 +84,7 @@
                                                 </StackPanel>
                                                 <StackPanel Grid.Column="1" VerticalAlignment="Top"
                                                             HorizontalAlignment="Left">
-                                                    <Button Click="Button_Click" x:Name="DeleteButton"
+                                                    <Button Click="DeleteButton_OnClick"
                                                             Width="24" Height="24"
                                                             Style="{StaticResource DeleteButtonTheme}">
                                                         <Image Source="{Binding DeleteImageUrl}"/>
