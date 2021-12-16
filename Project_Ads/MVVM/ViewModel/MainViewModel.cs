@@ -8,12 +8,15 @@ namespace Project_Ads.MVVM.ViewModel
         public UserBoardViewModel UserBoardVm { get; set; }
         public ProfileViewModel ProfileVM { get; set; }
         public RegistrationViewModel RegistrationVM { get; set; }
+        public AccountViewModel AccountVM { get; set; }
+
 
         public RelayCommand HomeViewСommand { get; set; }
         public RelayCommand UserBoardViewСommand { get; set; }
-        static public RelayCommand ProfileViewСommand { get; set; }
+        public static RelayCommand ProfileViewСommand { get; set; }
         public static RelayCommand RegistrationViewСommand { get; set; }
-        
+        public static RelayCommand AccountViewCommand { get; set; }
+
         private object _currentView;
 
         public object CurrentView
@@ -32,6 +35,7 @@ namespace Project_Ads.MVVM.ViewModel
             ProfileVM = new ProfileViewModel();
             RegistrationVM = new RegistrationViewModel();
             UserBoardVm = new UserBoardViewModel();
+            AccountVM = new AccountViewModel();
 
             CurrentView = BoardVm;
             
@@ -50,6 +54,10 @@ namespace Project_Ads.MVVM.ViewModel
             UserBoardViewСommand = new RelayCommand((o) =>
             {
                 CurrentView = UserBoardVm;
+            });
+            AccountViewCommand = new RelayCommand((o) =>
+            {
+                CurrentView = AccountVM;
             });
         }
     }

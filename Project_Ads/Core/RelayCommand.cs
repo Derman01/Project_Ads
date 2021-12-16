@@ -12,7 +12,6 @@ namespace Project_Ads.Core
         {
             return _canExecute == null || _canExecute(parameter);
         }
-
         public void Execute(object parameter)
         {
             _execute(parameter); 
