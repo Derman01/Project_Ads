@@ -67,18 +67,15 @@ namespace Project_Ads.MVVM.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var btn = (Button)e.OriginalSource;
-            if (btn.DataContext is Advertisement)
-            {
-                var data = (Advertisement)btn.DataContext;
-                MessageBox.Show($"{data.Id}");
-            }
-            var a = (Advertisement)advertisementsList.SelectedItem;
+            var btn = (Button)e.OriginalSource; //определение родителя кнопки
+            var data = (Advertisement)btn.DataContext; 
+            MessageBox.Show($"{data.Id}");
+            
         }
 
         private void advertisementsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            var advertisement = (Advertisement)advertisementsList.SelectedItem;
             openAdvertisement.IsOpen = true;
         }
 
