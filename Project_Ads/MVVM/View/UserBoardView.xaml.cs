@@ -65,17 +65,9 @@ namespace Project_Ads.MVVM.View
 
             advertisementsList.Items.Clear();
             advertisementsList.ItemsSource = _advertisements;
-            
-        }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var btn = (Button)e.OriginalSource; //определение родителя кнопки
-            var data = (Advertisement)btn.DataContext; 
-            MessageBox.Show($"{data.Id}");
-            
         }
-
+        
         private void AdConfirm_Click(object sender, RoutedEventArgs e)
         {
             //запись в бд об изменениях
@@ -95,6 +87,14 @@ namespace Project_Ads.MVVM.View
         private void AdvertisementsList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             openAdvertisement.IsOpen = true;
+        }
+
+        private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+            var btn = (Button)e.OriginalSource; //определение родителя кнопки
+            var data = (Advertisement)btn.DataContext; 
+            MessageBox.Show($"{data.Id}");
         }
     }
 }

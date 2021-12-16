@@ -19,6 +19,7 @@ namespace Project_Ads.MVVM.View
     {
         public Filter Filter { get; set; } = new Filter();
         private Filter _preventFilter = new Filter();
+        private User user = App.User;
         
         private ObservableCollection<Advertisement> _advertisements { get; set; } =
             new ObservableCollection<Advertisement>();
@@ -29,8 +30,9 @@ namespace Project_Ads.MVVM.View
         public BoardView()
         {
             InitializeComponent();
-
+            
             menuFilter.DataContext = Filter;
+            userName.DataContext = user;
 
             _advertisements.CollectionChanged += (s, e) =>
             {

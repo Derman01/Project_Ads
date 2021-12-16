@@ -10,33 +10,28 @@
         <DockPanel>
             <Border DockPanel.Dock="Top" Height="80" Margin="10" Padding="15"
                     CornerRadius="40" BorderBrush="#3292D0" BorderThickness="2">
-                <DockPanel>
-                    <Border Background="#F1F1F1" CornerRadius="20" 
-                        Height="50" HorizontalAlignment="Left">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBox MinWidth="200" MaxWidth="300" Background="Transparent" Height="50" 
-                                 Style="{StaticResource placeHolder}"
-                                 Padding="10 0 10 0" BorderBrush="Transparent" 
-                                 FontSize="18" FontWeight="Regular"
-                                 VerticalContentAlignment="Center"
-                                 BorderThickness="0"
-                                  Tag="Поиск по номеру.."/>
-                            <Image Panel.ZIndex="4" Width="40" Height="40" Stretch="Fill" Source="/MVVM/View/icons8_search_60px_2.png" Margin="0,0,10,0"/>
-
-                        </StackPanel>
-                    </Border>
-                    <Button Style="{StaticResource AuthorizationButtonTheme}"
-                            Tag="23"
-                            VerticalAlignment="Center"        
-                            Height="46" Padding="20 0 20 0" Margin="30 0 0 0 "
-                            Content="+Фильтры" Click="OpenMenuFilter"/>
-                    <Button Style="{StaticResource AuthorizationButtonTheme}"
-                            VerticalAlignment="Center"
-                            Height="46"
-                            Tag="23" Padding="20 0 20 0"
-                            HorizontalAlignment="Right"
-                            Content="Создать объявление" Click="OpenFormAdding"/>
-                </DockPanel>
+                <Grid>
+                    <DockPanel Margin="20 0 0 0">
+                        <TextBlock Text="Добро пожаловать, " FontSize="24"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock x:Name="userName" Text="{Binding UserName}"
+                                   VerticalAlignment="Center"
+                                   FontSize="24"/>
+                    </DockPanel>
+                    <DockPanel HorizontalAlignment="Right">
+                        <Button Style="{StaticResource AuthorizationButtonTheme}"
+                                Tag="23"
+                                VerticalAlignment="Center"
+                                Height="46"
+                                Padding="20 0 20 0" Margin="0 0 20 0"
+                                Content="+Фильтры" Click="OpenMenuFilter"/>
+                        <Button Style="{StaticResource AuthorizationButtonTheme}"
+                                VerticalAlignment="Center"
+                                Height="46"
+                                Tag="23" Padding="20 0 20 0"
+                                Content="Создать объявление" Click="OpenFormAdding"/>
+                    </DockPanel>
+                </Grid>
             </Border>
             <ListBox x:Name="advertisementsList"
                      HorizontalContentAlignment="Stretch"
