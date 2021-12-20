@@ -17,7 +17,7 @@ namespace Project_Ads
         public static string PATH = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\Properties";
         private static User _user;
 
-            public static User User
+        public static User User
         {
             get => _user;
             set => _user = value;
@@ -25,9 +25,8 @@ namespace Project_Ads
 
         public App()
         { // пример создания юзера, наверное
-            User = new User();
-            User.UserRights = new Rights(false, false, false, false, false);
-            User.UserName = "Гость";
+            var defaulRights = new Rights(false, false, false, false, false);
+            User = new User() {UserRights = defaulRights, UserName = "Гость", UserRole = User.Role.NotAuthorizedUser };
         }
         
     }
