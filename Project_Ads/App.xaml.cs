@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Npgsql;
+using Project_Ads.Core;
 using Project_Ads.Model;
 
 namespace Project_Ads
@@ -16,6 +18,7 @@ namespace Project_Ads
     {
         public static string PATH = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\Properties";
         private static User _user;
+        public static NpgsqlConnection Conn = new NpgsqlConnection(Connection.ConnString);
 
         public static User User
         {
