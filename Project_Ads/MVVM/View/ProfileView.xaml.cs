@@ -6,7 +6,6 @@ namespace Project_Ads.MVVM.View
 {
     public partial class ProfileView : UserControl
     {
-        private User user = App.User;
 
         public ProfileView()
         {

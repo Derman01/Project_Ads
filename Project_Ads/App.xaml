@@ -31,9 +31,6 @@
             <DataTemplate DataType="{x:Type viewModel:UserBoardViewModel}">
                 <view:UserBoardView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:AccountViewModel}">
-                <view:AccountView/>
-            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
