@@ -47,57 +47,57 @@ namespace Project_Ads.MVVM.View
 
             #region Add
             _advertisements.Add(new Advertisement() {
-                Id = 1, ImageUrl =$@"{App.PATH}/Icons/dogs.png",
+                RegNum = 1, ImageUrl =$@"{App.PATH}/Icons/dogs.png",
                 TypeAdvertisement = Advertisement.Type.Find,
-                TypeAnimal = Animal.Type.Dog,
+                TypesAnimal = Animal.Type.Dog,
                 Marks= "Срочно !!!! нашли щеночка После 21:00 некуда деть." +
                        "\nХозяева отзовитесь Голубой ошейник. После 21:00 некуда деть",
                 
                 Description = "Рыжий окрас",
                 Phone = "8 999 586 1516",
-                DateType = DateTime.Now,
+                DateEvent = DateTime.Now,
                 DateCreate = DateTime.Now,
-                LocationFind = "3 мкр 35 дом"
+                Address = "3 мкр 35 дом"
             });
             _advertisements.Add(new Advertisement() {
-                Id = 2, ImageUrl = $@"{App.PATH}\Icons\cat.jpg",
+                RegNum = 2, ImageUrl = $@"{App.PATH}\Icons\cat.jpg",
                 TypeAdvertisement = Advertisement.Type.Lose,
-                TypeAnimal = Animal.Type.Cat, Marks = App.PATH,
+                TypesAnimal = Animal.Type.Cat, Marks = App.PATH,
                 Phone = "8 800 555 3535", 
                 Description = "Черный окрас",
-                DateType = DateTime.Today,
+                DateEvent = DateTime.Today,
                 DateCreate = DateTime.Today,
-                LocationFind = App.PATH
+                Address = App.PATH
             });
             _advertisements.Add(new Advertisement() {
-                    Id = 3, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
+                    RegNum = 3, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
                     TypeAdvertisement = Advertisement.Type.Find,
-                    TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
+                    TypesAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
                     Phone = "8 800 555 3535",
                     Description = "Черный окрас",
-                    DateType = DateTime.Today,
+                    DateEvent = DateTime.Today,
                     DateCreate = DateTime.Today,
-                    LocationFind = "На высоких горах"
+                    Address = "На высоких горах"
                 });
             _advertisements.Add(new Advertisement() {
-                Id = 4, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
+                RegNum = 4, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
                 TypeAdvertisement = Advertisement.Type.Lose,
-                TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
+                TypesAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
                 Phone = "8 800 555 3535", 
                 Description = "Белый окрас",
-                DateType = DateTime.Today,
+                DateEvent = DateTime.Today,
                 DateCreate = DateTime.Now,
-                LocationFind = "На высоких горах"
+                Address = "На высоких горах"
             });
             _advertisements.Add(new Advertisement() {
-                Id = 5, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
+                RegNum = 5, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
                 TypeAdvertisement = Advertisement.Type.Find,
-                TypeAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
+                TypesAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
                 Phone = "8 800 555 3535", 
                 Description = "Голубой окрас",
-                DateType = DateTime.Today,
+                DateEvent = DateTime.Today,
                 DateCreate = DateTime.Today,
-                LocationFind = "На высоких горах"
+                Address = "На высоких горах"
             });
             #endregion
             advertisementsList.Items.Clear();
@@ -170,11 +170,11 @@ namespace Project_Ads.MVVM.View
                     Marks = formAdding_marks.Text,
                     Description = formAdding_description.Text,
                     DateCreate = DateTime.Now,
-                    DateType = formAdding_date.SelectedDate.Value,
+                    DateEvent = formAdding_date.SelectedDate.Value,
                     ImageUrl = formAdding_image.Source.ToString(),
-                    LocationFind = formAdding_address.Text,
+                    Address = formAdding_address.Text,
                     TypeAdvertisement = formAdding_radio_find.IsChecked.Value ? Advertisement.Type.Find : Advertisement.Type.Lose,
-                    TypeAnimal = formAdding_radio_cat.IsChecked.Value ? Animal.Type.Cat :Animal.Type.Dog,
+                    TypesAnimal = formAdding_radio_cat.IsChecked.Value ? Animal.Type.Cat :Animal.Type.Dog,
                     Phone = "8000-999-99-99"
                     // Добавить телефон
                 };

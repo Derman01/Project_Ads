@@ -31,35 +31,35 @@ namespace Project_Ads.MVVM.View
             {
                 new Advertisement()
                 {
-                    Id = 1, ImageUrl =$@"{App.PATH}/Icons/dogs.png",
+                    RegNum = 1, ImageUrl =$@"{App.PATH}/Icons/dogs.png",
                     TypeAdvertisement = Advertisement.Type.Find,
-                    TypeAnimal = Animal.Type.Dog,
+                    TypesAnimal = Animal.Type.Dog,
                     Marks= "Срочно !!!! нашли щеночка После 21:00 некуда деть." +
                                                   "\nХозяева отзовитесь Голубой ошейник. После 21:00 некуда деть",
                     Description = "Черный",
                     Phone = "8 999 586 1516",
-                    DateType = DateTime.Now,
-                    LocationFind = "3 мкр 35 дом"
+                    DateEvent = DateTime.Now,
+                    Address = "3 мкр 35 дом"
                 },
                 new Advertisement()
                 {
-                    Id = 2, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
+                    RegNum = 2, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
                     TypeAdvertisement = Advertisement.Type.Lose,
-                    TypeAnimal = Animal.Type.Cat, Marks = App.PATH,
+                    TypesAnimal = Animal.Type.Cat, Marks = App.PATH,
                     Phone = "8 800 555 3535", 
                     Description = "Голубой окрас",
-                    DateType = DateTime.Today,
-                    LocationFind = App.PATH
+                    DateEvent = DateTime.Today,
+                    Address = App.PATH
                 },
                 new Advertisement()
                 {
-                    Id = 3, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
+                    RegNum = 3, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
                     TypeAdvertisement = Advertisement.Type.Lose,
-                    TypeAnimal = Animal.Type.Cat, Marks = App.PATH,
+                    TypesAnimal = Animal.Type.Cat, Marks = App.PATH,
                     Phone = "8 800 555 3535",
                     Description = "Голубой окрас",
-                    DateType = DateTime.Today,
-                    LocationFind = App.PATH
+                    DateEvent = DateTime.Today,
+                    Address = App.PATH
                 },
             };
 
@@ -94,7 +94,7 @@ namespace Project_Ads.MVVM.View
             
             var btn = (Button)e.OriginalSource; //определение родителя кнопки
             var data = (Advertisement)btn.DataContext; 
-            MessageBox.Show($"{data.Id}");
+            MessageBox.Show($"{data.RegNum}");
         }
     }
 }

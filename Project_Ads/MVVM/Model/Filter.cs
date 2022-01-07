@@ -52,8 +52,8 @@ namespace Project_Ads.Model
         {
             return (item.TypeAdvertisement == Advertisement.Type.Find && IsFind
                     || item.TypeAdvertisement == Advertisement.Type.Lose && IsLost)
-                   && ( item.TypeAnimal == Animal.Type.Cat && IsCat
-                        || item.TypeAnimal == Animal.Type.Dog && IsDog);
+                   && ( item.TypesAnimal == Animal.Type.Cat && IsCat
+                        || item.TypesAnimal == Animal.Type.Dog && IsDog);
         }
 
         public void CopyTo(Filter f)
