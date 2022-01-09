@@ -7,47 +7,22 @@ namespace Project_Ads.Model
 {
     public class Advertisement: ObservableObject
     {
+        public enum AdvertisementType
+        {
+            Lose,
+            Find
+        }
+        
         public int RegNum { get; set; }
         
         public User User { get; set; }
 
         public Animal Animal { get; set; }
-        public enum Type
-        {
-            Lose,
-            Find
-        }
 
-        public static Dictionary<Type, string> StringFormatTypeAdvertisement = new Dictionary<Type, string>()
-        {
-            {Type.Find, "Находка"},
-            {Type.Lose , "Пропажа"}
-        };
+        private AdvertisementType _advType;
 
-        public static Dictionary<Type, string> StringFormatDateTypeAdvertisement = new Dictionary<Type, string>()
-        {
-            {Type.Find, "Дата находки"},
-            {Type.Lose , "Дата пропажи"}
-        };
-
-        
-
-        private Type _typeAdvertisement;
-        public Type TypeAdvertisement
-        {
-            get => _typeAdvertisement;
-            set
-            {
-                _typeAdvertisement = value; 
-                OnPropertyChanged("TypeAdvertisement"); 
-                OnPropertyChanged("GetStringTypeAdvertisement");
-            }
-        }
-        public string GetStringTypeAdvertisement => StringFormatTypeAdvertisement[_typeAdvertisement];
-        public string GetStringDateTypeAdvertisement => StringFormatDateTypeAdvertisement[_typeAdvertisement];
-        
         private Animal.Types _typesAnimal;
-        public string GetStringTypeAnimal => Animal.convertToType[_typesAnimal];
+
         public Animal.Types TypesAnimal
         {
             get => _typesAnimal;
@@ -58,10 +33,69 @@ namespace Project_Ads.Model
                 OnPropertyChanged($"GetStringTypeAnimal");
             }
         }
-
         
         private string _description;
 
+        private string _address;
+
+        private DateTime _dateEvent;
+
+        private DateTime _dateCreate;
+
+        public static Advertisement CreateAdv(
+            User user, string address, string description, DateTime dateCreate,
+            DateTime dateEvent, AdvertisementType advAdvertisementType, int regNum, Animal animal)
+        {
+            var adv = new Advertisement()
+            {
+                User = user,
+                Address = address,
+                Description = description,
+                DateCreate = dateCreate,
+                DateEvent = dateEvent,
+                AdvertisementTypeAdvertisement = advAdvertisementType,
+                RegNum = regNum,
+                Animal = animal,
+            };
+            return adv;
+        }
+
+        public void EditAdvData(
+            string address, string description, DateTime dateEvent, Animal editedAnimal)
+        {
+            Address = address;
+            Description = description;
+            DateEvent = dateEvent;
+            Animal = editedAnimal;
+        }
+        
+        
+        public static Dictionary<AdvertisementType, string> StringFormatTypeAdvertisement = new Dictionary<AdvertisementType, string>()
+        {
+            {AdvertisementType.Find, "Находка"},
+            {AdvertisementType.Lose , "Пропажа"}
+        };
+
+        public static Dictionary<AdvertisementType, string> StringFormatDateTypeAdvertisement = new Dictionary<AdvertisementType, string>()
+        {
+            {AdvertisementType.Find, "Дата находки"},
+            {AdvertisementType.Lose , "Дата пропажи"}
+        };
+        
+        public string GetStringTypeAdvertisement => StringFormatTypeAdvertisement[_advType];
+        public string GetStringDateTypeAdvertisement => StringFormatDateTypeAdvertisement[_advType];
+        
+        public AdvertisementType AdvertisementTypeAdvertisement
+        {
+            get => _advType;
+            set
+            {
+                _advType = value; 
+                OnPropertyChanged("AdvertisementTypeAdvertisement"); 
+                OnPropertyChanged("GetStringTypeAdvertisement");
+            }
+        }
+        
         public string Description
         {
             get => _description;
@@ -71,15 +105,13 @@ namespace Project_Ads.Model
                 OnPropertyChanged("Description");
             }
         }
-
-        private string _address;
+        
         public string Address
         {
             get => _address;
             set { _address = value; OnPropertyChanged("Address");}
         }
-
-        private DateTime _dateEvent;
+        
         public DateTime DateEvent
         {
             get => _dateEvent;
@@ -90,9 +122,7 @@ namespace Project_Ads.Model
                 OnPropertyChanged("GetFormatStringDateType"); 
             }
         }
-        public string GetFormatStringDateType => _dateEvent.ToString("d");
-
-        private DateTime _dateCreate;
+        
         public DateTime DateCreate
         {
             get => _dateCreate;
@@ -103,37 +133,13 @@ namespace Project_Ads.Model
                 OnPropertyChanged("GetFormatStringDateCreate");
             }
         }
+        
         public string GetFormatStringDateCreate => _dateCreate.ToString("d");
 
         public string DeleteImageUrl => $@"{App.PATH}\Icons\trash_24px.png";
-
-        public static Advertisement CreateAdv(
-            User user, string address, string description, DateTime dateCreate,
-            DateTime dateEvent, Type advType, int regNum, Animal animal)
-        {
-            var adv = new Advertisement()
-            {
-                User = user,
-                Address = address,
-                Description = description,
-                DateCreate = dateCreate,
-                DateEvent = dateEvent,
-                TypeAdvertisement = advType,
-                RegNum = regNum,
-                Animal = animal,
-            };
-            return adv;
-        }
-
-        public Advertisement EditAdvData(
-            string address, string description, DateTime dateEvent, Animal editedAnimal)
-        {
-            Address = address;
-            Description = description;
-            DateEvent = dateEvent;
-            Animal = editedAnimal;
-            return this;
-        }
-
+        
+        public string GetFormatStringDateType => _dateEvent.ToString("d");
+        
+        public string GetStringTypeAnimal => Animal.convertToType[_typesAnimal];
     }
 }

@@ -11,5 +11,15 @@ namespace Project_Ads.MVVM.Model
             var user = new User();
             return user;
         }
+
+        public static void Authorize(string login, string password)
+        {
+            
+        }
+
+        public static void Registrate(string login, string password, string userName, string phone)
+        {
+            
+        }
     }
 }

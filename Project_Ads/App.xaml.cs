@@ -18,19 +18,13 @@ namespace Project_Ads
     public partial class App : Application
     {
         public static string PATH = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\Properties";
-        private static User user;
         public static NpgsqlConnection Conn = new NpgsqlConnection(Connection.ConnString);
 
-        public static void Authorize(string login, string pass)
-        {
-            user = Session.GetUser(login, pass);
-        }
-
         public static void CreateAdvertisements(
-            User user, Advertisement.Type advType, string address, string description,
+            User user, Advertisement.AdvertisementType advAdvertisementType, string address, string description,
             DateTime dateEvent, Animal.Types anType, Animal.Colors animalColor, string pic)
         {
-            AdvertisementCollection.CreateAdvertisements(user, advType, address, description, dateEvent, anType, animalColor, pic);
+            AdvertisementCollection.CreateAdvertisements(user, advAdvertisementType, address, description, dateEvent, anType, animalColor, pic);
         }
 
         public static List<Advertisement> GetAdvertisementList()
@@ -60,6 +54,16 @@ namespace Project_Ads
         public static void DeleteAdvertisement(int regNum)
         {
             AdvertisementCollection.DeleteAdvertisement(regNum);
+        }
+
+        public static void Authorization(string login, string password)
+        {
+            Session.Authorize(login, password);
+        }
+
+        public static void Registration(string login, string password, string userName, string phone)
+        {
+            Session.Registrate(login, password, userName, phone);
         }
     }
 }
