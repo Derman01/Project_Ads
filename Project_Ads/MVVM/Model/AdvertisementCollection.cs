@@ -27,13 +27,13 @@ namespace Project_Ads.MVVM.Model
         }
 
         public static void CreateAdvertisements(
-            User user, Advertisement.Type advType, string address, string description,
+            User user, Advertisement.AdvertisementType advAdvertisementType, string address, string description,
             DateTime dateEvent, Animal.Types anType, Animal.Colors animalColor, string pic)
         {
             var animal = AnimalCollection.CreateAnimal(anType, animalColor, pic);
             int regNum = 0;//Connection.Execute('SELECT reg_num FROM Advertisement ORDER BY reg_num DESC LIMIT 1')
             var advertisement = Advertisement.CreateAdv(user, address, description,
-                DateTime.Now, dateEvent, advType, regNum, animal);
+                DateTime.Now, dateEvent, advAdvertisementType, regNum, animal);
             AddAdv(advertisement);
         }
 
@@ -59,8 +59,8 @@ namespace Project_Ads.MVVM.Model
             var advertisement = Advertisements.Find(adv => adv.RegNum == regNum);
             var animalNum = advertisement.Animal.Num;
             var editedAnimal = AnimalCollection.EditAnimalData(animalNum, animalColor, pic);
-            var editedAdv = advertisement.EditAdvData(address, description, dateEvent, editedAnimal);
-            UpdateAdvs(editedAdv);
+            advertisement.EditAdvData(address, description, dateEvent, editedAnimal);
+            UpdateAdvs(advertisement);
         }
 
         public static void DeleteAdvertisement(int regNum)
