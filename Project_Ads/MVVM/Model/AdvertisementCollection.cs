@@ -31,14 +31,29 @@ namespace Project_Ads.MVVM.Model
             DateTime dateEvent, Animal.Types anType, Animal.Colors animalColor, string pic)
         {
             var animal = AnimalCollection.CreateAnimal(anType, animalColor, pic);
-            int regNum = 0;//Connection.Execute('SELECT reg_num FROM Advertisement ORDER BY reg_num DESC LIMIT 1')
+            int regNum = Connection.ExecuteGetLastRegNum("SELECT reg_num FROM advertisement ORDER BY reg_num DESC LIMIT 1");
             var advertisement = Advertisement.CreateAdv(user, address, description,
                 DateTime.Now, dateEvent, advAdvertisementType, regNum, animal);
             AddAdv(advertisement);
+            var data = new []
+            {
+                new Tuple<string, object>("id_user", advertisement.User.UserId),
+                new Tuple<string, object>("type", advertisement.Type.ToString()),
+                new Tuple<string, object>("address", advertisement.Address),
+                new Tuple<string, object>("id_animal", advertisement.Animal.Num),
+                new Tuple<string, object>("description", advertisement.Description),
+                new Tuple<string, object>("date_event", advertisement.DateEvent),
+                new Tuple<string, object>("date_create", advertisement.DateCreate)
+            };
+            Connection.ExecuteNonQuery(
+                "INSERT INTO advertisement VALUES (@id_user, @type, @address, @id_animal, @description, @date_event, @date_create)",
+                data);
         }
 
         public static List<Advertisement> GetAdvertisementList()
         {
+            var advs = Connection.ExecuteGetAdvertisementList(
+                "SELECT a.reg_num, a.id_user, a.type, a.address, a.description, a.date_event, a.date_create, a2.id, t.type, a2.description, a2.path, u.phone FROM advertisement a INNER JOIN animal a2 on a.id_animal = a2.id INNER JOIN animal_type t on t.id = a2.type_id INNER JOIN \"user\" u on u.id = a.id_user WHERE a.date_remove IS NOT NULL");
             return Advertisements;
         }
 
@@ -61,12 +76,37 @@ namespace Project_Ads.MVVM.Model
             var editedAnimal = AnimalCollection.EditAnimalData(animalNum, animalColor, pic);
             advertisement.EditAdvData(address, description, dateEvent, editedAnimal);
             UpdateAdvs(advertisement);
+            
+            var advData = new Tuple<string, object>[]
+            {
+                new Tuple<string, object>("address", address),
+                new Tuple<string, object>("dewscription", description),
+                new Tuple<string, object>("dateEvent", dateEvent),
+                new Tuple<string, object>("regNum", regNum),
+            };
+            Connection.ExecuteNonQuery(
+                "UPDATE advertisement SET address = @address, description = @description, date_event = @dateEvent WHERE reg_num = @regNum",
+                advData);
+            var anData = new Tuple<string, object>[]
+            {
+                new Tuple<string, object>("animalColor", animalColor.ToString()),
+                new Tuple<string, object>("pic", pic),
+                new Tuple<string, object>("num", animalNum)
+            };
+            Connection.ExecuteNonQuery(
+                "UPDATE animal SET description = @animalColor, path = @pic WHERE id = @num",
+                anData);
         }
 
         public static void DeleteAdvertisement(int regNum)
         {
             var adv = Advertisements.Find(advertisement => advertisement.RegNum == regNum);
             DeleteAdv(adv);
+            
+            var data = new [] {new Tuple<string, object>("regNum", regNum)};
+            Connection.ExecuteNonQuery(
+                "DELETE FROM advertisement WHERE reg_num = @regNum",
+                data);
         }
     }
 }

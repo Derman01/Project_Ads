@@ -53,7 +53,7 @@ namespace Project_Ads.Model
                 Description = description,
                 DateCreate = dateCreate,
                 DateEvent = dateEvent,
-                AdvertisementTypeAdvertisement = advAdvertisementType,
+                Type = advAdvertisementType,
                 RegNum = regNum,
                 Animal = animal,
             };
@@ -85,13 +85,13 @@ namespace Project_Ads.Model
         public string GetStringTypeAdvertisement => StringFormatTypeAdvertisement[_advType];
         public string GetStringDateTypeAdvertisement => StringFormatDateTypeAdvertisement[_advType];
         
-        public AdvertisementType AdvertisementTypeAdvertisement
+        public AdvertisementType Type
         {
             get => _advType;
             set
             {
                 _advType = value; 
-                OnPropertyChanged("AdvertisementTypeAdvertisement"); 
+                OnPropertyChanged("Type"); 
                 OnPropertyChanged("GetStringTypeAdvertisement");
             }
         }
