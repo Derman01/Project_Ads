@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Permissions;
 using Project_Ads.Core;
 
-namespace Project_Ads.Model
+namespace Project_Ads.MVVM.Model
 {
     public class Advertisement: ObservableObject
     {
@@ -20,19 +20,6 @@ namespace Project_Ads.Model
         public Animal Animal { get; set; }
 
         private AdvertisementType _advType;
-
-        private Animal.Types _typesAnimal;
-
-        public Animal.Types TypesAnimal
-        {
-            get => _typesAnimal;
-            set
-            {
-                _typesAnimal = value;
-                OnPropertyChanged("TypesAnimal");
-                OnPropertyChanged($"GetStringTypeAnimal");
-            }
-        }
         
         private string _description;
 
@@ -141,7 +128,5 @@ namespace Project_Ads.Model
         public string DeleteImageUrl => $@"{App.PATH}\Icons\trash_24px.png";
         
         public string GetFormatStringDateType => _dateEvent.ToString("d");
-        
-        public string GetStringTypeAnimal => Animal.convertToType[_typesAnimal];
     }
 }

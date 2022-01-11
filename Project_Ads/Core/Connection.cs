@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
 using Npgsql;
-using Project_Ads.Model;
+using Project_Ads.MVVM.Model;
 
 namespace Project_Ads.Core
 {
@@ -40,7 +40,7 @@ namespace Project_Ads.Core
             var command = new NpgsqlCommand(sql, App.Conn);
             var reader = command.ExecuteReader();
             var advs = new List<Advertisement>{};
-            while (reader.Read())
+            /*while (reader.Read())
             {
                 new Advertisement()
                 {
@@ -51,7 +51,7 @@ namespace Project_Ads.Core
 
                     },
                 };
-            }
+            }*/
             return advs;
         }
         
@@ -76,13 +76,13 @@ namespace Project_Ads.Core
             var user = new User();
             while (reader.Read())
             {
-                var role = Model.User.Role.NotAuthorizedUser;
+                var role = MVVM.Model.User.Role.NotAuthorizedUser;
                 var rights = new Rights(true, true, true, true, false);
                 if (reader[4].ToString() == "user")
-                    role = Model.User.Role.User;
+                    role = MVVM.Model.User.Role.User;
                 else if (reader[4].ToString() == "admin")
                 {
-                    role = Model.User.Role.Admin;
+                    role = MVVM.Model.User.Role.Admin;
                     rights.IsAdmin = true;
                 }
                 // возможно все что выше надо переместить куда то в другое место

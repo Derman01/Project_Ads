@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"             
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"    
+             xmlns:model="clr-namespace:Project_Ads.MVVM.Model"
              mc:Ignorable="d"
              Name="Board"
              Height="800">
@@ -14,7 +15,7 @@
                     <DockPanel Margin="20 0 0 0">
                         <TextBlock Text="Добро пожаловать, " FontSize="24"
                                    VerticalAlignment="Center"/>
-                        <TextBlock x:Name="userName" Text="{Binding UserName}"
+                        <TextBlock Text="{Binding UserName}"
                                    VerticalAlignment="Center"
                                    FontSize="24"/>
                     </DockPanel>
@@ -29,14 +30,13 @@
                                 VerticalAlignment="Center"
                                 Height="46"
                                 Tag="23" Padding="20 0 20 0"
-                                Content="Создать объявление" Click="OpenFormAdding"/>
+                                Content="Создать объявление" Click="OpenMenuAdv"/>
                     </DockPanel>
                 </Grid>
             </Border>
-            <ListBox x:Name="advertisementsList"
+            <ListBox x:Name="_listAdvertisment"
                      HorizontalContentAlignment="Stretch"
                      BorderThickness="0"
-                     SelectionChanged="AdvertisementsList_OnSelectionChanged"
                      VirtualizingPanel.ScrollUnit="Pixel">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
@@ -44,15 +44,14 @@
                     </Style>
                 </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
-                    <DataTemplate >
+                    <DataTemplate DataType="{x:Type model:Advertisement}">
                         <Grid>
                             <Border VerticalAlignment="Center" 
                                     CornerRadius="15"
                                     BorderBrush="#3292D0"
                                     BorderThickness="2"
                                     Padding="10"
-                                    Margin="0,5,0,5"
-                                    GotFocus="OpenFormAdding">
+                                    Margin="0,5,0,5">
                                 <StackPanel Margin="5" Orientation="Horizontal">
                                     <Border BorderBrush="#282828"
                                     CornerRadius="90"
@@ -60,25 +59,25 @@
                                     Height="180"
                                     VerticalAlignment="Center">
                                         <Border.Background>
-                                            <ImageBrush ImageSource="{Binding Path=ImageUrl}" Stretch="Fill"/>
+                                            <ImageBrush ImageSource="{Binding Path=Animal.Pic}" Stretch="Fill"/>
                                         </Border.Background>
                                     </Border>
                                     <StackPanel Margin="30 0 0 0" Orientation="Horizontal">
                                         <StackPanel Width="400">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock FontWeight="Bold"
-                                                   FontSize="24" Text="{Binding Path=GetStringTypeAdvertisement}"/>
+                                                   FontSize="24" Text="{Binding Path= GetStringTypeAdvertisement}"/>
                                                 <TextBlock Text=": " FontSize="24" FontWeight="Bold"/>
                                                 <TextBlock FontWeight="Medium" VerticalAlignment="Bottom"
-                                                   FontSize="22" Text="{Binding Path=GetStringTypeAnimal}"/>
+                                                   FontSize="22" Text="{Binding Path=Animal.GetStringType}"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
-                                                <TextBlock FontWeight="Bold" FontSize="18" Text="Описание: "/>
-                                                <TextBlock Text="{Binding Description}" FontSize="18" FontWeight="Regular"/>
+                                                <TextBlock FontWeight="Bold" FontSize="18" Text="Цвет: "/>
+                                                <TextBlock Text="{Binding Animal.Color}" FontSize="18" FontWeight="Regular"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                                 <TextBlock FontWeight="Bold" FontSize="18" Text="Локация: "/>
-                                                <TextBlock Text="{Binding LocationFind}" FontSize="18" FontWeight="Regular"/>
+                                                <TextBlock Text="{Binding Address}" FontSize="18" FontWeight="Regular"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                                 <TextBlock FontWeight="Bold" FontSize="18" Text="{Binding Path=GetStringDateTypeAdvertisement}"/>
@@ -87,7 +86,7 @@
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                                 <TextBlock FontWeight="Bold" FontSize="18" Text="Номер телефона: "/>
-                                                <TextBlock Text="{Binding Phone}" FontSize="18" FontWeight="Regular"/>
+                                                <TextBlock Text="{Binding User.UserPhone }" FontSize="18" FontWeight="Regular"/>
                                             </StackPanel>
 
                                         </StackPanel>
@@ -100,7 +99,7 @@
                                                 <StackPanel>
                                                     <TextBlock Text="Дополнительные приметы"
                                                            FontWeight="Bold" FontSize="22"/>
-                                                    <TextBlock Text="{Binding Marks}" MaxWidth="450"
+                                                    <TextBlock Text="{Binding Description}" MaxWidth="450"
                                                            TextWrapping="Wrap" HorizontalAlignment="Left"
                                                            FontSize="18" FontWeight="Regular"/>
                                                 </StackPanel>
@@ -116,7 +115,6 @@
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-                <Rectangle Height="1" Stroke="Black" Width="7"/>
             </ListBox>
         </DockPanel>
         <Popup x:Name="menuFilter" Width="400" StaysOpen="False"
@@ -137,7 +135,7 @@
                                                     <Border CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
                                                         <Grid>
                                                             <Grid.Background>
-                                                                <ImageBrush ImageSource="/MVVM/View/icon_dog.png" Stretch="None"/>
+                                                                <ImageBrush ImageSource="Icons/icon_dog.png" Stretch="None"/>
                                                             </Grid.Background>
                                                         </Grid>
                                                     </Border>
@@ -168,7 +166,7 @@
                                                     <Border CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
                                                         <Grid>
                                                             <Grid.Background>
-                                                                <ImageBrush ImageSource="/MVVM/View/icon_cat.png" Stretch="None"/>
+                                                                <ImageBrush ImageSource="Icons/icon_cat.png" Stretch="None"/>
                                                             </Grid.Background>
                                                         </Grid>
                                                     </Border>
@@ -227,19 +225,19 @@
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Margin="0 45 0 0" VerticalAlignment="Bottom" Orientation="Horizontal">
-                        <Button x:Name="menuFilter_button_cancel"
-                            Style="{StaticResource AuthorizationButtonTheme}" 
+                        <Button Style="{StaticResource AuthorizationButtonTheme}" 
                                 Height="40" Width="160" Background="#BBBBBB"
-                                Content="Отмена"/>
+                                Content="Отмена" Click="CloseMenuFilter"/>
                         <Grid Width="20"/>
                         <Button x:Name="menuFilter_button_apply"
                             Style="{StaticResource AuthorizationButtonTheme}"
                                 Height="40" Width="160"
-                                Content="Применить"/>
+                                Content="Применить" Click="ApplyFilter"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
         </Popup>
+        
         <Popup x:Name="formAdding" Width="500" StaysOpen="False" 
                AllowsTransparency="True" Placement="Center">
             <Border Background="White" CornerRadius="30"
@@ -266,16 +264,22 @@
                                FontSize="30"/>
                     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan ="2">
                         <Image x:Name="formAdding_image"
-                               Source="../../../../Properties/Icons/cat.jpg"
+                               Source="Icons/cat.jpg"
                                Width="200" Height="150"/>
                         <Button x:Name="upload_new_img"
                                 Style="{StaticResource AuthorizationButtonTheme}"
                                 Content="Загрузить фото" Width="200"
                                 Padding="10, 5" Height="40"/>
                     </StackPanel>
-                    <RadioButton Grid.Row="2" Grid.Column="0" x:Name="formAdding_radio_dog"
-                                 Width="160" Height="80">
-                        <RadioButton.Style>
+                    
+                    <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <RadioButton Grid.Column="0" x:Name="formAdding_radio_dog"
+                                     Width="160" Height="80">
+                            <RadioButton.Style>
                             <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
                                     TargetType="{x:Type RadioButton}">
                                 <Style.Setters>
@@ -285,7 +289,7 @@
                                                 <Border CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
                                                     <Grid>
                                                         <Grid.Background>
-                                                            <ImageBrush ImageSource="/MVVM/View/icon_dog.png" Stretch="None"/>
+                                                            <ImageBrush ImageSource="Icons/icon_dog.png" Stretch="None"/>
                                                         </Grid.Background>
                                                     </Grid>
                                                 </Border>
@@ -301,8 +305,8 @@
                                 </Style.Triggers>
                             </Style>
                         </RadioButton.Style>
-                    </RadioButton>
-                    <RadioButton Grid.Row="2" Grid.Column="1"  x:Name="formAdding_radio_cat"
+                        </RadioButton>
+                        <RadioButton Grid.Column="1"  x:Name="formAdding_radio_cat"
                                  Width="160" Height="80">
                         <RadioButton.Style>
                             <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
@@ -314,7 +318,7 @@
                                                 <Border CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
                                                     <Grid>
                                                         <Grid.Background>
-                                                            <ImageBrush ImageSource="/MVVM/View/icon_cat.png" Stretch="None"/>
+                                                            <ImageBrush ImageSource="Icons/icon_cat.png" Stretch="None"/>
                                                         </Grid.Background>
                                                     </Grid>
                                                 </Border>
@@ -332,6 +336,7 @@
                             </Style>
                         </RadioButton.Style>
                     </RadioButton>
+                    </Grid>
                     <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="Тип Объявления" 
                                HorizontalAlignment="Center"
                                FontSize="20"/>
@@ -344,9 +349,9 @@
                                  VerticalContentAlignment="Center"
                                  Content="Находка"/>
                     <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
-                               Text="Описание:"
+                               Text="Цвет:"
                                FontSize="18"/>
-                    <TextBox  Grid.Row="5" Grid.Column="1" x:Name="formAdding_description"
+                    <TextBox  Grid.Row="5" Grid.Column="1" x:Name="formAdding_color"
                               Padding="5" Width="200" Height="30"/>
                     <TextBlock Grid.Row="6" Grid.Column="0" Text="Адрес:"
                                Padding="5" FontSize="18"/>
@@ -369,7 +374,7 @@
                     <TextBlock Grid.Row="8" Grid.Column="0" Text="Дополнительные приметы:" 
                                TextWrapping="Wrap" Padding="5"
                                FontSize="18"/>
-                    <TextBox Grid.Row="8" Grid.Column="1" x:Name="formAdding_marks"
+                    <TextBox Grid.Row="8" Grid.Column="1" x:Name="formAdding_desc"
                              Padding="5"
                              TextWrapping="Wrap" Height="60"/>
                     
@@ -378,13 +383,12 @@
                         <Button x:Name="formAdding_button_cancel"
                                 Style="{StaticResource AuthorizationButtonTheme}"
                                 Height="40" Width="160"
-                                Content="Отмена"/>
+                                Content="Отмена" Click="CloseFormForAdding"/>
                         <Grid Width="20"/>
                         <Button x:Name="formAdding_button_apply"
                                 Style="{StaticResource AuthorizationButtonTheme}"
                                 Height="40" Width="160"
-                                Click="CreateAdvertisment"
-                                Content="Создать"/>
+                                Content="Создать" Click="CreateAdvertisement"/>
                     </StackPanel>
                 </Grid>
             </Border>

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Project_Ads.Model;
+using System.Linq;
 
 namespace Project_Ads.MVVM.Model
 {
     public class AnimalCollection
     {
-        private static List<Animal> Animals;
+        private static List<Animal> Animals = new List<Animal>();
 
         private static void AddAnimal(Animal animal)
         {
@@ -17,7 +17,7 @@ namespace Project_Ads.MVVM.Model
             Animals[animal.Num] = animal;
         }
 
-        public static Animal CreateAnimal(Animal.Types anType, Animal.Colors animalColor, string pic)
+        public static Animal CreateAnimal(Animal.Types anType, string animalColor, string pic)
         {
             int animalNum = Animals.Count;
             var animal = Animal.CreateAnimal(animalColor, pic, anType, animalNum);
@@ -25,9 +25,9 @@ namespace Project_Ads.MVVM.Model
             return animal;
         }
 
-        public static Animal EditAnimalData(int animalNum, Animal.Colors animalColor, string pic)
+        public static Animal EditAnimalData(int animalNum, string animalColor, string pic)
         {
-            var animal = Animals[animalNum];
+            var animal = Animals.First(a=> a.Num == animalNum);
             animal.EditAnimalData(animalColor, pic);
             UpdateAnimal(animal);
             return animal;

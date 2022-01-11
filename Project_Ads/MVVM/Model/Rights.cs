@@ -1,4 +1,4 @@
-﻿namespace Project_Ads.Model
+﻿namespace Project_Ads.MVVM.Model
 {
     public class Rights
     {

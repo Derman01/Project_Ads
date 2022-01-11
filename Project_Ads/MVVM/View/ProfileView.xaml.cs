@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using Project_Ads.Model;
 using Project_Ads.MVVM.ViewModel;
 
 namespace Project_Ads.MVVM.View

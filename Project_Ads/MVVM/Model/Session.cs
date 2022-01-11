@@ -1,12 +1,18 @@
 ﻿using System;
 using Project_Ads.Core;
-using Project_Ads.Model;
 
 namespace Project_Ads.MVVM.Model
 {
-    public class Session
+    public static class Session
     {
-        private static User currentUser { get; set; }
+        public static User currentUser { get; set; } = new User()
+        {
+            UserId = 1,
+            UserName = "Денис",
+            UserPhone = "8999999992",
+            UserRights = new Rights(true, true, true, true, true),
+            UserRole = User.Role.Admin
+        };
         
         public static User GetUser(string login, string pass)
         {

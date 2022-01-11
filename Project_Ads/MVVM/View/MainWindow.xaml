@@ -68,16 +68,16 @@
                             <Button Style="{DynamicResource ButtonStyle1}" 
                                     Width="50" Height="40" BorderThickness="0"
                                     Click="Minimaze">
-                                <Image Source="../Properties/Icons/minimizeIcon.png"/>
+                                <Image Source="Icons/minimizeIcon.png"/>
                             </Button>
                             <Button Style="{DynamicResource ButtonStyle1}" 
                                     Width="50" Height="40" BorderThickness="0" Margin="10,0,10,0">
-                                <Image Source="../Properties/Icons/minimizeInWindowIcon.png"/>
+                                <Image Source="Icons/minimizeInWindowIcon.png"/>
                             </Button>
                             <Button Style="{DynamicResource ButtonStyle1}" 
                                     Width="40" Height="40" BorderThickness="0"
                                     Click="Close">
-                                <Image Source="../Properties/Icons/exitIcon.png"/>
+                                <Image Source="Icons/exitIcon.png"/>
                             </Button>
                         </StackPanel>
                     </Grid>

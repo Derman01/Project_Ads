@@ -1,6 +1,6 @@
 ﻿using Project_Ads.Core;
 
-namespace Project_Ads.Model
+namespace Project_Ads.MVVM.Model
 {
     public class Filter: ObservableObject
     {
@@ -52,8 +52,8 @@ namespace Project_Ads.Model
         {
             return (item.Type == Advertisement.AdvertisementType.Find && IsFind
                     || item.Type == Advertisement.AdvertisementType.Lose && IsLost)
-                   && ( item.TypesAnimal == Animal.Types.Cat && IsCat
-                        || item.TypesAnimal == Animal.Types.Dog && IsDog);
+                   && ( item.Animal.Type == Animal.Types.Cat && IsCat
+                        || item.Animal.Type == Animal.Types.Dog && IsDog);
         }
 
         public void CopyTo(Filter f)

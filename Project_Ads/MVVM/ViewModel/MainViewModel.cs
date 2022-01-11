@@ -1,5 +1,4 @@
 ﻿using Project_Ads.Core;
-using Project_Ads.Model;
 
 namespace Project_Ads.MVVM.ViewModel
 {
