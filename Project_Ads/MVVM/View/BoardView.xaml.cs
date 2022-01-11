@@ -18,8 +18,7 @@ namespace Project_Ads.MVVM.View
     public partial class BoardView : UserControl
     {
         public Filter Filter { get; set; } = new Filter();
-        private Filter _preventFilter = new Filter();
-        private User user = App.User;
+        private Filter _preventFilter = new Filter();   
         
         private ObservableCollection<Advertisement> _advertisements { get; set; } =
             new ObservableCollection<Advertisement>();
@@ -32,7 +31,6 @@ namespace Project_Ads.MVVM.View
             InitializeComponent();
             
             menuFilter.DataContext = Filter;
-            userName.DataContext = user;
 
             _advertisements.CollectionChanged += (s, e) =>
             {
@@ -45,61 +43,6 @@ namespace Project_Ads.MVVM.View
                
             };
 
-            #region Add
-            _advertisements.Add(new Advertisement() {
-                RegNum = 1, ImageUrl =$@"{App.PATH}/Icons/dogs.png",
-                Type = Advertisement.AdvertisementType.Find,
-                TypesAnimal = Animal.Type.Dog,
-                Marks= "Срочно !!!! нашли щеночка После 21:00 некуда деть." +
-                       "\nХозяева отзовитесь Голубой ошейник. После 21:00 некуда деть",
-                
-                Description = "Рыжий окрас",
-                Phone = "8 999 586 1516",
-                DateEvent = DateTime.Now,
-                DateCreate = DateTime.Now,
-                Address = "3 мкр 35 дом"
-            });
-            _advertisements.Add(new Advertisement() {
-                RegNum = 2, ImageUrl = $@"{App.PATH}\Icons\cat.jpg",
-                Type = Advertisement.AdvertisementType.Lose,
-                TypesAnimal = Animal.Type.Cat, Marks = App.PATH,
-                Phone = "8 800 555 3535", 
-                Description = "Черный окрас",
-                DateEvent = DateTime.Today,
-                DateCreate = DateTime.Today,
-                Address = App.PATH
-            });
-            _advertisements.Add(new Advertisement() {
-                    RegNum = 3, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
-                    Type = Advertisement.AdvertisementType.Find,
-                    TypesAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
-                    Phone = "8 800 555 3535",
-                    Description = "Черный окрас",
-                    DateEvent = DateTime.Today,
-                    DateCreate = DateTime.Today,
-                    Address = "На высоких горах"
-                });
-            _advertisements.Add(new Advertisement() {
-                RegNum = 4, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
-                Type = Advertisement.AdvertisementType.Lose,
-                TypesAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
-                Phone = "8 800 555 3535", 
-                Description = "Белый окрас",
-                DateEvent = DateTime.Today,
-                DateCreate = DateTime.Now,
-                Address = "На высоких горах"
-            });
-            _advertisements.Add(new Advertisement() {
-                RegNum = 5, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
-                Type = Advertisement.AdvertisementType.Find,
-                TypesAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
-                Phone = "8 800 555 3535", 
-                Description = "Голубой окрас",
-                DateEvent = DateTime.Today,
-                DateCreate = DateTime.Today,
-                Address = "На высоких горах"
-            });
-            #endregion
             advertisementsList.Items.Clear();
             advertisementsList.ItemsSource = _filterAdvertisements;
 

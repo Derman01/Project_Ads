@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
 using System.Linq;
@@ -27,12 +28,7 @@ namespace Project_Ads
             AdvertisementCollection.CreateAdvertisements(user, advAdvertisementType, address, description, dateEvent, anType, animalColor, pic);
         }
 
-        public static List<Advertisement> GetAdvertisementList()
-        {
-            var advertisements = AdvertisementCollection.GetAdvertisementList();
-            return advertisements;
-        }
-
+        public static ObservableCollection<Advertisement> GetAdvertisementList => AdvertisementCollection.GetAdvertisementList();
         public static List<Advertisement> GetUserAdvertisementList(User user)
         {
             var advertisements = AdvertisementCollection.GetUserAdvertisementList(user);

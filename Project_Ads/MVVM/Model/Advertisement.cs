@@ -46,18 +46,21 @@ namespace Project_Ads.Model
             User user, string address, string description, DateTime dateCreate,
             DateTime dateEvent, AdvertisementType advAdvertisementType, int regNum, Animal animal)
         {
-            var adv = new Advertisement()
-            {
-                User = user,
-                Address = address,
-                Description = description,
-                DateCreate = dateCreate,
-                DateEvent = dateEvent,
-                Type = advAdvertisementType,
-                RegNum = regNum,
-                Animal = animal,
-            };
-            return adv;
+            return new Advertisement(user, address, description, dateCreate,
+                dateEvent, advAdvertisementType, regNum, animal);
+        }
+
+        private Advertisement( User user, string address, string description, DateTime dateCreate,
+            DateTime dateEvent, AdvertisementType advAdvertisementType, int regNum, Animal animal)
+        {
+            User = user;
+            Address = address;
+            Description = description;
+            DateCreate = dateCreate;
+            DateEvent = dateEvent;
+            Type = advAdvertisementType;
+            RegNum = regNum;
+            Animal = animal;
         }
 
         public void EditAdvData(
@@ -70,13 +73,12 @@ namespace Project_Ads.Model
         }
         
         
-        public static Dictionary<AdvertisementType, string> StringFormatTypeAdvertisement = new Dictionary<AdvertisementType, string>()
+        private static Dictionary<AdvertisementType, string> StringFormatTypeAdvertisement = new Dictionary<AdvertisementType, string>()
         {
             {AdvertisementType.Find, "Находка"},
             {AdvertisementType.Lose , "Пропажа"}
         };
-
-        public static Dictionary<AdvertisementType, string> StringFormatDateTypeAdvertisement = new Dictionary<AdvertisementType, string>()
+        private static Dictionary<AdvertisementType, string> StringFormatDateTypeAdvertisement = new Dictionary<AdvertisementType, string>()
         {
             {AdvertisementType.Find, "Дата находки"},
             {AdvertisementType.Lose , "Дата пропажи"}

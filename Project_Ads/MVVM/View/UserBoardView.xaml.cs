@@ -26,46 +26,6 @@ namespace Project_Ads.MVVM.View
         public UserBoardView()
         {
             InitializeComponent();
-
-            _advertisements = new ObservableCollection<Advertisement>()
-            {
-                new Advertisement()
-                {
-                    RegNum = 1, ImageUrl =$@"{App.PATH}/Icons/dogs.png",
-                    Type = Advertisement.AdvertisementType.Find,
-                    TypesAnimal = Animal.Type.Dog,
-                    Marks= "Срочно !!!! нашли щеночка После 21:00 некуда деть." +
-                                                  "\nХозяева отзовитесь Голубой ошейник. После 21:00 некуда деть",
-                    Description = "Черный",
-                    Phone = "8 999 586 1516",
-                    DateEvent = DateTime.Now,
-                    Address = "3 мкр 35 дом"
-                },
-                new Advertisement()
-                {
-                    RegNum = 2, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
-                    Type = Advertisement.AdvertisementType.Lose,
-                    TypesAnimal = Animal.Type.Cat, Marks = App.PATH,
-                    Phone = "8 800 555 3535", 
-                    Description = "Голубой окрас",
-                    DateEvent = DateTime.Today,
-                    Address = App.PATH
-                },
-                new Advertisement()
-                {
-                    RegNum = 3, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
-                    Type = Advertisement.AdvertisementType.Lose,
-                    TypesAnimal = Animal.Type.Cat, Marks = App.PATH,
-                    Phone = "8 800 555 3535",
-                    Description = "Голубой окрас",
-                    DateEvent = DateTime.Today,
-                    Address = App.PATH
-                },
-            };
-
-            advertisementsList.Items.Clear();
-            advertisementsList.ItemsSource = _advertisements;
-
         }
         
         private void AdConfirm_Click(object sender, RoutedEventArgs e)
@@ -91,7 +51,6 @@ namespace Project_Ads.MVVM.View
 
         private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
         {
-            
             var btn = (Button)e.OriginalSource; //определение родителя кнопки
             var data = (Advertisement)btn.DataContext; 
             MessageBox.Show($"{data.RegNum}");

@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Project_Ads.Core;
 using Project_Ads.Model;
 
 namespace Project_Ads.MVVM.Model
 {
-    public class AdvertisementCollection
+    public static class AdvertisementCollection
     {
-        private static List<Advertisement> Advertisements;
+        private static ObservableCollection<Advertisement> Advertisements;
 
         private static void AddAdv(Advertisement adv)
         {
@@ -17,13 +18,16 @@ namespace Project_Ads.MVVM.Model
 
         private static void UpdateAdvs(Advertisement advertisement)
         {
-            Advertisements = Advertisements.Where(adv => adv.RegNum != advertisement.RegNum).ToList();
+            var _index = Advertisements.IndexOf(advertisement)
+            var _list = Advertisements.Where(adv => adv.RegNum != advertisement.RegNum).ToArray()[0];
             Advertisements.Add(advertisement);
         }
 
         private static void DeleteAdv(Advertisement advertisement)
         {
-            Advertisements = Advertisements.Where(adv => adv.RegNum != advertisement.RegNum).ToList();
+            var _list = (Advertisements.Where(adv => adv.RegNum != advertisement.RegNum).ToArray();
+            Advertisements.Clear();
+            Advertisements.CopyTo(_list, 0);
         }
 
         public static void CreateAdvertisements(
@@ -50,11 +54,15 @@ namespace Project_Ads.MVVM.Model
                 data);
         }
 
-        public static List<Advertisement> GetAdvertisementList()
+        public static ObservableCollection<Advertisement> GetAdvertisementList
         {
-            var advs = Connection.ExecuteGetAdvertisementList(
-                "SELECT a.reg_num, a.id_user, a.type, a.address, a.description, a.date_event, a.date_create, a2.id, t.type, a2.description, a2.path, u.phone FROM advertisement a INNER JOIN animal a2 on a.id_animal = a2.id INNER JOIN animal_type t on t.id = a2.type_id INNER JOIN \"user\" u on u.id = a.id_user WHERE a.date_remove IS NOT NULL");
-            return Advertisements;
+            get
+            {
+                //var advs = Connection.ExecuteGetAdvertisementList(
+                //    "SELECT a.reg_num, a.id_user, a.type, a.address, a.description, a.date_event, a.date_create, a2.id, t.type, a2.description, a2.path, u.phone FROM advertisement a INNER JOIN animal a2 on a.id_animal = a2.id INNER JOIN animal_type t on t.id = a2.type_id INNER JOIN \"user\" u on u.id = a.id_user WHERE a.date_remove IS NOT NULL");
+                
+                return Advertisements;
+            }
         }
 
         public static List<Advertisement> GetUserAdvertisementList(User user)
@@ -62,16 +70,16 @@ namespace Project_Ads.MVVM.Model
             return Advertisements.Where(ad => ad.User == user).ToList();
         }
 
-        public static Advertisement OpenAdvertisement(int regNum)
+        public static Advertisement GetAdvertisement(int regNum)
         {
-            return Advertisements.Find(advertisement => advertisement.RegNum == regNum);
+            return Advertisements.FirstOrDefault(advertisement => advertisement.RegNum == regNum);
         }
 
         public static void EditAdvertisement(
             int regNum, string address, string description, DateTime dateEvent,
             Animal.Colors animalColor, string pic)
         {
-            var advertisement = Advertisements.Find(adv => adv.RegNum == regNum);
+            var advertisement = Advertisements.FirstOrDefault(adv => adv.RegNum == regNum);
             var animalNum = advertisement.Animal.Num;
             var editedAnimal = AnimalCollection.EditAnimalData(animalNum, animalColor, pic);
             advertisement.EditAdvData(address, description, dateEvent, editedAnimal);
@@ -80,7 +88,7 @@ namespace Project_Ads.MVVM.Model
             var advData = new Tuple<string, object>[]
             {
                 new Tuple<string, object>("address", address),
-                new Tuple<string, object>("dewscription", description),
+                new Tuple<string, object>("description", description),
                 new Tuple<string, object>("dateEvent", dateEvent),
                 new Tuple<string, object>("regNum", regNum),
             };
