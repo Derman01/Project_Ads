@@ -21,9 +21,10 @@ namespace Project_Ads
         public static NpgsqlConnection Conn = new NpgsqlConnection(Connection.ConnString);
 
         public static void CreateAdvertisements(
-            User user, Advertisement.AdvertisementType advAdvertisementType, string address, string description,
+            Advertisement.AdvertisementType advAdvertisementType, string address, string description,
             DateTime dateEvent, Animal.Types anType, Animal.Colors animalColor, string pic)
         {
+            var user = Session.GetUser();
             AdvertisementCollection.CreateAdvertisements(user, advAdvertisementType, address, description, dateEvent, anType, animalColor, pic);
         }
 
@@ -33,8 +34,9 @@ namespace Project_Ads
             return advertisements;
         }
 
-        public static List<Advertisement> GetUserAdvertisementList(User user)
+        public static List<Advertisement> GetUserAdvertisementList()
         {
+            var user = Session.GetUser();
             var advertisements = AdvertisementCollection.GetUserAdvertisementList(user);
             return advertisements;
         }

@@ -8,7 +8,7 @@ namespace Project_Ads.MVVM.Model
     {
         private static User currentUser { get; set; }
         
-        public static User GetUser(string login, string pass)
+        public static User GetUser()
         {
             return currentUser;
         }
