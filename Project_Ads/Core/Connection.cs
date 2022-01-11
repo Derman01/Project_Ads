@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using Npgsql;
@@ -36,11 +37,11 @@ namespace Project_Ads.Core
             return regNum;
         }
 
-        public static List<Advertisement> ExecuteGetAdvertisementList(string sql, List<Animal> animals) // ДОДЕЛАТЬ
+        public static ObservableCollection<Advertisement> ExecuteGetAdvertisementList(string sql, List<Animal> animals) // ДОДЕЛАТЬ
         {
             var command = new NpgsqlCommand(sql, App.Conn);
             var reader = command.ExecuteReader();
-            var advs = new List<Advertisement>();
+            var advs = new ObservableCollection<Advertisement>();
             while (reader.Read())
             {
                 advs.Add(Advertisement.CreateAdv(

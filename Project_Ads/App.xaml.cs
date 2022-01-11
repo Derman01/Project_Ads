@@ -58,6 +58,7 @@ namespace Project_Ads
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
+            Conn.Open();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Project_Ads.MVVM.Model
 {
     public static class AdvertisementCollection
     {
-        private static ObservableCollection<Advertisement> Advertisements;
+        private static ObservableCollection<Advertisement> Advertisements = new ObservableCollection<Advertisement>();
 
         private static void UpdateAdv(Advertisement advertisement)
         {
