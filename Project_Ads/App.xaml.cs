@@ -65,5 +65,10 @@ namespace Project_Ads
         {
             Session.Registrate(login, password, userName, phone);
         }
+
+        private void App_OnStartup(object sender, StartupEventArgs e)
+        {
+            App.GetAdvertisementList();
+        }
     }
 }

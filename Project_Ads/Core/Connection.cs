@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using Npgsql;
 using Project_Ads.Model;
@@ -35,24 +36,49 @@ namespace Project_Ads.Core
             return regNum;
         }
 
-        public static List<Advertisement> ExecuteGetAdvertisementList(string sql) // ДОДЕЛАТЬ
+        public static List<Advertisement> ExecuteGetAdvertisementList(string sql, List<Animal> animals) // ДОДЕЛАТЬ
         {
             var command = new NpgsqlCommand(sql, App.Conn);
             var reader = command.ExecuteReader();
-            var advs = new List<Advertisement>{};
+            var advs = new List<Advertisement>();
             while (reader.Read())
             {
-                new Advertisement()
+                advs.Add( new Advertisement()
                 {
                     RegNum = (int) reader[0],
-                    Address = reader[3].ToString(),
-                    Animal = new Animal()
+                    User = new User()
                     {
-
+                        UserId = (int)reader[1],
+                        UserPhone = reader[8].ToString()
                     },
-                };
+                    Type = reader[2].ToString() == "Find" ? Advertisement.AdvertisementType.Find : Advertisement.AdvertisementType.Lose,
+                    Address = reader[3].ToString(),
+                    Description = reader[4].ToString(),
+                    DateEvent = Convert.ToDateTime(reader[5]),
+                    DateCreate = Convert.ToDateTime(reader[6]),
+                    Animal = animals.FirstOrDefault(animal => animal.Num == (int)reader[7])
+                });
             }
             return advs;
+        }
+
+        public static List<Animal> ExecuteGetAnimalList(string sql)
+        {
+            var command = new NpgsqlCommand(sql, App.Conn);
+            var reader = command.ExecuteReader();
+            var animals = new List<Animal>();
+            while (reader.Read())
+            {
+                animals.Add(new Animal()
+                {
+                    Num = (int) reader[0],
+                    Type = reader[1].ToString() == "Cat" ? Animal.Types.Cat : Animal.Types.Dog,
+                    Color = reader[2].ToString() == "Blue" ? Animal.Colors.Blue :
+                        reader[2].ToString() == "Red" ? Animal.Colors.Red : Animal.Colors.Black,
+                    Pic = reader[3].ToString()
+                });
+            }
+            return animals;
         }
         
         public static int ExecuteUserRegistration(string sql, Tuple<string, object>[] data)

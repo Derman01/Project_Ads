@@ -52,8 +52,13 @@ namespace Project_Ads.MVVM.Model
 
         public static List<Advertisement> GetAdvertisementList()
         {
+            if (Advertisements.Count != 0)
+                return Advertisements;
+            var animals = AnimalCollection.GetAnimals();
             var advs = Connection.ExecuteGetAdvertisementList(
-                "SELECT a.reg_num, a.id_user, a.type, a.address, a.description, a.date_event, a.date_create, a2.id, t.type, a2.description, a2.path, u.phone FROM advertisement a INNER JOIN animal a2 on a.id_animal = a2.id INNER JOIN animal_type t on t.id = a2.type_id INNER JOIN \"user\" u on u.id = a.id_user WHERE a.date_remove IS NOT NULL");
+                "SELECT a.reg_num, a.id_user, a.type, a.address, a.description, a.date_event, a.date_create, a.id_animal, u.phone FROM advertisement a INNER JOIN \"user\" u on u.id = a.id_user WHERE a.date_remove IS NOT NULL",
+                animals);
+            Advertisements = advs;
             return Advertisements;
         }
 
