@@ -14,7 +14,7 @@ namespace Project_Ads.MVVM.Model
             UserRole = User.Role.Admin
         };
         
-        public static User GetUser(string login, string pass)
+        public static User GetUser()
         {
             return currentUser;
         }

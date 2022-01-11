@@ -28,7 +28,7 @@ namespace Project_Ads
 
         public static ObservableCollection<Advertisement> GetAdvertisementList 
             => AdvertisementCollection.GetAdvertisementList;
-        public static ObservableCollection<Advertisement> GetUserAdvertisementList(User user)
+        public static ObservableCollection<Advertisement> GetAdvertisementListByUser
             => AdvertisementCollection.GetAdvertisementsByUser;
 
         public static Advertisement GetAdvertisement(int regNum)
@@ -58,7 +58,6 @@ namespace Project_Ads
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            //var a = App.GetAdvertisementList;
         }
     }
 }

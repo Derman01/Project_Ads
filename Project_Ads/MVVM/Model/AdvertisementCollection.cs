@@ -21,12 +21,11 @@ namespace Project_Ads.MVVM.Model
             DateTime dateEvent, Animal.Types anType, string animalColor, string pic)
         {
             var animal = AnimalCollection.CreateAnimal(anType, animalColor, pic);
-            int regNum = 11;
-           // int regNum = Connection.ExecuteGetLastRegNum("SELECT reg_num FROM advertisement ORDER BY reg_num DESC LIMIT 1");
+            int regNum = Connection.ExecuteGetLastRegNum("SELECT reg_num FROM advertisement ORDER BY reg_num DESC LIMIT 1");
             var advertisement = Advertisement.CreateAdv(user, address, description,
                 DateTime.Now, dateEvent, advAdvertisementType, regNum, animal);
             Advertisements.Add(advertisement);
-            /*var data = new []
+            var data = new []
             {
                 new Tuple<string, object>("id_user", advertisement.User.UserId),
                 new Tuple<string, object>("type", advertisement.Type.ToString()),
@@ -39,52 +38,20 @@ namespace Project_Ads.MVVM.Model
             Connection.ExecuteNonQuery(
                 "INSERT INTO advertisement VALUES (@id_user, @type, @address, @id_animal, @description, @date_event, @date_create)",
                 data);
-               */ 
         }
+
 
         public static ObservableCollection<Advertisement> GetAdvertisementList
         {
             get
             {
-                if (Advertisements is null)
-                {
-                    Advertisements = new ObservableCollection<Advertisement>()
-                    {
-                        Advertisement.CreateAdv(
-                            new User()
-                            {
-                                UserId = 0,
-                                UserName = "der",
-                                UserPhone = "999999992",
-                                UserRights = new Rights(true,true,true,true, true),
-                                UserRole = User.Role.Admin
-                            },
-                            "adress",
-                            "desctoer",
-                            DateTime.Now,
-                            DateTime.Now, 
-                            Advertisement.AdvertisementType.Find,
-                            1,
-                            Animal.CreateAnimal("Черная шо пиздец", App.PATH + "cat.jpg", Animal.Types.Cat, 3)),
-                        
-                        Advertisement.CreateAdv(
-                            new User()
-                            {
-                                UserId = 0,
-                                UserName = "derddd",
-                                UserPhone = "99999asd92",
-                                UserRights = new Rights(true,true,true,true, true),
-                                UserRole = User.Role.Admin
-                            },
-                            "adresdsds",
-                            "desctoqweer",
-                            DateTime.Now,
-                            DateTime.Now, 
-                            Advertisement.AdvertisementType.Lose,
-                            5,
-                            Animal.CreateAnimal("рыдаю", App.PATH + "dogs.png", Animal.Types.Dog, 2)),
-                    };
-                }
+                if (Advertisements.Count != 0)
+                    return Advertisements;
+                var animals = AnimalCollection.GetAnimals();
+                var advs = Connection.ExecuteGetAdvertisementList(
+                    "SELECT a.reg_num, a.id_user, a.type, a.address, a.description, a.date_event, a.date_create, a.id_animal, u.phone FROM advertisement a INNER JOIN \"user\" u on u.id = a.id_user WHERE a.date_remove IS NOT NULL",
+                    animals);
+                Advertisements = advs;
                 return Advertisements;
             }
         }
@@ -115,7 +82,7 @@ namespace Project_Ads.MVVM.Model
             advertisement.EditAdvData(address, description, dateEvent, editedAnimal);
             UpdateAdv(advertisement);
             
-            /*var advData = new Tuple<string, object>[]
+            var advData = new Tuple<string, object>[]
             {
                 new Tuple<string, object>("address", address),
                 new Tuple<string, object>("description", description),
@@ -133,7 +100,7 @@ namespace Project_Ads.MVVM.Model
             };
             Connection.ExecuteNonQuery(
                 "UPDATE animal SET description = @animalColor, path = @pic WHERE id = @num",
-                anData);*/
+                anData);
         }
 
         public static void DeleteAdvertisement(int regNum)
@@ -141,10 +108,10 @@ namespace Project_Ads.MVVM.Model
             var adv = Advertisements.FirstOrDefault(advertisement => advertisement.RegNum == regNum);
             Advertisements.Remove(adv);
             
-            /*var data = new [] {new Tuple<string, object>("regNum", regNum)};
+            var data = new [] {new Tuple<string, object>("regNum", regNum)};
             Connection.ExecuteNonQuery(
                 "DELETE FROM advertisement WHERE reg_num = @regNum",
-                data);*/
+                data);
         }
     }
 
