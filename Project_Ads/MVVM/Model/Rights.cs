@@ -6,7 +6,7 @@
         public bool CanAdd { get; private set; }
         public bool CanEdit { get; private set; }
         public bool CanDelete { get; private set; }
-        public bool IsAdmin { get; private set; }
+        public bool IsAdmin { get; set; }
         
         public Rights(
             bool canAdd, 

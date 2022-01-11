@@ -32,7 +32,7 @@ namespace Project_Ads.MVVM.View
                 new Advertisement()
                 {
                     RegNum = 1, ImageUrl =$@"{App.PATH}/Icons/dogs.png",
-                    AdvertisementTypeAdvertisement = Advertisement.AdvertisementType.Find,
+                    Type = Advertisement.AdvertisementType.Find,
                     TypesAnimal = Animal.Type.Dog,
                     Marks= "Срочно !!!! нашли щеночка После 21:00 некуда деть." +
                                                   "\nХозяева отзовитесь Голубой ошейник. После 21:00 некуда деть",
@@ -44,7 +44,7 @@ namespace Project_Ads.MVVM.View
                 new Advertisement()
                 {
                     RegNum = 2, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
-                    AdvertisementTypeAdvertisement = Advertisement.AdvertisementType.Lose,
+                    Type = Advertisement.AdvertisementType.Lose,
                     TypesAnimal = Animal.Type.Cat, Marks = App.PATH,
                     Phone = "8 800 555 3535", 
                     Description = "Голубой окрас",
@@ -54,7 +54,7 @@ namespace Project_Ads.MVVM.View
                 new Advertisement()
                 {
                     RegNum = 3, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
-                    AdvertisementTypeAdvertisement = Advertisement.AdvertisementType.Lose,
+                    Type = Advertisement.AdvertisementType.Lose,
                     TypesAnimal = Animal.Type.Cat, Marks = App.PATH,
                     Phone = "8 800 555 3535",
                     Description = "Голубой окрас",

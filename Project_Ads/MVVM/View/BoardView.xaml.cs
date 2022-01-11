@@ -48,7 +48,7 @@ namespace Project_Ads.MVVM.View
             #region Add
             _advertisements.Add(new Advertisement() {
                 RegNum = 1, ImageUrl =$@"{App.PATH}/Icons/dogs.png",
-                AdvertisementTypeAdvertisement = Advertisement.AdvertisementType.Find,
+                Type = Advertisement.AdvertisementType.Find,
                 TypesAnimal = Animal.Type.Dog,
                 Marks= "Срочно !!!! нашли щеночка После 21:00 некуда деть." +
                        "\nХозяева отзовитесь Голубой ошейник. После 21:00 некуда деть",
@@ -61,7 +61,7 @@ namespace Project_Ads.MVVM.View
             });
             _advertisements.Add(new Advertisement() {
                 RegNum = 2, ImageUrl = $@"{App.PATH}\Icons\cat.jpg",
-                AdvertisementTypeAdvertisement = Advertisement.AdvertisementType.Lose,
+                Type = Advertisement.AdvertisementType.Lose,
                 TypesAnimal = Animal.Type.Cat, Marks = App.PATH,
                 Phone = "8 800 555 3535", 
                 Description = "Черный окрас",
@@ -71,7 +71,7 @@ namespace Project_Ads.MVVM.View
             });
             _advertisements.Add(new Advertisement() {
                     RegNum = 3, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
-                    AdvertisementTypeAdvertisement = Advertisement.AdvertisementType.Find,
+                    Type = Advertisement.AdvertisementType.Find,
                     TypesAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
                     Phone = "8 800 555 3535",
                     Description = "Черный окрас",
@@ -81,7 +81,7 @@ namespace Project_Ads.MVVM.View
                 });
             _advertisements.Add(new Advertisement() {
                 RegNum = 4, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
-                AdvertisementTypeAdvertisement = Advertisement.AdvertisementType.Lose,
+                Type = Advertisement.AdvertisementType.Lose,
                 TypesAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
                 Phone = "8 800 555 3535", 
                 Description = "Белый окрас",
@@ -91,7 +91,7 @@ namespace Project_Ads.MVVM.View
             });
             _advertisements.Add(new Advertisement() {
                 RegNum = 5, ImageUrl = $@"{App.PATH}/Icons/cat.jpg",
-                AdvertisementTypeAdvertisement = Advertisement.AdvertisementType.Find,
+                Type = Advertisement.AdvertisementType.Find,
                 TypesAnimal = Animal.Type.Cat, Marks = "Дополнительные приметы",
                 Phone = "8 800 555 3535", 
                 Description = "Голубой окрас",
@@ -173,7 +173,7 @@ namespace Project_Ads.MVVM.View
                     DateEvent = formAdding_date.SelectedDate.Value,
                     ImageUrl = formAdding_image.Source.ToString(),
                     Address = formAdding_address.Text,
-                    AdvertisementTypeAdvertisement = formAdding_radio_find.IsChecked.Value ? Advertisement.AdvertisementType.Find : Advertisement.AdvertisementType.Lose,
+                    Type = formAdding_radio_find.IsChecked.Value ? Advertisement.AdvertisementType.Find : Advertisement.AdvertisementType.Lose,
                     TypesAnimal = formAdding_radio_cat.IsChecked.Value ? Animal.Type.Cat :Animal.Type.Dog,
                     Phone = "8000-999-99-99"
                     // Добавить телефон

@@ -50,8 +50,8 @@ namespace Project_Ads.Model
 
         public bool IsItemFilter(Advertisement item)
         {
-            return (item.AdvertisementTypeAdvertisement == Advertisement.AdvertisementType.Find && IsFind
-                    || item.AdvertisementTypeAdvertisement == Advertisement.AdvertisementType.Lose && IsLost)
+            return (item.Type == Advertisement.AdvertisementType.Find && IsFind
+                    || item.Type == Advertisement.AdvertisementType.Lose && IsLost)
                    && ( item.TypesAnimal == Animal.Types.Cat && IsCat
                         || item.TypesAnimal == Animal.Types.Dog && IsDog);
         }
