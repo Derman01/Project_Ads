@@ -15,7 +15,8 @@ namespace Project_Ads.MVVM.Model
 
         private static void UpdateAnimal(Animal animal)
         {
-            Animals[animal.Num] = animal;
+            var index = Animals.FindIndex(a => a.Num == animal.Num);
+            Animals[index] = animal;
         }
 
         public static List<Animal> GetAnimals()
@@ -26,9 +27,8 @@ namespace Project_Ads.MVVM.Model
             return animals;
         }
         
-        public static Animal CreateAnimal(Animal.Types anType, string animalColor, string pic)
+        public static Animal CreateAnimal(Animal.Types anType, string animalColor, string pic, int animalNum)
         {
-            int animalNum = Animals.Count;
             var animal = Animal.CreateAnimal(animalColor, pic, anType, animalNum);
             AddAnimal(animal);
             return animal;

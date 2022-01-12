@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using Project_Ads.MVVM.Model;
@@ -17,8 +18,7 @@ namespace Project_Ads.MVVM.View
     {
         public Filter Filter { get; set; } = new Filter();
         private Filter _preventFilter = new Filter();
-
-        public string UserName => "User";
+        private string userName => Session.GetUser().UserName;
 
         private ObservableCollection<Advertisement> _advertisements => App.GetAdvertisementList;
 
@@ -31,6 +31,7 @@ namespace Project_Ads.MVVM.View
             _listAdvertisment.Items.Clear();
             _listAdvertisment.ItemsSource = _filteringAdvertisements;
 
+            UserNameTextBlock.Text = userName;
             menuFilter.DataContext = Filter;
             Loaded += (sender, args) =>
             {
@@ -86,22 +87,24 @@ namespace Project_Ads.MVVM.View
 
         private void CreateAdvertisement(object sender, RoutedEventArgs e)
         {
+            formAdding.IsOpen = false;
+            var color = formAdding_color.Text;
+            var description = formAdding_desc.Text;
+            var typeAdv = formAdding_radio_find.IsChecked.Value
+                ? Advertisement.AdvertisementType.Find
+                : Advertisement.AdvertisementType.Lose;
+            var address = formAdding_address.Text;
+            var dataEvent = formAdding_date.SelectedDate.Value;
+            var typeAnimal = formAdding_radio_cat.IsChecked.Value
+                ? Animal.Types.Cat
+                : Animal.Types.Dog;
+            var picUrl = formAdding_image.Source.ToString();
+
+            App.CreateAdvertisements(typeAdv, address, description, dataEvent, typeAnimal, color, picUrl);
+            UpdateFilteringListAdvertisement();
             try
             {
-                var color = formAdding_color.Text;
-                var description = formAdding_desc.Text;
-                var typeAdv = formAdding_radio_find.IsChecked.Value
-                    ? Advertisement.AdvertisementType.Find
-                    : Advertisement.AdvertisementType.Lose;
-                var address = formAdding_address.Text;
-                var dataEvent = formAdding_date.SelectedDate.Value;
-                var typeAnimal = formAdding_radio_cat.IsChecked.Value
-                    ? Animal.Types.Cat
-                    : Animal.Types.Dog;
-                var picUrl = formAdding_image.Source.ToString();
-
-                App.CreateAdvertisements(typeAdv, address, description, dataEvent, typeAnimal, color, picUrl);
-                UpdateFilteringListAdvertisement();
+                
 
             }
             catch (Exception exception)

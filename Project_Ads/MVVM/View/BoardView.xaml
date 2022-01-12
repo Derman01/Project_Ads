@@ -15,7 +15,7 @@
                     <DockPanel Margin="20 0 0 0">
                         <TextBlock Text="Добро пожаловать, " FontSize="24"
                                    VerticalAlignment="Center"/>
-                        <TextBlock Text="{Binding UserName}"
+                        <TextBlock Name="UserNameTextBlock"
                                    VerticalAlignment="Center"
                                    FontSize="24"/>
                     </DockPanel>
@@ -266,7 +266,7 @@
                         <Image x:Name="formAdding_image"
                                Source="Icons/cat.jpg"
                                Width="200" Height="150"/>
-                        <Button x:Name="upload_new_img"
+                        <Button x:Name="upload_new_img" Click="LoadAnimalImage"
                                 Style="{StaticResource AuthorizationButtonTheme}"
                                 Content="Загрузить фото" Width="200"
                                 Padding="10, 5" Height="40"/>

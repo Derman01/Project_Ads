@@ -17,23 +17,40 @@
                        FontFamily="Arial"
                        HorizontalAlignment="Center"
                        Margin="0,0,0,20"/>
-            <TextBox Width="500"
+            <TextBox Text="{Binding ElementName=Login, Path=Text}"
+                     Uid="Login" Width="500"
+                     IsEnabled="False"
                      Height="40"
-                     Name="Логин"
                      FontSize="18"
                      Style="{StaticResource AuthorizationTextBoxTheme}"/>
-            <TextBox Width="500"
-                     Height="40"
-                     Name="Пароль"                 
+            <TextBox x:Name="Login"
+                     Margin="6,-38,7,3"
+                     FontSize="20"
+                     Background="Transparent"
+                     Foreground="Transparent"
+                     BorderThickness="0"/>
+            <TextBox Text="{Binding ElementName=Password, Path=Text}"
+                     Uid="Password" Width="500"
+                     IsEnabled="False"
+                     Height="40"               
                      FontSize="18"
                      Style="{StaticResource AuthorizationTextBoxTheme}"/>
+            <TextBox x:Name="Password"
+                     Margin="6,-38,7,3"
+                     FontSize="20"
+                     Background="Transparent"
+                     Foreground="Transparent"
+                     BorderThickness="0"/>
             <Button Style="{StaticResource AuthorizationButtonTheme}" 
                     Width="150"
                     Height="40"
                     FontSize="20"
                     Content="Login"
                     Tag="20"
-                    Margin="0,15,0,0"/>
+                    Margin="0,15,0,0" Click="Authorize"/>
+            <TextBlock Name="Message" FontSize="20" Margin="0 20 0 0"
+                       Foreground="Red" Visibility="Hidden"
+                       HorizontalAlignment="Center"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" HorizontalAlignment="Center">

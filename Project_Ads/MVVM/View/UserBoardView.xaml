@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Project_Ads"
+             xmlns:model="clr-namespace:Project_Ads.MVVM.Model"
              mc:Ignorable="d">
     <Grid Background="White">
         <DockPanel>
@@ -18,7 +19,7 @@
                     </Style>
                 </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
-                    <DataTemplate >
+                    <DataTemplate DataType="{x:Type model:Advertisement}">
                         <Grid>
                             <Border VerticalAlignment="Center" 
                                     CornerRadius="15"
@@ -33,7 +34,7 @@
                                     Height="180"
                                     VerticalAlignment="Center">
                                         <Border.Background>
-                                            <ImageBrush ImageSource="{Binding Path=ImageUrl}" Stretch="Fill"/>
+                                            <ImageBrush ImageSource="{Binding Path=Animal.Pic}" Stretch="Fill"/>
                                         </Border.Background>
                                     </Border>
                                     <StackPanel Margin="30 0 0 0" Orientation="Horizontal">
@@ -43,7 +44,7 @@
                                                    FontSize="24" Text="{Binding Path=GetStringTypeAdvertisement}"/>
                                                 <TextBlock Text=": " FontSize="24" FontWeight="Bold"/>
                                                 <TextBlock FontWeight="Medium" VerticalAlignment="Bottom"
-                                                   FontSize="22" Text="{Binding Path=GetStringTypeAnimal}"/>
+                                                   FontSize="22" Text="{Binding Path=Animal.GetStringType}"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
                                                 <TextBlock FontWeight="Bold" FontSize="18" Text="Описание: "/>
@@ -51,7 +52,7 @@
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                                 <TextBlock FontWeight="Bold" FontSize="18" Text="Локация: "/>
-                                                <TextBlock Text="{Binding LocationFind}" FontSize="18" FontWeight="Regular"/>
+                                                <TextBlock Text="{Binding Address}" FontSize="18" FontWeight="Regular"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                                 <TextBlock FontWeight="Bold" FontSize="18" Text="{Binding Path=GetStringDateTypeAdvertisement}"/>
@@ -60,7 +61,7 @@
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                                 <TextBlock FontWeight="Bold" FontSize="18" Text="Номер телефона: "/>
-                                                <TextBlock Text="{Binding Phone}" FontSize="18" FontWeight="Regular"/>
+                                                <TextBlock Text="{Binding User.UserPhone}" FontSize="18" FontWeight="Regular"/>
                                             </StackPanel>
 
                                         </StackPanel>
@@ -78,11 +79,11 @@
                                                     <TextBlock Text="Дополнительные приметы"
                                                             FontWeight="Bold" FontSize="22" 
                                                             Width="300" HorizontalAlignment="Left"/>
-                                                    <TextBlock Text="{Binding Marks}" MaxWidth="450"
+                                                    <TextBlock Text="{Binding Description}" MaxWidth="450"
                                                            TextWrapping="Wrap" HorizontalAlignment="Left"
                                                            FontSize="18" FontWeight="Regular"/>
                                                 </StackPanel>
-                                                <StackPanel Grid.Column="1" VerticalAlignment="Top"
+                                                <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Top"
                                                             HorizontalAlignment="Left">
                                                     <Button Click="DeleteButton_OnClick"
                                                             Width="24" Height="24"
@@ -92,7 +93,7 @@
                                                 </StackPanel>
                                                 <StackPanel Grid.Row="1" Orientation="Horizontal" 
                                                             VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                                                    <TextBlock Text="{Binding GetFormatStringDateCreate}" FontSize="18" FontWeight="Regular"/>
+                                                    <TextBlock Text="{Binding GetFormatStringDateType}" FontSize="18" FontWeight="Regular"/>
                                                 </StackPanel>
                                             </Grid>
                                         </StackPanel>
@@ -106,7 +107,7 @@
             </ListBox>
         </DockPanel>
         <Popup x:Name="openAdvertisement" Width="700" StaysOpen="True"
-               AllowsTransparency="True" Placement="Center">
+               AllowsTransparency="True" Placement="Center" DataContext="">
             <Border  Background="White" Padding="0 30 0 30" CornerRadius="30"
                      BorderBrush="#3292D0" BorderThickness="1" >
                 <Grid Margin="30 0 30 0">
@@ -132,10 +133,8 @@
                     <StackPanel Grid.Row="1" Grid.RowSpan="5" Grid.Column="0" HorizontalAlignment="Left">
                         <Border CornerRadius="30" Width="200" Height="150"  
                                 BorderThickness="2" BorderBrush="#3292D0" Margin="0 0 0 10">
-                            <Border.Background>
-                                <ImageBrush x:Name="adImg" 
-                                            ImageSource="../../Properties/Icons/cat.jpg" />
-                            </Border.Background>
+                            <Image x:Name="adImg" 
+                                   Source="Icons/cat.jpg"/>
                         </Border>
                         <Button x:Name="upload_new_img" Click="upload_new_img_Click"
                                 Style="{StaticResource AuthorizationButtonTheme}"

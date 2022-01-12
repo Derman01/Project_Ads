@@ -5,48 +5,36 @@ namespace Project_Ads.MVVM.Model
 {
     public static class Session
     {
-        public static User currentUser { get; set; } = new User()
-        {
-            UserId = 1,
-            UserName = "Денис",
-            UserPhone = "8999999992",
-            UserRights = new Rights(true, true, true, true, true),
-            UserRole = User.Role.Admin
-        };
+        private static User currentUser { get; set; }
         
         public static User GetUser()
         {
             return currentUser;
         }
 
+        public static void CreateGuest()
+        {
+            currentUser = new User()
+            {
+                UserId = 0,
+                UserName = "Гость",
+                UserRights = new Rights(false, false, false, true, false),
+                UserRole = User.Role.NotAuthorizedUser
+            };
+        }
+
         public static void Authorize(string login, string password)
         {
-            var data = new Tuple<string, object>[]
-            {
-                new Tuple<string, object>("login", login),
-                new Tuple<string, object>("password", password)
-            };
-
-            var user = Connection.ExecuteUserAuthorization(
+            currentUser = Connection.ExecuteUserAuthorization(
                 "SELECT u.id, u.name, u.phone, r.role_name FROM \"user\" u INNER JOIN role r on r.id = u.id_role WHERE u.login = @login AND u.password = @password",
-                data);
+                login, password);
         }
 
         public static void Registrate(string login, string password, string userName, string phone)
         {
-            var data = new Tuple<string, object>[]
-            {
-                new Tuple<string, object>("name", userName),
-                new Tuple<string, object>("login", login),
-                new Tuple<string, object>("password", password),
-                new Tuple<string, object>("phone", phone),
-                new Tuple<string, object>("role", 3) // 3 - default user
-            };
             var userId = Connection.ExecuteUserRegistration(
-                "INSERT INTO \"user\" VALUES (name = @name, login = @login, password = @password, phone = @phone, id_role = @role) RETURNING id",
-                data);
-            if (userId == -1)
-                throw new ArgumentException("Такой логин уже существует");
+                "INSERT INTO \"user\" (name, login, password, phone, id_role) VALUES (@name, @login, @password, @phone, @role) RETURNING id",
+                userName, login, password, phone);
             currentUser = new User
             {
                 UserId = userId,

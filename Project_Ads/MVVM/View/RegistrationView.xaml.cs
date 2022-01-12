@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using Project_Ads.MVVM.ViewModel;
 
@@ -16,7 +17,17 @@ namespace Project_Ads.MVVM.View
 
         private void OnRegisterUser(object sender, RoutedEventArgs e)
         {
-            
+            try
+            {
+                App.Registration(Login.Text, Password.Text, UserName.Text, Phone.Text);
+                MainViewModel.HomeViewСommand.Execute(sender);
+                LoginExists.Visibility = Visibility.Hidden;
+            }
+            catch(Exception exp)
+            {
+                LoginExists.Visibility = Visibility.Visible;
+                App.Conn.Close();
+            }
         }
 
         private void ProfileViewOpen(object sender, RoutedEventArgs e)

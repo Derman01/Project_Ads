@@ -17,19 +17,19 @@ namespace Project_Ads
     /// </summary>
     public partial class App : Application
     {
-        public static string PATH = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\MVVM\View\Icons\";
+        public static string PATH = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\";
         public static NpgsqlConnection Conn = new NpgsqlConnection(Connection.ConnString);
 
         public static void CreateAdvertisements( Advertisement.AdvertisementType advAdvertisementType, string address, string description,
             DateTime dateEvent, Animal.Types anType, string animalColor, string pic)
         {
-            AdvertisementCollection.CreateAdvertisements(Session.currentUser, advAdvertisementType, address, description, dateEvent, anType, animalColor, pic);
+            AdvertisementCollection.CreateAdvertisements(Session.GetUser(), advAdvertisementType, address, description, dateEvent, anType, animalColor, pic);
         }
 
         public static ObservableCollection<Advertisement> GetAdvertisementList 
             => AdvertisementCollection.GetAdvertisementList;
         public static ObservableCollection<Advertisement> GetAdvertisementListByUser
-            => AdvertisementCollection.GetAdvertisementsByUser;
+            => AdvertisementCollection.GetAdvertisementsByUser(Session.GetUser());
 
         public static Advertisement GetAdvertisement(int regNum)
             => AdvertisementCollection.GetAdvertisement(regNum);
@@ -58,7 +58,8 @@ namespace Project_Ads
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            Conn.Open();
+            var advs = GetAdvertisementList;
+            Session.CreateGuest();
         }
     }
 }

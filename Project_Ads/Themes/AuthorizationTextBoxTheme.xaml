@@ -19,9 +19,8 @@
                                          Margin="1"
                                          FontSize="20"
                                          x:Name="LoginBox"/>
-
                                 <TextBlock IsHitTestVisible="False"
-                                           Text="{TemplateBinding Name}"
+                                           Text="{TemplateBinding Uid}"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="10,0,0,0"

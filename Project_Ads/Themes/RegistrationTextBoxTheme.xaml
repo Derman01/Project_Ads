@@ -10,16 +10,16 @@
                                 Background="Transparent"
                                 BorderBrush="Black">
                             <Grid>
-                                <TextBox Text="{TemplateBinding Text}"
-                                         Background="Transparent"
+                                <TextBox Background="Transparent"
                                          Padding="5"
                                          VerticalContentAlignment="Center"
                                          BorderThickness="0"
+                                         Text="{TemplateBinding Text}"
                                          Margin="1"
                                          FontSize="20"
-                                         x:Name="text"/>
+                                         x:Name="text_box"/>
                                 <TextBlock IsHitTestVisible="False"
-                                           Text="{TemplateBinding Name}"
+                                           Text="{TemplateBinding Uid}"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="10,0,0,0"
@@ -29,7 +29,7 @@
                                     <TextBlock.Style>
                                         <Style TargetType="{x:Type TextBlock}">
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Text, ElementName=text}" Value="">
+                                                <DataTrigger Binding="{Binding Text, ElementName=text_box}" Value="">
                                                     <Setter Property="Visibility" Value="Visible"/>
                                                 </DataTrigger>
                                             </Style.Triggers>

@@ -10,7 +10,7 @@ namespace Project_Ads.MVVM.ViewModel
         public RegistrationViewModel RegistrationVM { get; set; }
 
 
-        public RelayCommand HomeViewСommand { get; set; }
+        public static RelayCommand HomeViewСommand { get; set; }
         public RelayCommand UserBoardViewСommand { get; set; }
         public static RelayCommand ProfileViewСommand { get; set; }
         public static RelayCommand RegistrationViewСommand { get; set; }

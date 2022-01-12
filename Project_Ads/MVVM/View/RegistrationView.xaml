@@ -18,27 +18,68 @@
                        FontFamily="Arial"
                        HorizontalAlignment="Center"
                        Margin="0,0,0,30"/>
-            <TextBox x:Name="UserName"
-                     Style="{StaticResource BottomBorderTextBox}"
-                     Margin="0,0,0,25"
-                     Width="400"/>
-            <TextBox x:Name="Login"
-                     Style="{StaticResource BottomBorderTextBox}"
-                     Margin="0,0,0,25"
-                     Width="400"/>
-            <TextBox x:Name="Password"
-                     Style="{StaticResource BottomBorderTextBox}"
-                     Margin="0,0,0,25"
-                     Width="400"/>
-            <TextBox x:Name="Phone"
-                     Style="{StaticResource BottomBorderTextBox}"
-                     Margin="0,0,0,25"
-                     Width="400"/>
+            <StackPanel HorizontalAlignment="Center">
+                <TextBox Text="{Binding ElementName=UserName, Path=Text}"
+                         Uid="UserName"
+                         Margin="0,0,0,25"
+                         Width="400"
+                         IsEnabled="False"
+                         Style="{StaticResource BottomBorderTextBox}"/>
+                <TextBox x:Name="UserName"
+                         Margin="6,-60,7,3"
+                         FontSize="20"
+                         Background="Transparent"
+                         Foreground="Transparent"
+                         BorderThickness="0"/>
+                <TextBox Text="{Binding ElementName=Login, Path=Text}"
+                         Uid="Login"
+                         IsEnabled="False"
+                         Style="{StaticResource BottomBorderTextBox}"
+                         Margin="0,0,0,25"
+                         Width="400"/>
+                <TextBox x:Name="Login"
+                         Margin="6,-60,7,3"
+                         FontSize="20"
+                         Background="Transparent"
+                         Foreground="Transparent"
+                         BorderThickness="0"/>
+                <TextBox Text="{Binding ElementName=Password, Path=Text}" 
+                         Uid="Password"
+                         IsEnabled="False"
+                         Style="{StaticResource BottomBorderTextBox}"
+                         Margin="0,0,0,25"
+                         Width="400"/>
+                <TextBox x:Name="Password"
+                         Margin="6,-60,7,3"
+                         FontSize="20"
+                         Background="Transparent"
+                         Foreground="Transparent"
+                         BorderThickness="0"/>
+                <TextBox Text="{Binding ElementName=Phone, Path=Text}"
+                         Uid="Phone"
+                         IsEnabled="False"
+                         Style="{StaticResource BottomBorderTextBox}"
+                         Margin="0,0,0,25"
+                         Width="400"/>
+                <TextBox x:Name="Phone"
+                         Margin="6,-60,7,3"
+                         FontSize="20"
+                         Background="Transparent"
+                         Foreground="Transparent"
+                         BorderThickness="0"/>
+            </StackPanel>
             <Button Style="{StaticResource AuthorizationButtonTheme}"
                     Content="Зарегистрироваться"
                     Height="40"
                     Width="230"
                     Click="OnRegisterUser"/>
+            <TextBlock Name="LoginExists"
+                       Text="Логин уже занят!"
+                       Foreground="Red"
+                       FontSize="20"
+                       Visibility="Hidden"
+                       HorizontalAlignment="Center"
+                       Margin="0 30 0 30"/>
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center"
                     Margin="0,0,0,0">
