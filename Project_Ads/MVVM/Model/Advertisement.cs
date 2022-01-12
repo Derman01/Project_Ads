@@ -25,10 +25,11 @@ namespace Project_Ads.MVVM.Model
 
         public static Advertisement CreateAdv(
             User user, string address, string description, DateTime dateCreate,
-            DateTime dateEvent, AdvertisementType advAdvertisementType, int regNum, Animal animal)
+            DateTime dateEvent, int advType, int regNum, Animal animal)
         {
-            return new Advertisement(user, address, description, dateCreate,
-                dateEvent, advAdvertisementType, regNum, animal);
+            return new Advertisement(user, address, description, dateCreate, dateEvent, 
+                advType == 0 ? AdvertisementType.Lose : AdvertisementType.Find, 
+                regNum, animal);
         }
 
         private Advertisement( User user, string address, string description, DateTime dateCreate,

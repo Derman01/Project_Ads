@@ -8,12 +8,7 @@ namespace Project_Ads.MVVM.Model
     {
         private static List<Animal> Animals = new List<Animal>();
 
-        private static void AddAnimal(Animal animal)
-        {
-            Animals.Add(animal);
-        }
-
-        private static void UpdateAnimal(Animal animal)
+        private static void UpdateAnimals(Animal animal)
         {
             var index = Animals.FindIndex(a => a.Num == animal.Num);
             Animals[index] = animal;
@@ -22,14 +17,16 @@ namespace Project_Ads.MVVM.Model
         public static List<Animal> GetAnimals()
         {
             var animals = Connection.ExecuteGetAnimalList();
-            Animals = animals; //проверить на правильность операции
-            return animals;
+            foreach (var animal in animals)
+                Animals.Add(animal);
+            return Animals;
         }
         
-        public static Animal CreateAnimal(Animal.Types anType, string animalColor, string pic, int animalNum)
+        public static Animal CreateAnimal(int anType, string animalColor, string pic)
         {
+            var animalNum = Connection.ExecuteCreateAnimal(anType, animalColor, pic);
             var animal = Animal.CreateAnimal(animalColor, pic, anType, animalNum);
-            AddAnimal(animal);
+            Animals.Add(animal);
             return animal;
         }
 
@@ -37,7 +34,7 @@ namespace Project_Ads.MVVM.Model
         {
             var animal = Animals.First(a=> a.Num == animalNum);
             animal.EditAnimalData(animalColor, pic);
-            UpdateAnimal(animal);
+            UpdateAnimals(animal);
             return animal;
         }
         

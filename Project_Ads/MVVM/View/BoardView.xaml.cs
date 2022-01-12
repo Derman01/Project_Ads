@@ -33,7 +33,7 @@ namespace Project_Ads.MVVM.View
 
             UserNameTextBlock.Text = userName;
             menuFilter.DataContext = Filter;
-            if (!Session.GetUser().UserRights.CanAdd)
+            if (Session.GetUser().UserRole == User.Role.NotAuthorizedUser)
                 AddAdvButton.IsEnabled = false;
             
             Loaded += (sender, args) => UpdateFilteringListAdvertisement();
@@ -113,9 +113,10 @@ namespace Project_Ads.MVVM.View
             var picUrl = formAdding_image.Source.ToString();
             try
             {
-                _advertisements = App.CreateAdvertisements(
+                App.CreateAdvertisements(
                     Convert.ToInt32(typeAdv), address, description, dataEvent, 
                     Convert.ToInt32(typeAnimal), color, picUrl);
+                _advertisements = App.GetAdvertisementList;
                 UpdateFilteringListAdvertisement();
             }
             catch (Exception exception)

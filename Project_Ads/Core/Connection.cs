@@ -121,9 +121,7 @@ namespace Project_Ads.Core
                     reader[4].ToString(),
                     Convert.ToDateTime(reader[6]),
                     Convert.ToDateTime(reader[5]),
-                    reader[2].ToString() == "Find"
-                        ? Advertisement.AdvertisementType.Find
-                        : Advertisement.AdvertisementType.Lose,
+                    reader[2].ToString() == "Find" ? 1 : 0,
                     (int) reader[0],
                     animals.FirstOrDefault(animal => animal.Num == (int) reader[7])
                 ));
@@ -142,13 +140,12 @@ namespace Project_Ads.Core
             var animals = new List<Animal>();
             while (reader.Read())
             {
-                animals.Add(new Animal()
-                {
-                    Num = (int) reader[0],
-                    Type = reader[1].ToString() == "Cat" ? Animal.Types.Cat : Animal.Types.Dog,
-                    Color = reader[2].ToString(),
-                    Pic = reader[3].ToString()
-                });
+                animals.Add(Animal.CreateAnimal(
+                    reader[2].ToString(),
+                    reader[3].ToString(),
+                    reader[1].ToString() == "Cat" ? 0 : 1,
+                    (int) reader[0]
+                ));
             }
             _conn.Close();
             return animals;
@@ -192,14 +189,11 @@ namespace Project_Ads.Core
             while (reader.Read())
             {
                 var role = MVVM.Model.User.Role.NotAuthorizedUser;
-                var rights = new Rights(true, true, true, true, false);
                 if (reader[3].ToString() == "user")
                     role = MVVM.Model.User.Role.User;
                 else if (reader[3].ToString() == "admin")
-                {
                     role = MVVM.Model.User.Role.Admin;
-                    rights.IsAdmin = true;
-                }
+                
                 // возможно все что выше надо переместить куда то в другое место
                 user = new User()
                 {
@@ -207,7 +201,6 @@ namespace Project_Ads.Core
                     UserName = reader[1].ToString(),
                     UserPhone = reader[2].ToString(),
                     UserRole = role,
-                    UserRights = rights
                 };
             }
             _conn.Close();

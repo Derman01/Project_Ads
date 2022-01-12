@@ -19,15 +19,16 @@ namespace Project_Ads
     {
         public static string PATH = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\";
 
-        public static List<Dictionary<string, object>> CreateAdvertisements( int advertisementType, string address, string description,
+        public static void CreateAdvertisements( int advertisementType, string address, string description,
             DateTime dateEvent, int anType, string animalColor, string pic)
         {
-            return AdvertisementCollection.CreateAdvertisements(
+            AdvertisementCollection.CreateAdvertisements(
                 Session.GetUser(), advertisementType, address, description, dateEvent, anType, animalColor, pic);
         }
 
         public static List<Dictionary<string, object>> GetAdvertisementList 
             => AdvertisementCollection.GetAdvertisementList;
+        
         public static List<Dictionary<string, object>> GetAdvertisementListByUser
             => AdvertisementCollection.GetAdvertisementsByUser(Session.GetUser());
 

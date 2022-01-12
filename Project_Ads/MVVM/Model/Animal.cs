@@ -13,14 +13,14 @@ namespace Project_Ads.MVVM.Model
             Cat,
             Dog
         }
-        public static Animal CreateAnimal(string animalColors, string pic, Types anTypes, int animalNum)
+        public static Animal CreateAnimal(string animalColor, string pic, int anType, int animalNum)
         {
             return new Animal()
             {
                 Pic = pic,
-                Color = animalColors,
+                Color = animalColor,
                 Num = animalNum,
-                Type = anTypes,
+                Type = anType == 0 ? Types.Cat : Types.Dog
             };
         }
         public void EditAnimalData(string animalColor, string pic)

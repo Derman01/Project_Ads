@@ -11,7 +11,7 @@ namespace Project_Ads.MVVM.Model
     {
         private static List<Advertisement> Advertisements = new List<Advertisement>();
 
-        private static void UpdateAdv(Advertisement advertisement)
+        private static void UpdateAdvs(Advertisement advertisement)
         {
             var index = Advertisements.FindIndex(adv=> adv.RegNum == advertisement.RegNum);
             Advertisements[index] = advertisement;
@@ -47,28 +47,20 @@ namespace Project_Ads.MVVM.Model
             return dict;
         }
 
-        public static List<Dictionary<string, object>> CreateAdvertisements(
-            User user, int advertisementType, string address, string description,
-            DateTime dateEvent, int animalType, string animalColor, string pic)
+        public static void CreateAdvertisements(
+            User user, int advType, string address, string description,
+            DateTime dateEvent, int anType, string animalColor, string pic)
         {
-            var adType = advertisementType == 0
-                ? Advertisement.AdvertisementType.Lose
-                : Advertisement.AdvertisementType.Find;
-            var anType = animalType == 0 ? Animal.Types.Cat : Animal.Types.Dog;
-            
-            var animalId = Connection.ExecuteCreateAnimal((int)anType, animalColor, pic);
-            var animal = AnimalCollection.CreateAnimal(anType, animalColor, pic, animalId);
-            int regNum = Connection.ExecuteGetLastRegNum();
+            var animal = AnimalCollection.CreateAnimal(anType, animalColor, pic);
+            var regNum = Connection.ExecuteGetLastRegNum();
             var advertisement = Advertisement.CreateAdv(user, address, description,
-                DateTime.Now, dateEvent, adType, regNum, animal);
+                DateTime.Now, dateEvent, advType, regNum, animal);
             Advertisements.Add(advertisement);
             Connection.ExecuteCreateAdvertisement(
                 advertisement.User.UserId, advertisement.Type.ToString(), advertisement.Address, advertisement.Animal.Num, 
                 advertisement.Description, advertisement.DateEvent, advertisement.DateCreate);
-            return ConvertToDictionaryList(Advertisements);
         }
-
-
+        
         public static List<Dictionary<string, object>> GetAdvertisementList
         {
             get
@@ -77,8 +69,9 @@ namespace Project_Ads.MVVM.Model
                     return ConvertToDictionaryList(Advertisements);
                 var animals = AnimalCollection.GetAnimals();
                 var advs = Connection.ExecuteGetAdvertisementList(animals);
-                Advertisements = advs;
-                return ConvertToDictionaryList(advs);
+                foreach (var advertisement in advs)
+                    Advertisements.Add(advertisement);
+                return ConvertToDictionaryList(Advertisements);
             }
         }
 
@@ -86,12 +79,6 @@ namespace Project_Ads.MVVM.Model
         {
             var sortedList = Advertisements.Where(ad => ad.User.UserId == user.UserId).ToArray(); 
             return ConvertToDictionaryList(sortedList);
-        }
-
-        public static Dictionary<string, object> GetAdvertisement(int regNum)
-        {
-            return CreateAdvertisementDictionary(
-                Advertisements.FirstOrDefault(advertisement => advertisement.RegNum == regNum));
         }
 
         public static void EditAdvertisement(
@@ -102,32 +89,16 @@ namespace Project_Ads.MVVM.Model
             var animalNum = advertisement.Animal.Num;
             var editedAnimal = AnimalCollection.EditAnimalData(animalNum, animalColor, pic);
             advertisement.EditAdvData(address, description, dateEvent, editedAnimal);
-            UpdateAdv(advertisement);
+            UpdateAdvs(advertisement);
             Connection.ExecuteEditAdvertisement(address, description, dateEvent, regNum, 
                 animalColor, pic, animalNum);
         }
 
         public static void DeleteAdvertisement(int regNum)
         {
-            var adv = Advertisements.FirstOrDefault(advertisement => advertisement.RegNum == regNum);
+            var adv = Advertisements.First(advertisement => advertisement.RegNum == regNum);
             Advertisements.Remove(adv);
             Connection.ExecuteDeleteAdvertisement(regNum, DateTime.Now);
-        }
-    }
-
-    public static class Extensiton
-    {
-        public static int IndexOf<T>(this List<T> _list, Func<T, bool> condition)
-        {
-            var index = 0;
-            foreach (var e in _list)
-            {
-                if (condition(e))
-                    return index;
-                index++;
-            }
-
-            return -1;
         }
     }
 }

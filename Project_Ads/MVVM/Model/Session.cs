@@ -18,7 +18,6 @@ namespace Project_Ads.MVVM.Model
             {
                 UserId = 0,
                 UserName = "Гость",
-                UserRights = new Rights(false, false, false, true, false),
                 UserRole = User.Role.NotAuthorizedUser
             };
         }
@@ -36,7 +35,6 @@ namespace Project_Ads.MVVM.Model
                 UserId = userId,
                 UserName = userName,
                 UserPhone = phone,
-                UserRights = new Rights(true, true, true, true, false),
                 UserRole = User.Role.User,
             };
         }
