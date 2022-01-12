@@ -7,27 +7,21 @@ namespace Project_Ads.MVVM.Model
 {
     public class Advertisement: ObservableObject
     {
-        public enum AdvertisementType
-        {
-            Lose,
-            Find
-        }
-        
         public int RegNum { get; set; }
         
         public User User { get; set; }
 
         public Animal Animal { get; set; }
 
-        private AdvertisementType _advType;
+        public AdvertisementType Type { get; set; }
         
-        private string _description;
+        public string Description { get; set; }
 
-        private string _address;
+        public string Address { get; set; }
 
-        private DateTime _dateEvent;
+        public DateTime DateEvent { get; set; }
 
-        private DateTime _dateCreate;
+        public DateTime DateCreate { get; set; }
 
         public static Advertisement CreateAdv(
             User user, string address, string description, DateTime dateCreate,
@@ -59,74 +53,10 @@ namespace Project_Ads.MVVM.Model
             Animal = editedAnimal;
         }
         
-        
-        private static Dictionary<AdvertisementType, string> StringFormatTypeAdvertisement = new Dictionary<AdvertisementType, string>()
+        public enum AdvertisementType
         {
-            {AdvertisementType.Find, "Находка"},
-            {AdvertisementType.Lose , "Пропажа"}
-        };
-        private static Dictionary<AdvertisementType, string> StringFormatDateTypeAdvertisement = new Dictionary<AdvertisementType, string>()
-        {
-            {AdvertisementType.Find, "Дата находки"},
-            {AdvertisementType.Lose , "Дата пропажи"}
-        };
-        
-        public string GetStringTypeAdvertisement => StringFormatTypeAdvertisement[_advType];
-        public string GetStringDateTypeAdvertisement => StringFormatDateTypeAdvertisement[_advType];
-        
-        public AdvertisementType Type
-        {
-            get => _advType;
-            set
-            {
-                _advType = value; 
-                OnPropertyChanged("Type"); 
-                OnPropertyChanged("GetStringTypeAdvertisement");
-            }
+            Lose,
+            Find
         }
-        
-        public string Description
-        {
-            get => _description;
-            set
-            {
-                _description = value;
-                OnPropertyChanged("Description");
-            }
-        }
-        
-        public string Address
-        {
-            get => _address;
-            set { _address = value; OnPropertyChanged("Address");}
-        }
-        
-        public DateTime DateEvent
-        {
-            get => _dateEvent;
-            set 
-            { 
-                _dateEvent = value;
-                OnPropertyChanged("DateEvent"); 
-                OnPropertyChanged("GetFormatStringDateType"); 
-            }
-        }
-        
-        public DateTime DateCreate
-        {
-            get => _dateCreate;
-            set
-            {
-                _dateCreate = value;
-                OnPropertyChanged("DateCreate");
-                OnPropertyChanged("GetFormatStringDateCreate");
-            }
-        }
-        
-        public string GetFormatStringDateCreate => _dateCreate.ToString("d");
-
-        public string DeleteImageUrl => $@"{App.PATH}\Icons\trash_24px.png";
-        
-        public string GetFormatStringDateType => _dateEvent.ToString("d");
     }
 }

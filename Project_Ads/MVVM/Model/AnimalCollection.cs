@@ -21,8 +21,7 @@ namespace Project_Ads.MVVM.Model
 
         public static List<Animal> GetAnimals()
         {
-            var animals = Connection.ExecuteGetAnimalList(
-                "SELECT a.id, a2.type, a.description, a.path FROM animal a INNER JOIN animal_type a2 on a2.id = a.type_id");
+            var animals = Connection.ExecuteGetAnimalList();
             Animals = animals; //проверить на правильность операции
             return animals;
         }

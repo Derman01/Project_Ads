@@ -26,7 +26,6 @@ namespace Project_Ads.MVVM.View
             catch(Exception exp)
             {
                 LoginExists.Visibility = Visibility.Visible;
-                App.Conn.Close();
             }
         }
 

@@ -25,16 +25,12 @@ namespace Project_Ads.MVVM.Model
 
         public static void Authorize(string login, string password)
         {
-            currentUser = Connection.ExecuteUserAuthorization(
-                "SELECT u.id, u.name, u.phone, r.role_name FROM \"user\" u INNER JOIN role r on r.id = u.id_role WHERE u.login = @login AND u.password = @password",
-                login, password);
+            currentUser = Connection.ExecuteUserAuthorization(login, password);
         }
 
         public static void Registrate(string login, string password, string userName, string phone)
         {
-            var userId = Connection.ExecuteUserRegistration(
-                "INSERT INTO \"user\" (name, login, password, phone, id_role) VALUES (@name, @login, @password, @phone, @role) RETURNING id",
-                userName, login, password, phone);
+            var userId = Connection.ExecuteUserRegistration(userName, login, password, phone);
             currentUser = new User
             {
                 UserId = userId,

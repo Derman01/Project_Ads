@@ -28,12 +28,5 @@ namespace Project_Ads.MVVM.Model
             Color = animalColor;
             Pic = pic;
         }
-        
-        private static Dictionary<Animal.Types, string> convertToType = new Dictionary<Animal.Types, string>()
-        {
-            { Types.Cat , "Кот / Кошка"},
-            { Types.Dog, "Собака / пёс"}
-        };
-        public string GetStringType => convertToType[this.Type];
     }
 }

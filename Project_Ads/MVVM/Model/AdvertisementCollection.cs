@@ -3,66 +3,95 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Project_Ads.Core;
+using Project_Ads.MVVM.View;
 
 namespace Project_Ads.MVVM.Model
 {
-    public static class AdvertisementCollection
+    public class AdvertisementCollection
     {
-        private static ObservableCollection<Advertisement> Advertisements = new ObservableCollection<Advertisement>();
+        private static List<Advertisement> Advertisements = new List<Advertisement>();
 
         private static void UpdateAdv(Advertisement advertisement)
         {
-            var index = Advertisements.IndexOf(adv=> adv.RegNum == advertisement.RegNum);
+            var index = Advertisements.FindIndex(adv=> adv.RegNum == advertisement.RegNum);
             Advertisements[index] = advertisement;
         }
-
-        public static void CreateAdvertisements(
-            User user, Advertisement.AdvertisementType advAdvertisementType, string address, string description,
-            DateTime dateEvent, Animal.Types anType, string animalColor, string pic)
+        
+        private static List<Dictionary<string, object>> ConvertToDictionaryList(IEnumerable<Advertisement> advs)
         {
-            var animalId = Connection.ExecuteCreateAnimal(
-                "INSERT INTO animal (type_id, description, path) VALUES (@type_id, @description, @path) RETURNING id",
-                (int)anType, animalColor, pic);
-            var animal = AnimalCollection.CreateAnimal(anType, animalColor, pic, animalId);
-            int regNum = Connection.ExecuteGetLastRegNum("SELECT reg_num FROM advertisement ORDER BY reg_num DESC LIMIT 1");
-            var advertisement = Advertisement.CreateAdv(user, address, description,
-                DateTime.Now, dateEvent, advAdvertisementType, regNum, animal);
-            Advertisements.Add(advertisement);
+            var list = new List<Dictionary<string, object>>();
+            foreach (var advertisement in advs)
+            {
+                var dict = CreateAdvertisementDictionary(advertisement);
+                list.Add(dict);
+            }
+            return list;
+        }
+
+        private static Dictionary<string, object> CreateAdvertisementDictionary(Advertisement advertisement)
+        {
+            var dict = new Dictionary<string, object>
+            {
+                ["regNum"] = advertisement.RegNum,
+                ["anNum"] = advertisement.Animal.Num,
+                ["pic"] = advertisement.Animal.Pic,
+                ["advType"] = Convert.ToInt32(advertisement.Type),
+                ["anType"] = Convert.ToInt32(advertisement.Animal.Type),
+                ["anColor"] = advertisement.Animal.Color,
+                ["address"] = advertisement.Address,
+                ["dateEvent"] = advertisement.DateEvent,
+                ["phone"] = advertisement.User.UserPhone,
+                ["description"] = advertisement.Description,
+                ["dateCreate"] = advertisement.DateCreate
+            };
+            return dict;
+        }
+
+        public static List<Dictionary<string, object>> CreateAdvertisements(
+            User user, int advertisementType, string address, string description,
+            DateTime dateEvent, int animalType, string animalColor, string pic)
+        {
+            var adType = advertisementType == 0
+                ? Advertisement.AdvertisementType.Lose
+                : Advertisement.AdvertisementType.Find;
+            var anType = animalType == 0 ? Animal.Types.Cat : Animal.Types.Dog;
             
+            var animalId = Connection.ExecuteCreateAnimal((int)anType, animalColor, pic);
+            var animal = AnimalCollection.CreateAnimal(anType, animalColor, pic, animalId);
+            int regNum = Connection.ExecuteGetLastRegNum();
+            var advertisement = Advertisement.CreateAdv(user, address, description,
+                DateTime.Now, dateEvent, adType, regNum, animal);
+            Advertisements.Add(advertisement);
             Connection.ExecuteCreateAdvertisement(
-                "INSERT INTO advertisement (id_user, type, address, id_animal, description, date_event, date_create) VALUES (@id_user, @type, @address, @id_animal, @description, @date_event, @date_create)",
-                advertisement.User.UserId, advertisement.Type.ToString(), advertisement.Address, advertisement.Animal.Num,
+                advertisement.User.UserId, advertisement.Type.ToString(), advertisement.Address, advertisement.Animal.Num, 
                 advertisement.Description, advertisement.DateEvent, advertisement.DateCreate);
+            return ConvertToDictionaryList(Advertisements);
         }
 
 
-        public static ObservableCollection<Advertisement> GetAdvertisementList
+        public static List<Dictionary<string, object>> GetAdvertisementList
         {
             get
             {
                 if (Advertisements.Count != 0)
-                    return Advertisements;
+                    return ConvertToDictionaryList(Advertisements);
                 var animals = AnimalCollection.GetAnimals();
-                var advs = Connection.ExecuteGetAdvertisementList(
-                    "SELECT a.reg_num, a.id_user, a.type, a.address, a.description, a.date_event, a.date_create, a.id_animal, u.phone FROM advertisement a INNER JOIN \"user\" u on u.id = a.id_user WHERE a.date_remove IS NULL",
-                    animals);
+                var advs = Connection.ExecuteGetAdvertisementList(animals);
                 Advertisements = advs;
-                return Advertisements;
+                return ConvertToDictionaryList(advs);
             }
         }
 
-        public static ObservableCollection<Advertisement> GetAdvertisementsByUser(User user)
+        public static List<Dictionary<string, object>> GetAdvertisementsByUser(User user)
         {
             var sortedList = Advertisements.Where(ad => ad.User.UserId == user.UserId).ToArray(); 
-            var advs = new ObservableCollection<Advertisement>();
-            foreach (var advertisement in sortedList)
-                advs.Add(advertisement);
-            return advs;
+            return ConvertToDictionaryList(sortedList);
         }
 
-        public static Advertisement GetAdvertisement(int regNum)
+        public static Dictionary<string, object> GetAdvertisement(int regNum)
         {
-            return Advertisements.FirstOrDefault(advertisement => advertisement.RegNum == regNum);
+            return CreateAdvertisementDictionary(
+                Advertisements.FirstOrDefault(advertisement => advertisement.RegNum == regNum));
         }
 
         public static void EditAdvertisement(
@@ -74,26 +103,21 @@ namespace Project_Ads.MVVM.Model
             var editedAnimal = AnimalCollection.EditAnimalData(animalNum, animalColor, pic);
             advertisement.EditAdvData(address, description, dateEvent, editedAnimal);
             UpdateAdv(advertisement);
-            Connection.ExecuteEditAdvertisement(
-                "UPDATE advertisement SET address = @address, description = @description, date_event = @date_event WHERE reg_num = @reg_num",
-                "UPDATE animal SET description = @animalColor, path = @pic WHERE id = @num",
-                address, description, dateEvent, regNum, animalColor, pic, animalNum);
+            Connection.ExecuteEditAdvertisement(address, description, dateEvent, regNum, 
+                animalColor, pic, animalNum);
         }
 
         public static void DeleteAdvertisement(int regNum)
         {
             var adv = Advertisements.FirstOrDefault(advertisement => advertisement.RegNum == regNum);
             Advertisements.Remove(adv);
-            
-            Connection.ExecuteDeleteAdvertisement(
-                "DELETE FROM advertisement WHERE reg_num = @reg_num",
-                regNum);
+            Connection.ExecuteDeleteAdvertisement(regNum, DateTime.Now);
         }
     }
 
     public static class Extensiton
     {
-        public static int IndexOf<T>(this ObservableCollection<T> _list, Func<T, bool> condition)
+        public static int IndexOf<T>(this List<T> _list, Func<T, bool> condition)
         {
             var index = 0;
             foreach (var e in _list)

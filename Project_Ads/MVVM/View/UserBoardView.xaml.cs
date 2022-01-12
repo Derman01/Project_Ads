@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using Project_Ads.MVVM.Model;
+using Project_Ads.MVVM.ViewModel;
 
 namespace Project_Ads.MVVM.View
 {
@@ -17,20 +19,51 @@ namespace Project_Ads.MVVM.View
     /// </summary>
     public partial class UserBoardView : UserControl
     {
-        private ObservableCollection<Advertisement> _advertisements => App.GetAdvertisementListByUser;
+        private List<Dictionary<string, object>> _advertisementsDictionary;
+
+        private ObservableCollection<AdvertisementData> _userAdvertisements =
+            new ObservableCollection<AdvertisementData>();
 
         public UserBoardView()
         {
             InitializeComponent();
             advertisementsList.Items.Clear();
-            advertisementsList.ItemsSource = _advertisements;
+            advertisementsList.ItemsSource = _userAdvertisements;
+            
+            Loaded += (sender, args) => UpdateListAdvertisement();
         }
         
+        private void UpdateListAdvertisement()
+        {
+            if (_userAdvertisements.Count != 0) _userAdvertisements.Clear();
+            _advertisementsDictionary = App.GetAdvertisementListByUser;
+            foreach (var item in _advertisementsDictionary)
+            {
+                var adv = new AdvertisementData(
+                    Convert.ToInt32(item["regNum"]),
+                    Convert.ToInt32(item["advType"]),
+                    item["address"].ToString(),
+                    item["description"].ToString(),
+                    Convert.ToDateTime(item["dateEvent"]),
+                    Convert.ToDateTime(item["dateCreate"]),
+                    Convert.ToInt32(item["anNum"]),
+                    item["pic"].ToString(),
+                    Convert.ToInt32(item["anType"]),
+                    item["anColor"].ToString(),
+                    item["phone"].ToString()
+                );
+                _userAdvertisements.Add(adv);
+            }
+        }
+
         private void AdConfirm_Click(object sender, RoutedEventArgs e)
         {
-            var advertisement = (Advertisement) advertisementsList.SelectedItem;
-            App.EditAdvertisement(advertisement.RegNum, adLocation.Text, adMarks.Text, adDate.SelectedDate.Value, adColor.Text, adImg.Source.ToString());
+            var advertisement = (AdvertisementData) advertisementsList.SelectedItem;
+            App.EditAdvertisement(
+                advertisement.RegNum, adLocation.Text, adMarks.Text, adDate.SelectedDate.Value,
+                adColor.Text, adImg.Source.ToString());
             openAdvertisement.IsOpen = false;
+            UpdateListAdvertisement();
         }
 
         private void AdClose_Click(object sender, RoutedEventArgs e)
@@ -50,11 +83,11 @@ namespace Project_Ads.MVVM.View
 
         private void AdvertisementsList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var advertisement = (Advertisement) advertisementsList.SelectedItem;
-            adImg.Source = new BitmapImage(new Uri(advertisement.Animal.Pic));
-            animalType.Text = advertisement.Animal.GetStringType;
+            var advertisement = (AdvertisementData) advertisementsList.SelectedItem;
+            adImg.Source = new BitmapImage(new Uri(advertisement.AnPic));
+            animalType.Text = advertisement.GetStringTypeAnimal;
             adType.Text = advertisement.GetStringTypeAdvertisement;
-            adColor.Text = advertisement.Animal.Color;
+            adColor.Text = advertisement.AnColor;
             adLocation.Text = advertisement.Address;
             adDate.SelectedDate = advertisement.DateEvent;
             adMarks.Text = advertisement.Description;
@@ -63,11 +96,10 @@ namespace Project_Ads.MVVM.View
 
         private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var btn = (Button)e.OriginalSource; //определение родителя кнопки
-            var advertisement = (Advertisement)btn.DataContext;
+            var advertisement = (AdvertisementData) advertisementsList.SelectedItem;
             App.DeleteAdvertisement(advertisement.RegNum);
-            advertisementsList.Items.Clear();
-            advertisementsList.ItemsSource = _advertisements;
+            openAdvertisement.IsOpen = false;
+            UpdateListAdvertisement();
         }
     }
 }

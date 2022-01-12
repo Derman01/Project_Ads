@@ -18,22 +18,19 @@ namespace Project_Ads
     public partial class App : Application
     {
         public static string PATH = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\";
-        public static NpgsqlConnection Conn = new NpgsqlConnection(Connection.ConnString);
 
-        public static void CreateAdvertisements( Advertisement.AdvertisementType advAdvertisementType, string address, string description,
-            DateTime dateEvent, Animal.Types anType, string animalColor, string pic)
+        public static List<Dictionary<string, object>> CreateAdvertisements( int advertisementType, string address, string description,
+            DateTime dateEvent, int anType, string animalColor, string pic)
         {
-            AdvertisementCollection.CreateAdvertisements(Session.GetUser(), advAdvertisementType, address, description, dateEvent, anType, animalColor, pic);
+            return AdvertisementCollection.CreateAdvertisements(
+                Session.GetUser(), advertisementType, address, description, dateEvent, anType, animalColor, pic);
         }
 
-        public static ObservableCollection<Advertisement> GetAdvertisementList 
+        public static List<Dictionary<string, object>> GetAdvertisementList 
             => AdvertisementCollection.GetAdvertisementList;
-        public static ObservableCollection<Advertisement> GetAdvertisementListByUser
+        public static List<Dictionary<string, object>> GetAdvertisementListByUser
             => AdvertisementCollection.GetAdvertisementsByUser(Session.GetUser());
 
-        public static Advertisement GetAdvertisement(int regNum)
-            => AdvertisementCollection.GetAdvertisement(regNum);
-        
         public static void EditAdvertisement(
             int regNum, string address, string description, DateTime dateEvent,
             string animalColor, string pic)
@@ -56,6 +53,8 @@ namespace Project_Ads
             Session.Registrate(login, password, userName, phone);
         }
 
+        public static string GetUserName() => Session.GetUser().UserName;
+        
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             var advs = GetAdvertisementList;

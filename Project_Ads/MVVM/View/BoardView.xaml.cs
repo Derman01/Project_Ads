@@ -18,12 +18,12 @@ namespace Project_Ads.MVVM.View
     {
         public Filter Filter { get; set; } = new Filter();
         private Filter _preventFilter = new Filter();
-        private string userName => Session.GetUser().UserName;
+        private string userName => App.GetUserName();
 
-        private ObservableCollection<Advertisement> _advertisements => App.GetAdvertisementList;
+        private List<Dictionary<string, object>> _advertisements;
 
-        private ObservableCollection<Advertisement>
-            _filteringAdvertisements = new ObservableCollection<Advertisement>();
+        private ObservableCollection<AdvertisementData>
+            _filteringAdvertisements = new ObservableCollection<AdvertisementData>();
 
         public BoardView()
         {
@@ -33,24 +33,36 @@ namespace Project_Ads.MVVM.View
 
             UserNameTextBlock.Text = userName;
             menuFilter.DataContext = Filter;
-            Loaded += (sender, args) =>
-            {
-                UpdateFilteringListAdvertisement();
-            };
+            if (!Session.GetUser().UserRights.CanAdd)
+                AddAdvButton.IsEnabled = false;
+            
+            Loaded += (sender, args) => UpdateFilteringListAdvertisement();
         }
 
         private void UpdateFilteringListAdvertisement()
         {
             if (_filteringAdvertisements.Count != 0) _filteringAdvertisements.Clear();
-
+            _advertisements = App.GetAdvertisementList;
             foreach (var item in _advertisements)
             {
-                if (Filter.IsItemFilter(item))
-                    _filteringAdvertisements.Add(item);
+                var adv = new AdvertisementData(
+                    Convert.ToInt32(item["regNum"]),
+                    Convert.ToInt32(item["advType"]),
+                    item["address"].ToString(),
+                    item["description"].ToString(),
+                    Convert.ToDateTime(item["dateEvent"]),
+                    Convert.ToDateTime(item["dateCreate"]),
+                    Convert.ToInt32(item["anNum"]),
+                    item["pic"].ToString(),
+                    Convert.ToInt32(item["anType"]),
+                    item["anColor"].ToString(),
+                    item["phone"].ToString()
+                );
+                if (Filter.IsItemFilter(adv))
+                    _filteringAdvertisements.Add(adv);
             }
         }
-
-
+        
         private void LoadAnimalImage(object o, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -91,21 +103,20 @@ namespace Project_Ads.MVVM.View
             var color = formAdding_color.Text;
             var description = formAdding_desc.Text;
             var typeAdv = formAdding_radio_find.IsChecked.Value
-                ? Advertisement.AdvertisementType.Find
-                : Advertisement.AdvertisementType.Lose;
+                ? AdvertisementData.AdvertisementType.Find
+                : AdvertisementData.AdvertisementType.Lose;
             var address = formAdding_address.Text;
             var dataEvent = formAdding_date.SelectedDate.Value;
             var typeAnimal = formAdding_radio_cat.IsChecked.Value
-                ? Animal.Types.Cat
-                : Animal.Types.Dog;
+                ? AdvertisementData.AnimalType.Cat
+                : AdvertisementData.AnimalType.Dog;
             var picUrl = formAdding_image.Source.ToString();
-
-            App.CreateAdvertisements(typeAdv, address, description, dataEvent, typeAnimal, color, picUrl);
-            UpdateFilteringListAdvertisement();
             try
             {
-                
-
+                _advertisements = App.CreateAdvertisements(
+                    Convert.ToInt32(typeAdv), address, description, dataEvent, 
+                    Convert.ToInt32(typeAnimal), color, picUrl);
+                UpdateFilteringListAdvertisement();
             }
             catch (Exception exception)
             {

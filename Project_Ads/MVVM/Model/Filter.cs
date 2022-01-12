@@ -1,4 +1,5 @@
 ﻿using Project_Ads.Core;
+using Project_Ads.MVVM.View;
 
 namespace Project_Ads.MVVM.Model
 {
@@ -48,12 +49,12 @@ namespace Project_Ads.MVVM.Model
             }
         }
 
-        public bool IsItemFilter(Advertisement item)
+        public bool IsItemFilter(AdvertisementData item)
         {
-            return (item.Type == Advertisement.AdvertisementType.Find && IsFind
-                    || item.Type == Advertisement.AdvertisementType.Lose && IsLost)
-                   && ( item.Animal.Type == Animal.Types.Cat && IsCat
-                        || item.Animal.Type == Animal.Types.Dog && IsDog);
+            return (item.AdvType == AdvertisementData.AdvertisementType.Find && IsFind
+                    || item.AdvType == AdvertisementData.AdvertisementType.Lose && IsLost)
+                   && ( item.AnType == AdvertisementData.AnimalType.Cat && IsCat
+                        || item.AnType == AdvertisementData.AnimalType.Dog && IsDog);
         }
 
         public void CopyTo(Filter f)
