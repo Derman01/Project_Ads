@@ -130,11 +130,15 @@
                                TextAlignment="Center"
                                FontSize="30"/>
                     <StackPanel Grid.Row="1" Grid.RowSpan="5" Grid.Column="0" HorizontalAlignment="Left">
-                        <Border CornerRadius="30" Width="200" Height="150"  
-                                BorderThickness="2" BorderBrush="#3292D0" Margin="0 0 0 10">
-                            <Image x:Name="adImg" 
-                                   Source="Icons/cat.jpg"/>
-                        </Border>
+                        <Border BorderBrush="#282828"
+                                    CornerRadius="90"
+                                    Width="150"
+                                    Height="150"
+                                    VerticalAlignment="Center">
+                                        <Border.Background>
+                                            <ImageBrush x:Name="adImg" Stretch="Fill"/>
+                                        </Border.Background>
+                                    </Border>
                         <Button x:Name="upload_new_img" Click="upload_new_img_Click"
                                 Style="{StaticResource AuthorizationButtonTheme}"
                                 Content="Загрузить фото" Width="200" Height="40"/>

@@ -59,7 +59,7 @@ namespace Project_Ads.MVVM.View
         private void AdConfirm_Click(object sender, RoutedEventArgs e)
         {
             var advertisement = (AdvertisementData) advertisementsList.SelectedItem;
-            var base64 = AdvertisementData.ImageToBase64((BitmapImage) adImg.Source);
+            var base64 = AdvertisementData.ImageToBase64((BitmapImage) adImg.ImageSource);
             
             App.EditAdvertisement(
                 advertisement.RegNum, adLocation.Text, adMarks.Text, adDate.SelectedDate.Value,
@@ -79,14 +79,16 @@ namespace Project_Ads.MVVM.View
             if(openFileDialog.ShowDialog() == true)
             {
                 Uri fileUri = new Uri(openFileDialog.FileName);
-                adImg.Source = new BitmapImage(fileUri);
+                adImg.ImageSource = new BitmapImage(fileUri);
             }
+
+            openAdvertisement.IsOpen = true;
         }
 
         private void AdvertisementsList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var advertisement = (AdvertisementData) advertisementsList.SelectedItem;
-            adImg.Source = AdvertisementData.ConvertToImage(advertisement.AnPic);
+            adImg.ImageSource = AdvertisementData.ConvertToImage(advertisement.AnPic);
             animalType.Text = advertisement.GetStringTypeAnimal;
             adType.Text = advertisement.GetStringTypeAdvertisement;
             adColor.Text = advertisement.AnColor;

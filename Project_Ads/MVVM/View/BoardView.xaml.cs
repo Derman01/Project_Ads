@@ -71,6 +71,8 @@ namespace Project_Ads.MVVM.View
                 Uri fileUri = new Uri(openFileDialog.FileName);
                 //var base64 = ImageToBase64(bitmapImage);
                 formAdding_image.Source = new BitmapImage(fileUri);
+                
+                formAdding.IsOpen = true;
             }
         }
 

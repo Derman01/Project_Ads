@@ -267,7 +267,7 @@
                     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan ="2">
                         <Image x:Name="formAdding_image"
                                Source="Icons/cat.jpg"
-                               Width="200" Height="150"/>
+                               Width="150" Height="150"/>
                         <Button x:Name="upload_new_img" Click="LoadAnimalImage"
                                 Style="{StaticResource AuthorizationButtonTheme}"
                                 Content="Загрузить фото" Width="200"
