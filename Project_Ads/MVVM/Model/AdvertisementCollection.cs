@@ -47,7 +47,7 @@ namespace Project_Ads.MVVM.Model
             return dict;
         }
 
-        public static void CreateAdvertisements(
+        public static int CreateAdvertisements(
             User user, int advType, string address, string description,
             DateTime dateEvent, int anType, string animalColor, string pic)
         {
@@ -59,6 +59,7 @@ namespace Project_Ads.MVVM.Model
             Connection.ExecuteCreateAdvertisement(
                 advertisement.User.UserId, advertisement.Type.ToString(), advertisement.Address, advertisement.Animal.Num, 
                 advertisement.Description, advertisement.DateEvent, advertisement.DateCreate);
+            return regNum;
         }
         
         public static List<Dictionary<string, object>> GetAdvertisementList

@@ -22,8 +22,9 @@ namespace Project_Ads
         public static void CreateAdvertisements( int advertisementType, string address, string description,
             DateTime dateEvent, int anType, string animalColor, string pic)
         {
-            AdvertisementCollection.CreateAdvertisements(
+            var regNum = AdvertisementCollection.CreateAdvertisements(
                 Session.GetUser(), advertisementType, address, description, dateEvent, anType, animalColor, pic);
+            Logger.Adding(regNum.ToString());
         }
 
         public static List<Dictionary<string, object>> GetAdvertisementList 
@@ -37,11 +38,13 @@ namespace Project_Ads
             string animalColor, string pic)
         {
             AdvertisementCollection.EditAdvertisement(regNum, address, description, dateEvent, animalColor, pic);
+            Logger.Eding(regNum.ToString());
         }
 
         public static void DeleteAdvertisement(int regNum)
         {
             AdvertisementCollection.DeleteAdvertisement(regNum);
+            Logger.Deleting(regNum.ToString());
         }
 
         public static void Authorization(string login, string password)
@@ -58,6 +61,7 @@ namespace Project_Ads
         
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
+            Logger.InitState();
             var advs = GetAdvertisementList;
             Session.CreateGuest();
         }
