@@ -69,10 +69,11 @@ namespace Project_Ads.MVVM.View
             if(openFileDialog.ShowDialog() == true)
             {
                 Uri fileUri = new Uri(openFileDialog.FileName);
+                //var base64 = ImageToBase64(bitmapImage);
                 formAdding_image.Source = new BitmapImage(fileUri);
             }
         }
-        
+
         private void OpenMenuFilter(object sender, RoutedEventArgs e)
         {
             _preventFilter.CopyTo(Filter);
@@ -110,7 +111,7 @@ namespace Project_Ads.MVVM.View
             var typeAnimal = formAdding_radio_cat.IsChecked.Value
                 ? AdvertisementData.AnimalType.Cat
                 : AdvertisementData.AnimalType.Dog;
-            var picUrl = formAdding_image.Source.ToString();
+            var picUrl = AdvertisementData.ImageToBase64((BitmapImage)formAdding_image.Source);
             try
             {
                 App.CreateAdvertisements(

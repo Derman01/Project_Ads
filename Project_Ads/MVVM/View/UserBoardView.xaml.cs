@@ -59,9 +59,11 @@ namespace Project_Ads.MVVM.View
         private void AdConfirm_Click(object sender, RoutedEventArgs e)
         {
             var advertisement = (AdvertisementData) advertisementsList.SelectedItem;
+            var base64 = AdvertisementData.ImageToBase64((BitmapImage) adImg.Source);
+            
             App.EditAdvertisement(
                 advertisement.RegNum, adLocation.Text, adMarks.Text, adDate.SelectedDate.Value,
-                adColor.Text, adImg.Source.ToString());
+                adColor.Text, base64);
             openAdvertisement.IsOpen = false;
             UpdateListAdvertisement();
         }
@@ -84,7 +86,7 @@ namespace Project_Ads.MVVM.View
         private void AdvertisementsList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var advertisement = (AdvertisementData) advertisementsList.SelectedItem;
-            adImg.Source = new BitmapImage(new Uri(advertisement.AnPic));
+            adImg.Source = AdvertisementData.ConvertToImage(advertisement.AnPic);
             animalType.Text = advertisement.GetStringTypeAnimal;
             adType.Text = advertisement.GetStringTypeAdvertisement;
             adColor.Text = advertisement.AnColor;
